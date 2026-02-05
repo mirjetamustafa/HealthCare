@@ -8,11 +8,11 @@ module.exports = {
   connectToServer: async () => {
     try {
       await client.connect()
-      database = client.db('taskManager')
+      database = client.db('healthcareDB')
       console.log('Connected to MongoDB')
     } catch (err) {
       console.error('Failed to connect to MongoDB:', err)
-      process.exit(1) // ndal serverin nëse nuk lidhet
+      process.exit(1)
     }
   },
 
