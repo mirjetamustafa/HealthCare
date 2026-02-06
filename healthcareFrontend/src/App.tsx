@@ -1,9 +1,5 @@
 function App() {
-  return (
-    <div className="">
-      <h1 className="text-2xl font-bold text-red-500">Healthcare</h1>
-    </div>
-  )
+  return <div className="m-9 bg-gray-100 ">hello</div>
 }
 
 export default App
