@@ -19,10 +19,14 @@ const Input = ({
   error,
   icon,
 }: InputProps) => {
+  const id = name
   return (
     <div className="mb-4">
       {label && (
-        <label className="block mb-1 text-sm font-medium text-gray-700">
+        <label
+          htmlFor={id}
+          className="block mb-1 text-sm font-medium text-gray-700"
+        >
           {' '}
           {label}{' '}
         </label>
@@ -35,6 +39,7 @@ const Input = ({
           </span>
         )}
         <input
+          id={id}
           type={type}
           name={name}
           placeholder={placeholder}
