@@ -37,7 +37,7 @@ const Textarea = ({
         onChange={onChange}
         rows={rows}
         placeholder={placeholder}
-        className={`w-full p-2 border rounded-md outline-none text-xs focus:ring-1 focus:ring-blue-500 ${error ? 'border-red-500' : 'border-gray-200'}`}
+        className={`w-full p-2 border rounded-md outline-none text-xs focus:ring-1 focus:ring-blue-300 ${error ? 'border-red-500' : 'border-gray-200'}`}
       />
       {error && <p className="mt-1 text-sm text-red-500"> {error} </p>}
     </div>

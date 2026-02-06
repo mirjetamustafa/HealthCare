@@ -20,19 +20,24 @@ const Select = ({
   options,
   error,
 }: SelectProps) => {
+  const id = name
   return (
     <div className="mb-4">
       {label && (
-        <label className="blocmb-1 text-sm font-medium text-gray-700">
+        <label
+          htmlFor={id}
+          className="blocmb-1 text-sm font-medium text-gray-700"
+        >
           {label}
         </label>
       )}
 
       <select
+        id={id}
         value={value}
         name={name}
         onChange={(e) => onChange(e.target.value)}
-        className={`w-full p-2 border text-xs rounded-md bg-white outline-none focus:ring-1 focus:ring-blue-500 ${error ? 'border-red-500' : 'border-gray-200'}`}
+        className={`w-full p-2 border text-xs rounded-md bg-white outline-none focus:ring-1 focus:ring-blue-300 ${error ? 'border-red-500' : 'border-gray-200'}`}
       >
         <option value="" key="placeholder" disabled>
           Select Category
