@@ -7,6 +7,8 @@ export const publicLinks = [
   { to: '/contact', label: 'Contact' },
 ]
 
+export const loginLink = [{ to: '/login', label: 'Login', icon: 'user' }]
+
 export const adminLinks = [{ to: '/admin', label: 'Admin', icon: 'shield' }]
 
 export const doctorLinks = [

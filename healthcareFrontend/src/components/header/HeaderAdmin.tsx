@@ -4,6 +4,7 @@ import {
   adminLinks,
   doctorLinks,
   patientLinks,
+  loginLink,
 } from '../header/navLinks'
 import Health from '../../assets/health.svg?react'
 import Shield from '../../assets/shield.svg?react'
@@ -24,17 +25,17 @@ const HeaderAdmin = ({ role }) => {
         ? doctorLinks
         : role === 'patient'
           ? patientLinks
-          : []
+          : loginLink
   return (
-    <div className="flex justify-between">
-      <div className="flex items-center gap-1 cursor-pointer group">
+    <div className="flex justify-center-safe gap-3 p-5">
+      <div className="flex items-center gap-1 cursor-pointer group ">
         <Health className="text-blue-600 w-8 h-8 group-hover:text-blue-500" />
         <h1 className="text-blue-600 font-bold text-2xl group-hover:text-blue-500">
           MediCare
         </h1>
       </div>
 
-      <ul className="flex items-center gap-2">
+      <ul className="flex items-center gap-2 mt-1">
         {publicLinks.map((link) => (
           <li key={link.to}>
             <Link
