@@ -1,0 +1,68 @@
+import { Link } from 'react-router-dom'
+import {
+  publicLinks,
+  adminLinks,
+  doctorLinks,
+  patientLinks,
+} from '../header/navLinks'
+import Health from '../../assets/health.svg?react'
+import Shield from '../../assets/shield.svg?react'
+import Stethoscope from '../../assets/stethoscope.svg?react'
+import User from '../../assets/user.svg?react'
+
+const icons = {
+  shield: Shield,
+  stethoscope: Stethoscope,
+  user: User,
+}
+
+const HeaderAdmin = ({ role }) => {
+  const roleLinks =
+    role === 'admin'
+      ? adminLinks
+      : role === 'doctor'
+        ? doctorLinks
+        : role === 'patient'
+          ? patientLinks
+          : []
+  return (
+    <div className="flex justify-between">
+      <div className="flex items-center gap-1 cursor-pointer group">
+        <Health className="text-blue-600 w-8 h-8 group-hover:text-blue-500" />
+        <h1 className="text-blue-600 font-bold text-2xl group-hover:text-blue-500">
+          MediCare
+        </h1>
+      </div>
+
+      <ul className="flex items-center gap-2">
+        {publicLinks.map((link) => (
+          <li key={link.to}>
+            <Link
+              to={link.to}
+              className="text-sm text-gray-700 cursor-pointer font-semibold p-2 hover:bg-gray-100 hover:text-blue-600 rounded-md"
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+
+        {roleLinks.map((link) => {
+          const Icon = icons[link.icon]
+          return (
+            <li key={link.to}>
+              <Link
+                to={link.to}
+                className="flex items-center gap-1.5 border border-gray-200 text-sm text-gray-700 cursor-pointer font-semibold p-2 hover:bg-gray-50 rounded-md"
+              >
+                {Icon && <Icon className="w-4 h-4" />}
+                {link.label}
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
+    </div>
+  )
+}
+
+export default HeaderAdmin
