@@ -1,17 +1,20 @@
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import bgImage from '../../assets/bg.avif'
 import ShieldTick from '../../assets/shieldTick.svg?react'
 import Calendar from '../../assets/calendar.svg?react'
 import UserPlus from '../../assets/userplus.svg?react'
-import OclockIcon from '../../assets/oclock.svg?react'
-import Users from '../../assets/users.svg?react'
 import Button from '../shared/Button/Button'
-const Landignpage = () => {
+import { states } from '../shared/states'
+
+const Landignpage: React.FC = () => {
+  const backgroundStyle: React.CSSProperties = {
+    backgroundImage: `url(${bgImage})`,
+  }
   return (
-    <div className="w-full h-150 relative">
+    <div className="w-full min-h-screen relative">
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${bgImage})` }}
+        style={backgroundStyle}
       ></div>
       <div
         className={`absolute inset-0 bg-gradient-to-r from-[#0066CC]/90 to-[#0066CC]/50`}
@@ -56,29 +59,15 @@ const Landignpage = () => {
           </div>
 
           <div className="flex gap-20 mt-7">
-            <div className="">
-              <div className="flex items-center gap-2">
-                <OclockIcon className="w-5 h-5 text-[#00A896]" />
-                <h3 className="text-3xl text-white font-bold">25+</h3>
+            {states.map(({ icon: Icon, value, label }) => (
+              <div key={label}>
+                <div className="flex items-center gap-2">
+                  <Icon className="w-5 h-5 text-[#00A896]" />
+                  <h3 className="text-3xl text-white font-bold"> {value} </h3>
+                </div>
+                <p className="text-gray-300"> {label} </p>
               </div>
-              <p className="text-gray-300">Years of Excellence</p>
-            </div>
-
-            <div className="">
-              <div className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-[#00A896]" />
-                <h3 className="text-3xl text-white font-bold">50K+</h3>
-              </div>
-              <p className="text-gray-300">Happy Patients</p>
-            </div>
-
-            <div className="">
-              <div className="flex items-center gap-2">
-                <ShieldTick className="w-5 h-5 text-[#00A896]" />
-                <h3 className="text-3xl text-white font-bold">100+</h3>
-              </div>
-              <p className="text-gray-300">Expert Doctors</p>
-            </div>
+            ))}
           </div>
         </div>
       </div>

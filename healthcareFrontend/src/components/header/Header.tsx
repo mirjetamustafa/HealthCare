@@ -5,19 +5,19 @@ import {
   doctorLinks,
   patientLinks,
   loginLink,
-} from '../header/navLinks'
+} from './navLinks'
 import Health from '../../assets/health.svg?react'
 import Shield from '../../assets/shield.svg?react'
 import Stethoscope from '../../assets/stethoscope.svg?react'
 import User from '../../assets/user.svg?react'
 
 const icons = {
+  user: User,
   shield: Shield,
   stethoscope: Stethoscope,
-  user: User,
 }
 
-const HeaderAdmin = ({ role }) => {
+const Header = ({ role }) => {
   const roleLinks =
     role === 'admin'
       ? adminLinks
@@ -66,4 +66,4 @@ const HeaderAdmin = ({ role }) => {
   )
 }
 
-export default HeaderAdmin
+export default Header

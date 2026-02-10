@@ -1,10 +1,10 @@
-import HeaderAdmin from './components/header/HeaderAdmin'
+import Header from './components/header/Header'
 import Landignpage from './components/landigpage/Landignpage'
 
 function App() {
   return (
     <div className="">
-      <HeaderAdmin role="public" />
+      <Header role="public" />
       <Landignpage />
       {/* <HeaderAdmin role="doctor" />
       <HeaderAdmin role="patient" /> */}
