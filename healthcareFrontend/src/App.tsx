@@ -1,5 +1,5 @@
 import Header from './components/header/Header'
-import Landignpage from './components/landigpage/Landignpage'
+import Landignpage from './pages/Landignpage'
 
 function App() {
   return (

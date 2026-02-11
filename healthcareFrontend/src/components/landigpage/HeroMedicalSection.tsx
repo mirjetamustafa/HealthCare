@@ -42,7 +42,7 @@ const HeroMedicalSection = () => {
         />
       </div>
       <Link to="/services">
-        <Button variant="default">
+        <Button variant="default" className="hover:bg-gray-50">
           View All Services <RightArrow className="w-4 h-4 mt-1" />
         </Button>
       </Link>

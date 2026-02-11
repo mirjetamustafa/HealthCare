@@ -15,11 +15,11 @@ const Button = ({
 }: ButtonProps) => {
   const variants: Record<string, string> = {
     default:
-      'flex items-center gap-2 px-4 border border-gray-300 text-sm text-gray-600 hover:bg-gray-50',
+      'flex items-center gap-2 px-4 border border-gray-300  text-gray-600',
     active: 'w-full bg-blue-600 text-white hover:bg-blue-700',
     icon: 'bg-[#1F2937] text-white hover:bg-blue-700',
-    book: 'bg-red-400 text-white hover:bg-red-500 text-lg',
-    register: 'bg-white text-blue-600 hover:bg-gray-50 text-lg',
+    book: 'bg-red-400 text-white hover:bg-red-500',
+    register: 'bg-white text-blue-600 hover:bg-gray-100',
   }
   return (
     <button
