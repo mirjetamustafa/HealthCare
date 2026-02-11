@@ -11,7 +11,7 @@ const HeroSection = () => {
     backgroundImage: `url(${bgImage})`,
   }
   return (
-    <div className="w-full min-h-screen relative">
+    <section className="w-full min-h-screen relative">
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -80,7 +80,7 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

@@ -9,7 +9,7 @@ import Button from '../shared/Button/Button'
 
 const HeroMedicalSection = () => {
   return (
-    <div className="mt-20 grid justify-items-center mb-9">
+    <section className="mt-20 grid justify-items-center mb-9">
       <h1 className="text-4xl font-bold">Out Medical Services</h1>
       <p className="text-gray-500 text-md md:text-xl text-center mt-3">
         Comprehensive healthcare services delivered by experienced specialists
@@ -46,7 +46,7 @@ const HeroMedicalSection = () => {
           View All Services <RightArrow className="w-4 h-4 mt-1" />
         </Button>
       </Link>
-    </div>
+    </section>
   )
 }
 
