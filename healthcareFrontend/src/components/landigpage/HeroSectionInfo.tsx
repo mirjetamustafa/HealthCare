@@ -6,7 +6,7 @@ import Oclock from '../../assets/oclock.svg?react'
 
 const HeroSectionInfo = () => {
   return (
-    <section className="grid justify-items-center bg-gray-50 mt-[100px] pb-15">
+    <section className="grid justify-items-center w-full bg-gray-50 mt-[100px] pb-15">
       <div className="mt-[100px]">
         <h1 className="text-4xl font-bold text-center">Why Choose MediCare</h1>
         <p className="text-gray-500 text-md md:text-lg text-center mt-5">

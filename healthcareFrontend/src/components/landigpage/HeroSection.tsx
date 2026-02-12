@@ -64,7 +64,7 @@ const HeroSection = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-3 md:gap-20 mt-7  md:mt-10">
+          <div className="grid grid-cols-3 md:gap-10 lg:gap-20 mt-7  md:mt-10">
             {states.map(({ icon: Icon, value, label }) => (
               <div key={label}>
                 <div className="flex items-center gap-2">
