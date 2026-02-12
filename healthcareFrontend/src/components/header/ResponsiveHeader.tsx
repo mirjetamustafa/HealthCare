@@ -61,27 +61,31 @@ const ResponsiveHeader = ({ role }) => {
                   <li key={link.to}>
                     <Link
                       to={link.to}
-                      className="lex items-center gap-1.5  text-sm text-gray-700 cursor-pointer font-semibold p-2 hover:bg-gray-50 hover:text-blue-600 rounded-md"
+                      className="flex items-center gap-1.5  text-sm text-gray-700 cursor-pointer font-semibold p-2 hover:bg-gray-50 hover:text-blue-600 rounded-md"
                     >
                       {link.label}
                     </Link>
                   </li>
                 ))}
 
-                {roleLinks.map((link) => {
-                  const Icon = icons[link.icon]
-                  return (
-                    <li key={link.to}>
-                      <Link
-                        to={link.to}
-                        className="flex items-center gap-1.5 border border-gray-200 text-sm text-gray-700 cursor-pointer font-semibold p-2 hover:bg-gray-50 rounded-md"
-                      >
-                        {Icon && <Icon className="w-4 h-4" />}
-                        {link.label}
-                      </Link>
-                    </li>
-                  )
-                })}
+                <div className="border-b border-gray-200 my-5"></div>
+
+                <div className="">
+                  {roleLinks.map((link) => {
+                    const Icon = icons[link.icon]
+                    return (
+                      <li key={link.to}>
+                        <Link
+                          to={link.to}
+                          className="w-full flex items-center justify-center gap-2 border border-gray-200 text-sm text-gray-700 font-semibold p-2 hover:bg-gray-50 rounded-md"
+                        >
+                          {Icon && <Icon className="w-4 h-4" />}
+                          {link.label}
+                        </Link>
+                      </li>
+                    )
+                  })}
+                </div>
               </ul>
             </div>
           </div>
