@@ -6,8 +6,6 @@ function App() {
     <div className="">
       <Header role="public" />
       <Landignpage />
-      {/* <HeaderAdmin role="doctor" />
-      <HeaderAdmin role="patient" /> */}
     </div>
   )
 }
