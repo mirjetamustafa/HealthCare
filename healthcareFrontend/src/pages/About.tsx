@@ -1,5 +1,6 @@
 import HeroInfoAbout from '../components/about/HeroInfoAbout'
 import HeroSectionAbout from '../components/about/HeroSectionAbout'
+import LeadershipTeam from '../components/about/LeadershipTeam'
 import OurCore from '../components/about/OurCore'
 
 const About = () => {
@@ -8,6 +9,7 @@ const About = () => {
       <HeroSectionAbout />
       <HeroInfoAbout />
       <OurCore />
+      <LeadershipTeam />
     </section>
   )
 }
