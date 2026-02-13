@@ -5,7 +5,7 @@ export type StatItemService = {
 
 export const statesService: StatItemService[] = [
   { value: '25+', label: 'Years of Service' },
-  { value: '50,000+', label: 'Patients Served' },
+  { value: '50K+', label: 'Patients Served' },
   { value: '100+', label: 'Expert Doctors' },
   { value: '15+', label: 'Specializations' },
 ]

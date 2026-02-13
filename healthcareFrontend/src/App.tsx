@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 import Header from './components/header/Header'
 import Landignpage from './pages/Landignpage'
 import About from './pages/About'
+import Footer from './components/footer/Footer'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <>
                 <Header role="public" />
                 <About />
+                <Footer />
               </>
             }
           />

@@ -1,3 +1,4 @@
+import AboutService from '../components/about/AboutService'
 import HeroInfoAbout from '../components/about/HeroInfoAbout'
 import HeroSectionAbout from '../components/about/HeroSectionAbout'
 import LeadershipTeam from '../components/about/LeadershipTeam'
@@ -10,6 +11,7 @@ const About = () => {
       <HeroInfoAbout />
       <OurCore />
       <LeadershipTeam />
+      <AboutService />
     </section>
   )
 }
