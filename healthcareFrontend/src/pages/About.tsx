@@ -1,12 +1,14 @@
 import HeroInfoAbout from '../components/about/HeroInfoAbout'
 import HeroSectionAbout from '../components/about/HeroSectionAbout'
+import OurCore from '../components/about/OurCore'
 
 const About = () => {
   return (
-    <div className="">
+    <section className="">
       <HeroSectionAbout />
       <HeroInfoAbout />
-    </div>
+      <OurCore />
+    </section>
   )
 }
 
