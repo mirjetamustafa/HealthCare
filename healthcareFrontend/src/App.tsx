@@ -4,6 +4,7 @@ import Landignpage from './pages/Landignpage'
 import About from './pages/About'
 import Footer from './components/footer/Footer'
 import Services from './pages/Services'
+import Doctors from './pages/Doctors'
 
 function App() {
   return (
@@ -37,6 +38,17 @@ function App() {
               <>
                 <Header role="public" />
                 <Services />
+                <Footer />
+              </>
+            }
+          />
+
+          <Route
+            path="/doctors"
+            element={
+              <>
+                <Header role="public" />
+                <Doctors />
                 <Footer />
               </>
             }

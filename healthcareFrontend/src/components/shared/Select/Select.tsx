@@ -10,6 +10,7 @@ type SelectProps = {
   onChange: (value: string) => void
   options: Option[]
   error?: string
+  labelPosition?: 'block' | 'inline'
 }
 
 const Select = ({
@@ -19,14 +20,21 @@ const Select = ({
   onChange,
   options,
   error,
+  labelPosition = 'block',
 }: SelectProps) => {
   const id = name
   return (
-    <div className="mb-4">
+    <div
+      className={`mb-4 ${
+        labelPosition === 'inline' ? 'flex items-center gap-' : 'flex flex-col'
+      }`}
+    >
       {label && (
         <label
           htmlFor={id}
-          className="block mb-1 text-sm font-medium text-gray-700"
+          className={`text-sm font-medium text-gray-700 ${
+            labelPosition === 'block' ? 'mb-1' : ''
+          }`}
         >
           {label}
         </label>
