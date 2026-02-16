@@ -3,6 +3,7 @@ import Header from './components/header/Header'
 import Landignpage from './pages/Landignpage'
 import About from './pages/About'
 import Footer from './components/footer/Footer'
+import Services from './pages/Services'
 
 function App() {
   return (
@@ -25,6 +26,17 @@ function App() {
               <>
                 <Header role="public" />
                 <About />
+                <Footer />
+              </>
+            }
+          />
+
+          <Route
+            path="/services"
+            element={
+              <>
+                <Header role="public" />
+                <Services />
                 <Footer />
               </>
             }
