@@ -1,4 +1,4 @@
-type Option = {
+export type Option = {
   label: string
   value: string
 }
@@ -26,7 +26,7 @@ const Select = ({
       {label && (
         <label
           htmlFor={id}
-          className="blocmb-1 text-sm font-medium text-gray-700"
+          className="block mb-1 text-sm font-medium text-gray-700"
         >
           {label}
         </label>
@@ -52,7 +52,7 @@ const Select = ({
           </option>
         ))}
       </select>
-      {error && <p className="mt-1 text-sm text-red-505"> {error} </p>}
+      {error && <p className="mt-1 text-sm text-red-500"> {error} </p>}
     </div>
   )
 }
