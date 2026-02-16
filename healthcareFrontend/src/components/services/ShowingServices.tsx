@@ -11,12 +11,16 @@ import Bandage from '../../assets/bandage.svg?react'
 import Sad from '../../assets/sad.svg?react'
 import Zap from '../../assets/zap.svg?react'
 import BrainCircuit from '../../assets/brain-circuit.svg?react'
+import Stethoscope from '../../assets/stethoscope.svg?react'
+import Ambulance from '../../assets/ambulance.svg?react'
+import TestTube from '../../assets/testTube.svg?react'
+import MaxiMize from '../../assets/maxiMize.svg?react'
 
 const ShowingServices = () => {
   return (
-    <div className="bg-gray-50 p-9">
+    <div className="bg-gray-50 p-9 md:p-20">
       <p className="text-gray-500">Showing 16 services</p>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-5 mt-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5">
         <MedicalCard
           title="Heart Health Checkup"
           description="Comprehensive cardiovascular assessment including ECG, blood pressure monitoring, and cholesterol screening."
@@ -96,27 +100,27 @@ const ShowingServices = () => {
           title="General Health Checkup"
           description="Annual physical examinations and preventive health screenings."
           status="General Medicine"
-          icon={BrainCircuit}
+          icon={Stethoscope}
         />
 
         <MedicalCard
           title="Emergency Care"
           description="24/7 emergency medical services for acute illnesses and injuries."
           status="Emergency"
-          icon={BrainCircuit}
+          icon={Ambulance}
         />
         <MedicalCard
           title="Laboratory Services"
           description="Comprehensive blood tests, urinalysis, and diagnostic testing."
           status="Laboratory"
-          icon={BrainCircuit}
+          icon={TestTube}
         />
 
         <MedicalCard
           title="Diagnostic Imaging"
           description="X-ray, MRI, CT scan, and ultrasound imaging services."
           status="Radiology"
-          icon={BrainCircuit}
+          icon={MaxiMize}
         />
       </div>
     </div>
