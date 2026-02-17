@@ -26,7 +26,7 @@ const Select = ({
   return (
     <div
       className={`mb-4 ${
-        labelPosition === 'inline' ? 'flex items-center gap-' : 'flex flex-col'
+        labelPosition === 'inline' ? 'flex items-center' : 'flex flex-col'
       }`}
     >
       {label && (
