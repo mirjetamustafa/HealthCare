@@ -57,9 +57,6 @@ const MedicalCard = ({
           </p>
         </div>
       </div>
-      {/* Title */}
-
-      {/* Description */}
     </div>
   )
 }
