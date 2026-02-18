@@ -6,13 +6,47 @@ import Apple from '../assets/apple.svg?react'
 import Moon from '../assets/moon.svg?react'
 import Activity from '../assets/activity.svg?react'
 import AI from '../components/healthAdvice/AI'
+import Accordion from '../components/shared/Accordion'
+
+const faqData = [
+  {
+    id: 1,
+    question: 'How often should I get a health checkup?',
+    answer:
+      'Adults should have a general health checkup at least once a year. However, the frequency may vary based on your age, health conditions, and risk factors. Consult with your doctor for personalized recommendations.',
+  },
+  {
+    id: 2,
+    question: 'What vaccinations do I need as an adult?',
+    answer:
+      'Common adult vaccinations include annual flu shots, Tdap (tetanus, diphtheria, pertussis) every 10 years, and shingles vaccine for those over 50. COVID-19 boosters are also recommended. Your doctor can provide a personalized vaccination schedule.',
+  },
+  {
+    id: 3,
+    question: 'When should I see a doctor for a headache?',
+    answer:
+      'Seek immediate medical attention if you experience sudden severe headache, headache with fever, stiff neck, confusion, seizures, or vision problems. Also consult a doctor if headaches are frequent, worsen over time, or interfere with daily activities.',
+  },
+  {
+    id: 4,
+    question: 'How can I lower my blood pressure naturally?',
+    answer:
+      'Natural ways to lower blood pressure include reducing sodium intake, exercising regularly, maintaining a healthy weight, limiting alcohol, quitting smoking, managing stress, and eating a diet rich in fruits, vegetables, and whole grains.',
+  },
+  {
+    id: 5,
+    question: 'What are the warning signs of diabetes?',
+    answer:
+      'Warning signs include increased thirst and urination, unexplained weight loss, fatigue, blurred vision, slow-healing sores, and frequent infections. If you experience these symptoms, consult your doctor for blood sugar testing.',
+  },
+]
 
 const HealthAdvice = () => {
   return (
     <div>
       <HealthHero />
       <div className="bg-gray-50 p-15">
-        <h4 className="text-3xl font-bold text-center my-5">
+        <h4 className="text-3xl font-bold text-gray-700 text-center my-5">
           Health & Welllness Tips
         </h4>
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3 mx-9 md:mx-20">
@@ -50,6 +84,12 @@ const HealthAdvice = () => {
         </div>
       </div>
       <AI />
+      <div className="bg-gray-50 mt-20 pb-20 grid justify-items-center px-3">
+        <h4 className="text-3xl font-bold text-gray-800 text-center my-9">
+          Frequently Asked Questions
+        </h4>
+        <Accordion items={faqData} />
+      </div>
     </div>
   )
 }

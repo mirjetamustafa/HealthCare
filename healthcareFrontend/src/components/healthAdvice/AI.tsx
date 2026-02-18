@@ -21,7 +21,7 @@ const AI = () => {
       </p>
 
       {/* AI chat */}
-      <div className="w-full max-w-4xl mx-auto mt-10 bg-gray-50 p-6 rounded-2xl border border-gray-200">
+      <div className="w-full max-w-4xl mx-auto mt-10 p-6 rounded-2xl border border-gray-200">
         {/* Messages */}
         <div className="flex flex-col gap-6">
           {/* Assistant message */}
