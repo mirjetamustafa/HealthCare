@@ -5,12 +5,13 @@ import Brain from '../assets/brain.svg?react'
 import Apple from '../assets/apple.svg?react'
 import Moon from '../assets/moon.svg?react'
 import Activity from '../assets/activity.svg?react'
+import AI from '../components/healthAdvice/AI'
 
 const HealthAdvice = () => {
   return (
     <div>
       <HealthHero />
-      <div className="bg-gray-50 p-9">
+      <div className="bg-gray-50 p-15">
         <h4 className="text-3xl font-bold text-center my-5">
           Health & Welllness Tips
         </h4>
@@ -48,6 +49,7 @@ const HealthAdvice = () => {
           />
         </div>
       </div>
+      <AI />
     </div>
   )
 }
