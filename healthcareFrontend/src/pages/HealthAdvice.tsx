@@ -7,6 +7,8 @@ import Moon from '../assets/moon.svg?react'
 import Activity from '../assets/activity.svg?react'
 import AI from '../components/healthAdvice/AI'
 import Accordion from '../components/shared/Accordion'
+import { Link } from 'react-router'
+import Button from '../components/shared/Button/Button'
 
 const faqData = [
   {
@@ -43,7 +45,7 @@ const faqData = [
 
 const HealthAdvice = () => {
   return (
-    <div>
+    <section>
       <HealthHero />
       <div className="bg-gray-50 p-15">
         <h4 className="text-3xl font-bold text-gray-700 text-center my-5">
@@ -90,7 +92,25 @@ const HealthAdvice = () => {
         </h4>
         <Accordion items={faqData} />
       </div>
-    </div>
+
+      <div className="flex flex-col justify-center items-center bg-[#0066CC] h-80 text-center gap-4 px-4">
+        <h1 className="text-2xl md:text-3xl text-white font-bold">
+          Need Personalized Medical Advice?
+        </h1>
+        <p className="text-blue-100 text-md md:text-lg max-w-2xl">
+          Our team of experienced doctors is ready to help you with your health
+          concerns.
+        </p>
+        <Link to="/bookAppointment">
+          <Button
+            variant="default"
+            className="text-white hover:bg-stone-100 hover:text-[#0066CC] transition"
+          >
+            Book an Appointment
+          </Button>
+        </Link>
+      </div>
+    </section>
   )
 }
 
