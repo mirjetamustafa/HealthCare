@@ -6,6 +6,7 @@ import Footer from './components/footer/Footer'
 import Services from './pages/Services'
 import Doctors from './pages/Doctors'
 import HealthAdvice from './pages/HealthAdvice'
+import ContactUs from './pages/ContactUs'
 
 function App() {
   return (
@@ -60,6 +61,17 @@ function App() {
               <>
                 <Header role="public" />
                 <HealthAdvice />
+                <Footer />
+              </>
+            }
+          />
+
+          <Route
+            path="/contact"
+            element={
+              <>
+                <Header role="public" />
+                <ContactUs />
                 <Footer />
               </>
             }
