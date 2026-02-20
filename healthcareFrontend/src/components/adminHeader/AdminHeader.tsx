@@ -3,7 +3,7 @@ import Logout from '../../assets/logout.svg?react'
 import Button from '../shared/Button/Button'
 const AdminHeader = () => {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-5 border-b border-gray-200 py-5 px-20">
+    <div className="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-5 bg-white border-b border-gray-200 py-5 px-20">
       <div className="flex items-center gap-3">
         <div className="bg-red-100 p-3 rounded-full">
           <Shield className="w-6 h-6 md:w-8 md:h-8 text-[#FF6B6B]" />

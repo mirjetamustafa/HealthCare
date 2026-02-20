@@ -2,7 +2,7 @@ type ButtonProps = {
   children: React.ReactNode
   onClick?: () => void
   type?: 'button' | 'submit'
-  variant: 'default' | 'active' | 'icon' | 'book' | 'register'
+  variant: 'default' | 'active' | 'icon' | 'book' | 'register' | 'tab'
   className?: string
 }
 
@@ -20,6 +20,7 @@ const Button = ({
     icon: 'bg-[#1F2937] text-white hover:bg-blue-700',
     book: 'bg-red-400 text-white hover:bg-red-500',
     register: 'bg-white text-blue-600 hover:bg-gray-100',
+    tab: 'flex items-center gap-2 text-sm rounded-none',
   }
   return (
     <button
