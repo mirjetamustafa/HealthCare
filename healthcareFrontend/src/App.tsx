@@ -7,6 +7,7 @@ import Services from './pages/Services'
 import Doctors from './pages/Doctors'
 import HealthAdvice from './pages/HealthAdvice'
 import ContactUs from './pages/ContactUs'
+import AdminDashboard from './pages/AdminDashboard'
 
 function App() {
   return (
@@ -72,6 +73,16 @@ function App() {
               <>
                 <Header role="public" />
                 <ContactUs />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <>
+                <Header role="admin" />
+                <AdminDashboard />
                 <Footer />
               </>
             }

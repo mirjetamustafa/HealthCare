@@ -28,7 +28,7 @@ const Header = ({ role }) => {
           ? patientLinks
           : loginLink
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
+    <header className="fixed top-0 left-0 w-full z-50 bg-white border-b border-gray-200">
       <div className="hidden md:block">
         <div className="flex justify-center-safe gap-3 p-5">
           <Link
