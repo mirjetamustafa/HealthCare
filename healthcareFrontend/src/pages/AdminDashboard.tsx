@@ -16,7 +16,7 @@ const AdminDashboard = () => {
   return (
     <div className="py-20 bg-gray-50">
       <AdminHeader />
-      <div className="flex gap-5 bg-white border-b border-gray-200 px-20 p-1">
+      <div className="flex gap-5 bg-white border-b border-gray-200 px-20 p-1 overflow-x-auto">
         <Button
           variant="tab"
           onClick={() => setActiveTab('overview')}
