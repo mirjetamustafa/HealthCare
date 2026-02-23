@@ -58,7 +58,7 @@ const healthData = [
 
 const Overview = () => {
   return (
-    <div className="py-5 md:py-13 px-5 md:px-20 mx-9">
+    <div className="py-5 md:py-13 px-5 md:px-20">
       <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6">
         <StatCard
           title="Total Patients"

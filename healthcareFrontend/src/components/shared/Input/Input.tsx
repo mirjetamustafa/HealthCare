@@ -7,6 +7,7 @@ type InputProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   error?: string
   icon?: React.ReactNode
+  className?: string
 }
 
 const Input = ({
@@ -18,10 +19,11 @@ const Input = ({
   onChange,
   error,
   icon,
+  className,
 }: InputProps) => {
   const id = name
   return (
-    <div className="mb-4">
+    <div className={`mb-4 ${className ?? ''}`}>
       {label && (
         <label
           htmlFor={id}
@@ -33,10 +35,7 @@ const Input = ({
       )}
       <div className="relative">
         {icon && (
-          <span className="absolute left-3 top-2.5 text-gray-400">
-            {' '}
-            {icon}{' '}
-          </span>
+          <span className="absolute left-3 top-3 text-gray-400"> {icon} </span>
         )}
         <input
           id={id}
@@ -45,7 +44,7 @@ const Input = ({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          className={`w-full p-3 text-xs border rounded-md outline-none focus:ring-1 focus:ring-blue-300 ${icon ? 'pl-10' : ''} ${error ? 'border-red-500' : 'border-gray-200'}`}
+          className={`w-full p-3 text-sm border rounded-md bg-white outline-none focus:ring-1 focus:ring-blue-300 ${icon ? 'pl-10' : ''} ${error ? 'border-red-500' : 'border-gray-200'}`}
         />
       </div>
     </div>
