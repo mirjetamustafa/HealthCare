@@ -2,6 +2,32 @@ import Input from '../shared/Input/Input'
 import SearchIcon from '../../assets/Search.svg?react'
 import Plus from '../../assets/plus.svg?react'
 import Button from '../shared/Button/Button'
+import Table from '../shared/table/Table'
+
+const patients = [
+  {
+    id: '1',
+    name: 'John Smith',
+    email: 'john@example.com',
+    joinDate: '6/15/2025',
+    status: 'Active',
+  },
+  {
+    id: '2',
+    name: 'Sarah Johnson',
+    email: 'sarah@example.com',
+    joinDate: '6/15/2025',
+    status: 'Active',
+  },
+
+  {
+    id: '3',
+    name: 'Michael Brown',
+    email: 'michael@example.com',
+    joinDate: '6/15/2025',
+    status: 'Inactive',
+  },
+]
 
 const Patients = () => {
   return (
@@ -25,6 +51,9 @@ const Patients = () => {
             Add Patient
           </Button>
         </div>
+      </div>
+      <div className="mt-9">
+        <Table patients={patients} />
       </div>
     </div>
   )
