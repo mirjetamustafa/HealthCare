@@ -21,7 +21,7 @@ const doctors = [
   },
 ]
 
-const DoctorsDashboard = () => {
+const DoctorsAdminDashboard = () => {
   return (
     <div className="py-5 md:py-13 px-5 md:px-20">
       <div className="flex flex-col md:flex-row justify-between items-center gap-5">
@@ -52,4 +52,4 @@ const DoctorsDashboard = () => {
   )
 }
 
-export default DoctorsDashboard
+export default DoctorsAdminDashboard

@@ -9,7 +9,7 @@ import Overview from '../components/adminDashboard/Overview'
 import Patients from '../components/adminDashboard/Patients'
 
 import Appointment from '../components/adminDashboard/Appointment'
-import DoctorsDashboard from '../components/adminDashboard/DoctorsDashboard'
+import DoctorsAdminDashboard from '../components/adminDashboard/DoctorsAdminDashboard'
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview')
@@ -67,7 +67,7 @@ const AdminDashboard = () => {
         {activeTab === 'doctorsDashboard' && (
           <div>
             {' '}
-            <DoctorsDashboard />{' '}
+            <DoctorsAdminDashboard />{' '}
           </div>
         )}
         {activeTab === 'appointmentsDashboard' && (
