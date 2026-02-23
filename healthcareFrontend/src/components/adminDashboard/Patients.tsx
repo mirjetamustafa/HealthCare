@@ -46,7 +46,7 @@ const Patients = () => {
             placeholder="Search patients..."
             className="w-64"
           />
-          <Button variant="active" className="mb-3 pr-4">
+          <Button variant="active" className="mb-3 pr-4 gap-1">
             <Plus className="w-5 h-5" />
             Add Patient
           </Button>
