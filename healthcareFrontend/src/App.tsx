@@ -8,6 +8,7 @@ import Doctors from './pages/Doctors'
 import HealthAdvice from './pages/HealthAdvice'
 import ContactUs from './pages/ContactUs'
 import AdminDashboard from './pages/AdminDashboard'
+import DoctorsDashboard from './pages/DoctorsDashboard'
 
 function App() {
   return (
@@ -83,6 +84,17 @@ function App() {
               <>
                 <Header role="admin" />
                 <AdminDashboard />
+                <Footer />
+              </>
+            }
+          />
+
+          <Route
+            path="/doctorDashboard"
+            element={
+              <>
+                <Header role="doctor" />
+                <DoctorsDashboard />
                 <Footer />
               </>
             }

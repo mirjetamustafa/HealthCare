@@ -24,7 +24,7 @@ export const adminLinks: NavLink[] = [
 ]
 
 export const doctorLinks: NavLink[] = [
-  { to: '/doctor', label: 'Doctor', icon: 'stethoscope' },
+  { to: '/doctorDashboard', label: 'Doctor', icon: 'stethoscope' },
 ]
 
 export const patientLinks: NavLink[] = [
@@ -42,7 +42,7 @@ export const footerLinks: NavLink[] = [
 export const recourcesLinks: NavLink[] = [
   { to: '/login', label: 'Patient Portal' },
   { to: '/labResult', label: 'Lab Results' },
-  { to: '/login', label: 'Medical Records' },
+  { to: '/medicalRecords', label: 'Medical Records' },
   { to: '/bookAppointment', label: 'Schedule Visit' },
 ]
 
