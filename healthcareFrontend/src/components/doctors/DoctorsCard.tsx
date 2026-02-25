@@ -4,8 +4,11 @@ import Calendar from '../../assets/calendar.svg?react'
 import { Link } from 'react-router-dom'
 import CardDoctor from '../shared/Cards/CardDoctor'
 import Button from '../shared/Button/Button'
+import { useState } from 'react'
+import DoctorProfileModal from './DoctorProfileModal'
 
 const DoctorsCard = () => {
+  const [open, setOpen] = useState(false)
   return (
     <div className="grid grid-cols-1  md:grid-cols-4 gap-5  ">
       <CardDoctor
@@ -19,11 +22,14 @@ const DoctorsCard = () => {
         scheduleIcon={Calendar}
         schedule="Mon, Wed, Fri: 9:00 AM - 5:00 PM"
       >
-        <Link to="/">
-          <Button variant="default" className="text-sm">
-            View Profile
-          </Button>
-        </Link>
+        <Button
+          onClick={() => setOpen(true)}
+          variant="default"
+          className="text-sm hover:bg-gray-100"
+        >
+          View Profile
+        </Button>
+
         <Link to="/">
           <Button variant="active" className="text-sm">
             Book Now
@@ -141,6 +147,8 @@ const DoctorsCard = () => {
           </Button>
         </Link>
       </CardDoctor>
+
+      <DoctorProfileModal isOpen={open} onClose={() => setOpen(false)} />
     </div>
   )
 }
