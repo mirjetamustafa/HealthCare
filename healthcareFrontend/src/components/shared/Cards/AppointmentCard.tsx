@@ -51,19 +51,19 @@ const AppointmentCard = ({
 
         <div className="flex  items-start gap-3">
           {status === 'Pending' && (
-            <span className="px-3 py-1 rounded-full text-sm bg-yellow-100 text-yellow-700">
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">
               Pending
             </span>
           )}
 
           {status === 'Approved' && (
-            <span className="px-3 py-1 rounded-full text-sm bg-green-100 text-green-700">
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
               Approved
             </span>
           )}
 
           {status === 'Cancelled' && (
-            <span className="px-3 py-1 rounded-full text-sm bg-red-100 text-red-700">
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">
               Cancelled
             </span>
           )}
