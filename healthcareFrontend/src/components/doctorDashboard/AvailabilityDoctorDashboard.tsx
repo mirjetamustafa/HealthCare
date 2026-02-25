@@ -49,7 +49,7 @@ const AvailabilityDoctorDashboard: React.FC = () => {
   }
 
   return (
-    <div className=" mx-3 md:mx-30 my-9 p-6">
+    <div className="py-5 md:py-13 px-5 md:px-20">
       <div className="pb-9">
         <h2 className="text-2xl font-bold text-gray-900">
           Set Your Availability
