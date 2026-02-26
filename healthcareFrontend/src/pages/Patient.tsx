@@ -47,7 +47,7 @@ const Patient = () => {
         {activeTab === 'myOverview' && (
           <div>
             {' '}
-            <PatientOverview />{' '}
+            <PatientOverview setActiveTab={setActiveTab} />{' '}
           </div>
         )}
         {activeTab === 'myAppointments' && (
