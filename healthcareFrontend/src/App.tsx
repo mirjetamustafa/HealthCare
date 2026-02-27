@@ -11,6 +11,7 @@ import AdminDashboard from './pages/AdminDashboard'
 import DoctorsDashboard from './pages/DoctorsDashboard'
 import Patient from './pages/Patient'
 import Login from './pages/Login'
+import AdminRegister from './pages/AdminRegister'
 
 function App() {
   return (
@@ -116,6 +117,14 @@ function App() {
             element={
               <>
                 <Login />
+              </>
+            }
+          />
+          <Route
+            path="/adminRegister"
+            element={
+              <>
+                <AdminRegister />
               </>
             }
           />
