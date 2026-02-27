@@ -22,7 +22,7 @@ const StatCard = ({
           <h3 className="text-sm font-medium text-gray-500">{title}</h3>
           <p className="text-2xl font-bold mt-1">{value}</p>
         </div>
-        <div className={`p-3 rounded-full ${iconBg}`}>
+        <div className={`p-3 rounded-lg ${iconBg}`}>
           <Icon className="w-6 h-6 text-white" />
         </div>
       </div>

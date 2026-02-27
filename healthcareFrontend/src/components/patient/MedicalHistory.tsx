@@ -51,7 +51,7 @@ const historyData: MedicalHistoryItem[] = [
 
 const MedicalHistory = () => {
   return (
-    <div className="py-5 md:py-13 px-5 md:px-20">
+    <div className="py-5 md:py-13 px-5 md:px-30">
       <MedicalHstoryComponent data={historyData} />
     </div>
   )
