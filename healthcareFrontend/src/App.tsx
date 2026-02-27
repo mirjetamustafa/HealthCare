@@ -10,6 +10,7 @@ import ContactUs from './pages/ContactUs'
 import AdminDashboard from './pages/AdminDashboard'
 import DoctorsDashboard from './pages/DoctorsDashboard'
 import Patient from './pages/Patient'
+import Login from './pages/Login'
 
 function App() {
   return (
@@ -107,6 +108,14 @@ function App() {
                 <Header role="patient" />
                 <Patient />
                 <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <>
+                <Login />
               </>
             }
           />
