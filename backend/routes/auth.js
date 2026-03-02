@@ -2,6 +2,7 @@ const express = require('express')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const router = express.Router()
+const { ObjectId } = require('mongodb')
 
 // REGISTER (PATIENT ONLY)
 
@@ -95,7 +96,7 @@ router.post('/login', async (req, res) => {
 
 // AUTH MIDDLEWARE
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -106,7 +107,23 @@ const authMiddleware = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
-    req.user = decoded
+
+    const db = req.app.get('db')
+
+    const user = await db.collection('users').findOne({
+      _id: new ObjectId(decoded.id),
+    })
+
+    if (!user) {
+      return res.status(401).json({ error: 'User not found' })
+    }
+
+    req.user = {
+      id: user._id,
+      role: user.role,
+      email: user.email,
+    }
+
     next()
   } catch (err) {
     return res.status(401).json({ error: 'Invalid token' })

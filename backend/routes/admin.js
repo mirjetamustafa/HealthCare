@@ -5,7 +5,7 @@ const adminMiddleware = require('../middleware/adminMiddleware')
 
 const router = express.Router()
 
-// CREATE DOCTOR
+// CREATE Admin
 router.post(
   '/create-doctor',
   authMiddleware,
