@@ -5,7 +5,7 @@ const adminMiddleware = require('../middleware/adminMiddleware')
 
 const router = express.Router()
 
-// CREATE Admin
+// CREATE Doctor (admin only)
 router.post(
   '/create-doctor',
   authMiddleware,
@@ -15,16 +15,14 @@ router.post(
       const { name, email, password } = req.body
       const db = req.app.get('db')
 
-      if (!name || !email || !password) {
-        return res.status(400).json({
-          error: 'Name, email and password are required',
-        })
-      }
+      if (!name || !email || !password)
+        return res
+          .status(400)
+          .json({ error: 'Name, email and password are required' })
 
       const existingUser = await db.collection('users').findOne({ email })
-      if (existingUser) {
+      if (existingUser)
         return res.status(400).json({ error: 'User already exists' })
-      }
 
       const hashedPassword = await bcrypt.hash(password, 10)
 

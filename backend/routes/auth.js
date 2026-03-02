@@ -1,19 +1,19 @@
 const express = require('express')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const router = express.Router()
 const { ObjectId } = require('mongodb')
 
+const router = express.Router()
 // REGISTER (PATIENT ONLY)
 
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password } = req.body
+    const { name, email, password, role } = req.body
     const db = req.app.get('db')
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || role !== 'patient') {
       return res.status(400).json({
-        error: 'Name, email and password are required',
+        error: 'Name, email, password and role are required',
       })
     }
 
@@ -28,7 +28,7 @@ router.post('/register', async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      role: 'patient', // 🔐 always patient
+      role: role || 'patient',
       createdAt: new Date(),
     }
 
@@ -72,10 +72,7 @@ router.post('/login', async (req, res) => {
     }
 
     const token = jwt.sign(
-      {
-        id: user._id,
-        role: user.role,
-      },
+      { id: user._id.toString(), role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '7d' },
     )
@@ -119,7 +116,7 @@ const authMiddleware = async (req, res, next) => {
     }
 
     req.user = {
-      id: user._id,
+      id: user._id.toString(),
       role: user.role,
       email: user.email,
     }
