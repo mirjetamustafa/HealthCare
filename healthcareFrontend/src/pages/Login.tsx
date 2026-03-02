@@ -1,9 +1,34 @@
+import { useState } from 'react'
 import Stethoscope from '../assets/stethoscope.svg?react'
 import Button from '../components/shared/Button/Button'
 import Input from '../components/shared/Input/Input'
 import PasswordField from '../components/shared/PasswordField/PasswordField'
+import { toast } from 'react-toastify'
+import { loginUser } from '../api/User/user'
+
+const intialForm = {
+  email: '',
+  password: '',
+}
 
 const Login = () => {
+  const [loginData, setLoginData] = useState(intialForm)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    console.log('Dërgimi i të dhënave:', loginData)
+    try {
+      const response = await loginUser(loginData)
+      console.log('Login successful:', response.data)
+      localStorage.setItem('token', response.data.token)
+      toast.success('Login successful!')
+      // redirect
+    } catch (error: any) {
+      console.error(error)
+      toast.error(error.error?.message || 'Login failed')
+    }
+  }
+
   return (
     <div className="flex items-center justify-center py-[100px] bg-gray-50">
       <div className="grid justify-items-center">
@@ -17,27 +42,46 @@ const Login = () => {
           </p>
         </div>
         <div className=" bg-white shadow-sm rounded-lg p-9 w-[450px] m-9">
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <Input
               type="email"
               label="Email address"
               placeholder="email@example.com"
+              value={loginData.email}
+              onChange={(e) =>
+                setLoginData({ ...loginData, email: e.target.value })
+              }
             />
-            <PasswordField label="Password" placeholder="••••••••" />
+            <PasswordField
+              label="Password"
+              placeholder="••••••••"
+              value={loginData.password}
+              onChange={(e) =>
+                setLoginData({ ...loginData, password: e.target.value })
+              }
+            />
             <Button variant="active" type="submit" className="w-full mt-9">
               Sign in
             </Button>
-            <div class="flex items-center justify-center my-8">
-              <div class="flex-grow border-t border-gray-300"></div>
+            <div className="flex items-center justify-center my-8">
+              <div className="flex-grow border-t border-gray-300"></div>
 
-              <span class="mx-4 text-gray-600 text-sm">Demo Credentials</span>
+              <span className="mx-4 text-gray-600 text-sm">
+                Demo Credentials
+              </span>
 
-              <div class="flex-grow border-t border-gray-300"></div>
+              <div className="flex-grow border-t border-gray-300"></div>
             </div>
             <div className="flex gap-3 justify-center mt-5">
               <Button
                 variant="default"
                 className="text-sm hover:bg-gray-100 px-6"
+                onClick={() =>
+                  setLoginData({
+                    email: 'admin@healthcare.com',
+                    password: 'Admin123!',
+                  })
+                }
               >
                 Admin
               </Button>

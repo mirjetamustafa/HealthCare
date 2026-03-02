@@ -13,7 +13,7 @@ const AdminRegister = () => {
             MediCare Portal
           </h1>
           <p className="text-sm text-gray-600 mt-1">
-            Create an account to access your dashboard
+            Create an to access your dashboard
           </p>
         </div>
         <div className=" bg-white shadow-sm rounded-lg p-9 w-[450px] m-9">
@@ -24,6 +24,7 @@ const AdminRegister = () => {
               label="Email address"
               placeholder="email@example.com"
             />
+            <Input type="text" label="Role" placeholder="Admin" />
             <PasswordField label="Password" placeholder="••••••••" />
             <PasswordField label="Confirm Password" placeholder="••••••••" />
             <Button variant="active" type="submit" className="w-full mt-9">
