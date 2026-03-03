@@ -11,3 +11,14 @@ export const categories: Option[] = [
   { label: 'Radiology', value: 'radiology' },
   { label: 'Laboratory', value: 'laboratory' },
 ]
+
+export const departament: Option[] = [
+  { label: 'Cardiology', value: 'cardiology' },
+  { label: 'Pediatrics', value: 'pediatrics' },
+  { label: 'Orthopedics', value: 'orthopedics' },
+  { label: 'Neurology', value: 'neurology' },
+  { label: 'General Medicine', value: 'general' },
+  { label: 'Emergency Care', value: 'emergency' },
+  { label: 'Radiology', value: 'radiology' },
+  { label: 'Laboratory', value: 'laboratory' },
+]

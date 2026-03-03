@@ -3,6 +3,8 @@ import Input from '../shared/Input/Input'
 import SearchIcon from '../../assets/Search.svg?react'
 import Plus from '../../assets/plus.svg?react'
 import TableDoctor from '../shared/table/TableDoctor'
+import { useState } from 'react'
+import AddDoctor from './AddDoctor'
 
 const doctors = [
   {
@@ -22,6 +24,7 @@ const doctors = [
 ]
 
 const DoctorsAdminDashboard = () => {
+  const [open, setOpen] = useState(false)
   return (
     <div className="py-5 md:py-13 px-5 md:px-20">
       <div className="flex flex-col md:flex-row justify-between items-center gap-5">
@@ -38,7 +41,11 @@ const DoctorsAdminDashboard = () => {
             placeholder="Search patients..."
             className="w-64"
           />
-          <Button variant="active" className="mb-3 pr-4 gap-1">
+          <Button
+            onClick={() => setOpen(true)}
+            variant="active"
+            className="mb-3 pr-4 gap-1"
+          >
             <Plus className="w-5 h-5" />
             Add Doctor
           </Button>
@@ -48,6 +55,7 @@ const DoctorsAdminDashboard = () => {
       <div className="mt-9">
         <TableDoctor doctors={doctors} />
       </div>
+      <AddDoctor isOpen={open} onClose={() => setOpen(false)} />
     </div>
   )
 }

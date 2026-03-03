@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       localStorage.setItem('token', token)
       localStorage.setItem('user', JSON.stringify(newUser))
       axios.defaults.headers.common.Authorization = `Bearer ${token}`
-      navigate('/admin')
+
       setIsLoading(false)
     } catch (error) {
       console.error(error)
