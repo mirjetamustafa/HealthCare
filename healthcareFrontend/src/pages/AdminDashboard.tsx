@@ -13,6 +13,7 @@ import DoctorsAdminDashboard from '../components/adminDashboard/DoctorsAdminDash
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview')
+
   return (
     <div className="py-20 bg-gray-50">
       <AdminHeader />

@@ -5,28 +5,38 @@ import Input from '../components/shared/Input/Input'
 import PasswordField from '../components/shared/PasswordField/PasswordField'
 import { toast } from 'react-toastify'
 import { loginUser } from '../api/User/user'
+import { useNavigate } from 'react-router-dom'
+import { useAuthContext } from '../lib/AuthContext'
 
 const intialForm = {
   email: '',
   password: '',
 }
 
+const roleDefaults: Record<string, { email: string; password: string }> = {
+  admin: { email: 'admin@healthcare.com', password: 'Admin123!' },
+  doctor: { email: 'doctor@healthcare.com', password: 'Doctor123!' },
+  patient: { email: 'patient@healthcare.com', password: 'Patient123!' },
+}
+
 const Login = () => {
   const [loginData, setLoginData] = useState(intialForm)
+  const { login } = useAuthContext()
+  const navigate = useNavigate()
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Dërgimi i të dhënave:', loginData)
     try {
-      const response = await loginUser(loginData)
-      console.log('Login successful:', response.data)
-      localStorage.setItem('token', response.data.token)
-      toast.success('Login successful!')
-      // redirect
-    } catch (error: any) {
-      console.error(error)
-      toast.error(error.error?.message || 'Login failed')
+      await login(loginData)
+      navigate('/admin')
+      toast.success('Logged in successfully!')
+    } catch {
+      toast.error('Login failed')
     }
+  }
+
+  const handleRoleLogin = (role: 'admin' | 'doctor' | 'patient') => {
+    setLoginData(roleDefaults[role])
   }
 
   return (
@@ -73,30 +83,18 @@ const Login = () => {
               <div className="flex-grow border-t border-gray-300"></div>
             </div>
             <div className="flex gap-3 justify-center mt-5">
-              <Button
-                variant="default"
-                className="text-sm hover:bg-gray-100 px-6"
-                onClick={() =>
-                  setLoginData({
-                    email: 'admin@healthcare.com',
-                    password: 'Admin123!',
-                  })
-                }
-              >
-                Admin
-              </Button>
-              <Button
-                variant="default"
-                className="text-sm hover:bg-gray-100 px-6"
-              >
-                Doctor
-              </Button>
-              <Button
-                variant="default"
-                className="text-sm hover:bg-gray-100 px-6"
-              >
-                Patient
-              </Button>
+              {['admin', 'doctor', 'patient'].map((role) => (
+                <Button
+                  key={role}
+                  variant="default"
+                  className="text-sm hover:bg-gray-100 px-6"
+                  onClick={() =>
+                    handleRoleLogin(role as 'admin' | 'doctor' | 'patient')
+                  }
+                >
+                  {role.charAt(0).toUpperCase() + role.slice(1)}
+                </Button>
+              ))}
             </div>
           </form>
         </div>

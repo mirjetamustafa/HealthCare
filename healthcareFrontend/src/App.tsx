@@ -12,123 +12,128 @@ import DoctorsDashboard from './pages/DoctorsDashboard'
 import Patient from './pages/Patient'
 import Login from './pages/Login'
 import AdminRegister from './pages/AdminRegister'
+import { ToastContainer } from 'react-toastify'
+import { AuthProvider } from './lib/AuthContext'
 
 function App() {
   return (
     <div className="">
+      <ToastContainer />
       <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Header role="public" />
-                <Landignpage />
-              </>
-            }
-          />
+        <AuthProvider>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Header role="public" />
+                  <Landignpage />
+                </>
+              }
+            />
 
-          <Route
-            path="/about"
-            element={
-              <>
-                <Header role="public" />
-                <About />
-                <Footer />
-              </>
-            }
-          />
+            <Route
+              path="/about"
+              element={
+                <>
+                  <Header role="public" />
+                  <About />
+                  <Footer />
+                </>
+              }
+            />
 
-          <Route
-            path="/services"
-            element={
-              <>
-                <Header role="public" />
-                <Services />
-                <Footer />
-              </>
-            }
-          />
+            <Route
+              path="/services"
+              element={
+                <>
+                  <Header role="public" />
+                  <Services />
+                  <Footer />
+                </>
+              }
+            />
 
-          <Route
-            path="/doctors"
-            element={
-              <>
-                <Header role="public" />
-                <Doctors />
-                <Footer />
-              </>
-            }
-          />
-          <Route
-            path="/healthAdvice"
-            element={
-              <>
-                <Header role="public" />
-                <HealthAdvice />
-                <Footer />
-              </>
-            }
-          />
+            <Route
+              path="/doctors"
+              element={
+                <>
+                  <Header role="public" />
+                  <Doctors />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/healthAdvice"
+              element={
+                <>
+                  <Header role="public" />
+                  <HealthAdvice />
+                  <Footer />
+                </>
+              }
+            />
 
-          <Route
-            path="/contact"
-            element={
-              <>
-                <Header role="public" />
-                <ContactUs />
-                <Footer />
-              </>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              <>
-                <Header role="admin" />
-                <AdminDashboard />
-                <Footer />
-              </>
-            }
-          />
+            <Route
+              path="/contact"
+              element={
+                <>
+                  <Header role="public" />
+                  <ContactUs />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <>
+                  <Header role="admin" />
+                  <AdminDashboard />
+                  <Footer />
+                </>
+              }
+            />
 
-          <Route
-            path="/doctorDashboard"
-            element={
-              <>
-                <Header role="doctor" />
-                <DoctorsDashboard />
-                <Footer />
-              </>
-            }
-          />
-          <Route
-            path="/patient"
-            element={
-              <>
-                <Header role="patient" />
-                <Patient />
-                <Footer />
-              </>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <>
-                <Login />
-              </>
-            }
-          />
-          <Route
-            path="/adminRegister"
-            element={
-              <>
-                <AdminRegister />
-              </>
-            }
-          />
-        </Routes>
+            <Route
+              path="/doctorDashboard"
+              element={
+                <>
+                  <Header role="doctor" />
+                  <DoctorsDashboard />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/patient"
+              element={
+                <>
+                  <Header role="patient" />
+                  <Patient />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <>
+                  <Login />
+                </>
+              }
+            />
+            <Route
+              path="/adminRegister"
+              element={
+                <>
+                  <AdminRegister />
+                </>
+              }
+            />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </div>
   )
