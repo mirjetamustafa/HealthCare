@@ -86,6 +86,7 @@ const Login = () => {
               {['admin', 'doctor', 'patient'].map((role) => (
                 <Button
                   key={role}
+                  type="button"
                   variant="default"
                   className="text-sm hover:bg-gray-100 px-6"
                   onClick={() =>
