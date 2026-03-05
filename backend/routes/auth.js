@@ -4,16 +4,17 @@ const jwt = require('jsonwebtoken')
 const { ObjectId } = require('mongodb')
 
 const router = express.Router()
-// REGISTER (PATIENT ONLY)
 
+// REGISTER (PATIENT ONLY)
 router.post('/register', async (req, res) => {
   try {
     const { name, email, password, role } = req.body
     const db = req.app.get('db')
 
+    // vetem pacientet mund te regjistrohen nga frontend
     if (!name || !email || !password || role !== 'patient') {
       return res.status(400).json({
-        error: 'Name, email, password and role are required',
+        error: 'Name, email, password and role (patient) are required',
       })
     }
 
@@ -28,7 +29,7 @@ router.post('/register', async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      role: role || 'patient',
+      role: 'patient',
       createdAt: new Date(),
     }
 
@@ -48,28 +49,22 @@ router.post('/register', async (req, res) => {
   }
 })
 
-// LOGIN
-
+// LOGIN (ALL ROLES)
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body
+    console.log(req.body)
     const db = req.app.get('db')
 
     if (!email || !password) {
-      return res.status(400).json({
-        error: 'Email and password are required',
-      })
+      return res.status(400).json({ error: 'Email and password are required' })
     }
 
     const user = await db.collection('users').findOne({ email })
-    if (!user) {
-      return res.status(401).json({ error: 'Invalid credentials' })
-    }
+    if (!user) return res.status(401).json({ error: 'Invalid credentials' })
 
     const isMatch = await bcrypt.compare(password, user.password)
-    if (!isMatch) {
-      return res.status(401).json({ error: 'Invalid credentials' })
-    }
+    if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' })
 
     const token = jwt.sign(
       { id: user._id.toString(), role: user.role },
@@ -92,35 +87,27 @@ router.post('/login', async (req, res) => {
 })
 
 // AUTH MIDDLEWARE
-
 const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization
-
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  if (!authHeader || !authHeader.startsWith('Bearer '))
     return res.status(401).json({ error: 'Unauthorized' })
-  }
 
   const token = authHeader.split(' ')[1]
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
-
     const db = req.app.get('db')
-
     const user = await db.collection('users').findOne({
       _id: new ObjectId(decoded.id),
     })
 
-    if (!user) {
-      return res.status(401).json({ error: 'User not found' })
-    }
+    if (!user) return res.status(401).json({ error: 'User not found' })
 
     req.user = {
       id: user._id.toString(),
       role: user.role,
       email: user.email,
     }
-
     next()
   } catch (err) {
     return res.status(401).json({ error: 'Invalid token' })

@@ -7,9 +7,9 @@ const { router: authRoutes } = require('./routes/auth')
 const adminRoutes = require('./routes/admin')
 const userRoutes = require('./routes/user')
 const appointmentRoutes = require('./routes/book_appointment')
-
+const doctorRoutes = require('./routes/doctorRoutes')
 const app = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 4000
 
 // MIDDLEWARE
 
@@ -32,6 +32,7 @@ app.get('/api/test', (req, res) => {
 app.use('/api/auth', authRoutes)
 app.use('/api/admin', adminRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/doctors', doctorRoutes)
 app.use('/api/appointments', appointmentRoutes)
 
 // START SERVER
