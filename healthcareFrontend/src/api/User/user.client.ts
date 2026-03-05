@@ -11,7 +11,7 @@ export const login = async (data: LoginInput) =>
   apiRequest<any, any>({
     method: 'POST',
     url: 'api/auth/login',
-    data: { credentials: data },
+    data: data,
   })
 
 export const registerUser = async (data: RegisterInput) =>
@@ -20,6 +20,35 @@ export const registerUser = async (data: RegisterInput) =>
     url: '/api/auth/register',
     data,
   })
+
+export const getDoctor = async () => {
+  return await apiRequest<any, any>({
+    url: '/api/doctors',
+    method: 'GET',
+  })
+}
+
+export const getDoctorById = async (id: string) => {
+  return await apiRequest<any, any>({
+    url: `/api/doctors/${id}`,
+    method: 'GET',
+  })
+}
+
+export const updateDoctorById = async (id: string, data: any) => {
+  return await apiRequest<any, any>({
+    url: `api/doctors/${id}`,
+    method: 'PUT',
+    data: { doctor: data },
+  })
+}
+
+export const deleteDoctor = async (id: any) => {
+  return await apiRequest<any, any>({
+    url: `api/doctors/${id}`,
+    method: 'DELETE',
+  })
+}
 
 export const resetPassword = async (data: SetPasswordInput, token: string) =>
   apiRequest<SetPasswordInput, SetPasswordResponse>({

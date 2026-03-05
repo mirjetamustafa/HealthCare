@@ -3,6 +3,37 @@ export interface LoginInput {
   password: string
 }
 
+export interface DoctorRegisterInput {
+  name: string
+  email: string
+  password: string
+  role?: string
+  specialization: string
+  department: string
+  education: string
+  yearsOfExperience: number
+  contactNumber: string
+  schedule: string
+  img: string
+  biography: string
+}
+
+export interface DoctorResponse {
+  _id: string
+  name: string
+  email: string
+  password: string
+  role?: string
+  specialization: string
+  department: string
+  education: string
+  yearsOfExperience: number
+  contactNumber: string
+  schedule: string
+  img: string
+  biography: string
+}
+
 export interface RegisterInput {
   name: string
   email: string

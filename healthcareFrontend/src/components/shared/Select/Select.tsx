@@ -7,7 +7,7 @@ type SelectProps = {
   label?: string
   value: string
   name: string
-  onChange: (value: string) => void
+  onChange: React.ChangeEventHandler<HTMLSelectElement>
   options: Option[]
   error?: string
   labelPosition?: 'block' | 'inline'
@@ -44,7 +44,7 @@ const Select = ({
         id={id}
         value={value}
         name={name}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
         className={`w-full p-2 border text-xs rounded-md bg-white outline-none focus:ring-1 focus:ring-blue-300 ${error ? 'border-red-500' : 'border-gray-200'}`}
       >
         <option value="" key="placeholder" disabled>
