@@ -1,8 +1,6 @@
 const { MongoClient } = require('mongodb')
 require('dotenv').config()
 
-// sigurohu që ke ATLAS_URI në .env:
-// ATLAS_URI=mongodb+srv://user:password@cluster0.mongodb.net
 const client = new MongoClient(process.env.ATLAS_URI)
 let database
 
