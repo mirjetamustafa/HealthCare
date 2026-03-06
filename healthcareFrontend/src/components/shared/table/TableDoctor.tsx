@@ -1,20 +1,15 @@
 import Stethoscope from '../../../assets/stethoscope.svg?react'
 import Pencil from '../../../assets/pencil.svg?react'
 import Trash from '../../../assets/trash.svg?react'
+import type { DoctorResponse } from '../../../api/User/user.types'
 
-export type Doctors = {
-  id: string
-  name: string
-  email: string
-  department: string
-  status: 'Active' | 'Inactive'
+//
+
+type TableDoctors = {
+  doctors: DoctorResponse[]
 }
 
-type Props = {
-  doctors: Doctors[]
-}
-
-const TableDoctor = ({ doctors }: Props) => {
+const TableDoctor = ({ doctors }: TableDoctors) => {
   return (
     <div className="bg-white overflow-auto md:overflow-hidden last:rounded-b-2xl">
       <table className="w-full text-sm text-left">
@@ -30,7 +25,7 @@ const TableDoctor = ({ doctors }: Props) => {
 
         <tbody className="divide-y divide-gray-100">
           {doctors.map((doctor) => (
-            <tr key={doctor.id} className="bg-white">
+            <tr key={doctor._id} className="bg-white">
               <td className="px-6 py-4  last:rounded-b-3xl">
                 <div className="flex items-center gap-3 ">
                   <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center">

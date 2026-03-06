@@ -132,7 +132,7 @@ function App() {
               element={
                 <>
                   <Header role="admin" />
-                  <AdminDashboard />
+                  <AdminDashboard doctors={filteredDoctors} />
                   <Footer />
                 </>
               }

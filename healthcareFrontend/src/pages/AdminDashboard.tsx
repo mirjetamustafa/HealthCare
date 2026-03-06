@@ -10,8 +10,13 @@ import Patients from '../components/adminDashboard/Patients'
 
 import Appointment from '../components/adminDashboard/Appointment'
 import DoctorsAdminDashboard from '../components/adminDashboard/DoctorsAdminDashboard'
+import type { DoctorResponse } from '../api/User/user.types'
 
-const AdminDashboard = () => {
+interface AdminDashboardProps {
+  doctors: DoctorResponse[]
+}
+
+const AdminDashboard = ({ doctors }: AdminDashboardProps) => {
   const [activeTab, setActiveTab] = useState('overview')
 
   return (
@@ -68,7 +73,7 @@ const AdminDashboard = () => {
         {activeTab === 'doctorsDashboard' && (
           <div>
             {' '}
-            <DoctorsAdminDashboard />{' '}
+            <DoctorsAdminDashboard doctors={doctors} />{' '}
           </div>
         )}
         {activeTab === 'appointmentsDashboard' && (

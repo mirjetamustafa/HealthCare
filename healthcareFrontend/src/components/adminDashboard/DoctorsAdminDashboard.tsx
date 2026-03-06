@@ -5,25 +5,13 @@ import Plus from '../../assets/plus.svg?react'
 import TableDoctor from '../shared/table/TableDoctor'
 import { useState } from 'react'
 import AddDoctor from './AddDoctor'
+import type { DoctorResponse } from '../../api/User/user.types'
 
-const doctors = [
-  {
-    id: '1',
-    name: 'Dr. Emily Rodriguez',
-    email: 'emily.r@medicare.com',
-    department: 'Cardiology',
-    status: 'Active',
-  },
-  {
-    id: '2',
-    name: 'Dr. James Williams',
-    email: 'james.w@medicare.com',
-    department: 'Neurology',
-    status: 'Active',
-  },
-]
+interface AdminDashboardProps {
+  doctors: DoctorResponse[]
+}
 
-const DoctorsAdminDashboard = () => {
+const DoctorsAdminDashboard = ({ doctors }: AdminDashboardProps) => {
   const [open, setOpen] = useState(false)
   return (
     <div className="py-5 md:py-13 px-5 md:px-20">
@@ -32,7 +20,9 @@ const DoctorsAdminDashboard = () => {
           <h2 className="text-2xl font-bold text-gray-900">
             Doctor Management
           </h2>
-          <p className="text-gray-600 mt-1">2 registered doctors</p>
+          <p className="text-gray-600 mt-1">
+            {doctors.length} registered doctors
+          </p>
         </div>
         <div className="flex items-center gap-3 ">
           <Input
