@@ -54,6 +54,7 @@ const Select = ({
           <option
             key={option.value ? option.value.toString() : `option-${index}`}
             value={option.value}
+            className="capitalize"
           >
             {' '}
             {option.label}{' '}

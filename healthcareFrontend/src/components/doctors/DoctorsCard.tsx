@@ -14,6 +14,9 @@ type DoctrorProps = {
 
 const DoctorsCard = ({ doctors }: DoctrorProps) => {
   const [open, setOpen] = useState(false)
+  const [selectedDoctor, setSelectedDoctor] = useState<DoctorResponse | null>(
+    null,
+  )
   return (
     <div className="grid grid-cols-1  md:grid-cols-4 gap-5  ">
       {doctors?.map((doctor) => (
@@ -30,7 +33,10 @@ const DoctorsCard = ({ doctors }: DoctrorProps) => {
             schedule={doctor.schedule}
           >
             <Button
-              onClick={() => setOpen(true)}
+              onClick={() => {
+                setSelectedDoctor(doctor)
+                setOpen(true)
+              }}
               variant="default"
               className="text-sm hover:bg-gray-100"
             >
@@ -158,7 +164,11 @@ const DoctorsCard = ({ doctors }: DoctrorProps) => {
         </Link>
       </CardDoctor> */}
 
-      <DoctorProfileModal isOpen={open} onClose={() => setOpen(false)} />
+      <DoctorProfileModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        doctor={selectedDoctor}
+      />
     </div>
   )
 }
