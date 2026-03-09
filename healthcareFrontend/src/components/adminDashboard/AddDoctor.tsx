@@ -25,7 +25,6 @@ const initialFormData = {
   yearsOfExperience: 0,
   contactNumber: '',
   schedule: '',
-  role: 'doctor',
   biography: '',
   img: '',
 }
@@ -55,11 +54,10 @@ const AddDoctor = ({ isOpen, onClose }: AddDoctorProps) => {
     }
 
     try {
-      const res = await doctorRegister(formData)
-      console.log('Registered Doctor', res.data)
-      setFormData(res.data)
+      await doctorRegister(formData)
       toast.success('Doctor added successfully!')
       setFormData(initialFormData)
+      onClose()
     } catch (err: any) {
       toast.error(err.message || 'Failed to add doctor')
       console.error('Error adding doctor:', err)
@@ -147,13 +145,19 @@ const AddDoctor = ({ isOpen, onClose }: AddDoctorProps) => {
               value={formData.schedule}
               onChange={handleChange}
             />
-            <Input
+            {/* <Input
               label="Role"
               placeholder="Enter doctor's role"
               name="role"
               value={formData.role}
               onChange={handleChange}
             />
+            <Input
+              label="Status"
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+            /> */}
             <Input
               label="Image URL"
               placeholder="Enter doctor's image URL"

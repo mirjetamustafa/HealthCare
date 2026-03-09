@@ -23,6 +23,7 @@ router.post(
         yearsOfExperience,
         contactNumber,
         schedule,
+
         biography,
         img,
       } = req.body
@@ -53,6 +54,7 @@ router.post(
         yearsOfExperience: Number(yearsOfExperience),
         contactNumber,
         schedule,
+        status: 'active',
         biography,
         img,
         createdAt: new Date(),
@@ -67,6 +69,7 @@ router.post(
           name,
           email,
           role: 'doctor',
+          status: 'active',
         },
       })
     } catch (err) {

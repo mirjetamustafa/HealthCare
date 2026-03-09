@@ -30,6 +30,7 @@ export interface DoctorResponse {
   yearsOfExperience: number
   contactNumber: string
   schedule: string
+  status: string
   img: string
   biography: string
 }
