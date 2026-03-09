@@ -23,3 +23,18 @@ export const getDoctors = (): any => {
     method: 'GET',
   })
 }
+
+export const updateDoctors = (_id: string, updateData: any): any => {
+  return apiRequest({
+    url: `/api/admin/${_id}`,
+    method: 'PUT',
+    data: updateData,
+  })
+}
+
+export const deleteDoctor = (_id: string) => {
+  return apiRequest({
+    url: `/api/admin/${_id}`,
+    method: 'DELETE',
+  })
+}

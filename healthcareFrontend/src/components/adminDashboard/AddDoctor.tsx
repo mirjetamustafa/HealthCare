@@ -6,31 +6,49 @@ import PasswordField from '../shared/PasswordField/PasswordField'
 import Textarea from '../shared/Textarea/Textarea'
 import Select from '../shared/Select/Select'
 import { departament } from '../shared/categories'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { doctorRegister } from '../../api/User/user'
+import { doctorRegister, updateDoctors } from '../../api/User/user'
+import type { DoctorResponse } from '../../api/User/user.types'
 
 interface AddDoctorProps {
   isOpen: boolean
   onClose: () => void
+  editDoctor: DoctorResponse | null
+  fetchDoctors?: () => void
 }
 
 const initialFormData = {
   name: '',
   email: '',
   password: '',
+  role: 'doctor',
   specialization: '',
   department: '',
   education: '',
   yearsOfExperience: 0,
   contactNumber: '',
   schedule: '',
+  status: 'Active',
   biography: '',
   img: '',
 }
 
-const AddDoctor = ({ isOpen, onClose }: AddDoctorProps) => {
+const AddDoctor = ({
+  isOpen,
+  onClose,
+  editDoctor,
+  fetchDoctors,
+}: AddDoctorProps) => {
   const [formData, setFormData] = useState(initialFormData)
+
+  useEffect(() => {
+    if (editDoctor) {
+      setFormData({ ...editDoctor, password: '' })
+    } else {
+      setFormData(initialFormData)
+    }
+  }, [editDoctor])
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -48,16 +66,24 @@ const AddDoctor = ({ isOpen, onClose }: AddDoctorProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (formData.password.length < 6) {
+    if (!editDoctor && formData.password.length < 6) {
       toast.error('Password must be at least 6 characters long')
       return
     }
 
     try {
-      await doctorRegister(formData)
-      toast.success('Doctor added successfully!')
+      if (editDoctor) {
+        const { _id, ...updateData } = formData
+        await updateDoctors(editDoctor._id, updateData)
+        toast.success('Doctor added successfully!')
+      } else {
+        await doctorRegister(formData)
+        toast.success('Doctor added successfully!')
+      }
+
       setFormData(initialFormData)
       onClose()
+      fetchDoctors?.()
     } catch (err: any) {
       toast.error(err.message || 'Failed to add doctor')
       console.error('Error adding doctor:', err)
@@ -71,7 +97,10 @@ const AddDoctor = ({ isOpen, onClose }: AddDoctorProps) => {
       <div className=" h-150 overflow-y-auto">
         <div className="px-5">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold">Add New Doctor</h2>
+            <h2 className="text-xl font-semibold">
+              {' '}
+              {editDoctor ? 'Edit Doctor' : 'Add New Doctor'}{' '}
+            </h2>
             <Button onClick={onClose}>
               <CloseMenu className="w-6 h-6" />
             </Button>
@@ -81,7 +110,7 @@ const AddDoctor = ({ isOpen, onClose }: AddDoctorProps) => {
             <Input
               label="Full Name"
               name="name"
-              value={formData.name}
+              value={formData.name || ''}
               onChange={handleChange}
               type="text"
               placeholder="Enter doctor's full name"
@@ -89,7 +118,7 @@ const AddDoctor = ({ isOpen, onClose }: AddDoctorProps) => {
             <Input
               label="Email"
               name="email"
-              value={formData.email}
+              value={formData.email || ''}
               onChange={handleChange}
               type="email"
               placeholder="Enter doctor's email"
@@ -99,20 +128,38 @@ const AddDoctor = ({ isOpen, onClose }: AddDoctorProps) => {
               value={formData.password}
               onChange={handleChange}
               label="Password"
-              placeholder="••••••••"
+              placeholder={
+                editDoctor ? 'Leave blank to keep current password' : '••••••••'
+              }
+            />
+
+            <Input
+              label="Role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              type="text"
+            />
+
+            <Input
+              label="Status"
+              name="status"
+              value={formData.status || ''}
+              onChange={handleChange}
+              type="text"
             />
 
             <Input
               label="Specialization"
               type="text"
               name="specialization"
-              value={formData.specialization}
+              value={formData.specialization || ''}
               onChange={handleChange}
               placeholder="Enter doctor's specialization"
             />
             <Select
               name="department"
-              value={formData.department}
+              value={formData.department || ''}
               onChange={handleChange}
               options={departament}
             />
@@ -120,21 +167,21 @@ const AddDoctor = ({ isOpen, onClose }: AddDoctorProps) => {
               name="education"
               label="Education"
               placeholder="Enter doctor's education"
-              value={formData.education}
+              value={formData.education || ''}
               onChange={handleChange}
             />
             <Input
               label="Years of Experience"
               placeholder="Enter doctor's years of experience"
               name="yearsOfExperience"
-              value={formData.yearsOfExperience}
+              value={formData.yearsOfExperience ?? 0}
               onChange={handleChange}
             />
             <Input
               label="Contact Number"
               name="contactNumber"
               type="tel"
-              value={formData.contactNumber}
+              value={formData.contactNumber || ''}
               onChange={handleChange}
               placeholder="Enter doctor's contact number"
             />
@@ -142,38 +189,26 @@ const AddDoctor = ({ isOpen, onClose }: AddDoctorProps) => {
               label="Schedule"
               placeholder="Enter doctor schedule"
               name="schedule"
-              value={formData.schedule}
+              value={formData.schedule || ''}
               onChange={handleChange}
             />
-            {/* <Input
-              label="Role"
-              placeholder="Enter doctor's role"
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-            />
-            <Input
-              label="Status"
-              name="status"
-              value={formData.status}
-              onChange={handleChange}
-            /> */}
+
             <Input
               label="Image URL"
               placeholder="Enter doctor's image URL"
               name="img"
-              value={formData.img}
+              value={formData.img || ''}
               onChange={handleChange}
             />
             <Textarea
               label="Biography"
               placeholder="Enter doctor's biography"
               name="biography"
-              value={formData.biography}
+              value={formData.biography || ''}
               onChange={handleChange}
             />
             <Button type="submit" variant="active" className="mt-4 w-full">
-              Add Doctor
+              {editDoctor ? 'Update Doctor' : ' Add Doctor'}
             </Button>
           </form>
         </div>

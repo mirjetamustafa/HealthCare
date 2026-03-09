@@ -12,22 +12,23 @@ import DoctorsDashboard from './pages/DoctorsDashboard'
 import Patient from './pages/Patient'
 import Login from './pages/Login'
 import AdminRegister from './pages/AdminRegister'
-import { ToastContainer } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 import { AuthProvider } from './lib/AuthContext'
 
 import { useEffect, useState } from 'react'
 import type { DoctorResponse } from './api/User/user.types'
-import { getDoctor } from './api/User/user.client'
+import { deleteDoctor, getDoctors } from './api/User/user'
 
 function App() {
   const [doctors, setDoctors] = useState<DoctorResponse[]>([])
   const [selectedDepartment, setSelectedDepartment] = useState<string>('all')
+  const [editDoctor, setEditDoctor] = useState<DoctorResponse | null>(null)
+  const [open, setOpen] = useState(false)
 
   const fetchDoctors = async () => {
     try {
-      const response = await getDoctor()
+      const response = await getDoctors()
       setDoctors(response.data)
-      console.log(response.data)
     } catch (error) {
       console.error(error)
     }
@@ -36,6 +37,27 @@ function App() {
   useEffect(() => {
     fetchDoctors()
   }, [])
+
+  const handleDeleteDoctor = async (id: string) => {
+    try {
+      await deleteDoctor(id)
+      toast.success('Doctor deleted successfully')
+      fetchDoctors()
+    } catch (error) {
+      toast.error('Failed to delete doctor')
+      console.error(error)
+    }
+  }
+
+  const handleCreate = () => {
+    setEditDoctor(null)
+    setOpen(true)
+  }
+
+  const handleEdit = (doctor: DoctorResponse) => {
+    setEditDoctor(doctor)
+    setOpen(true)
+  }
 
   const formatText = (text: string) =>
     text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
@@ -132,7 +154,14 @@ function App() {
               element={
                 <>
                   <Header role="admin" />
-                  <AdminDashboard doctors={filteredDoctors} />
+                  <AdminDashboard
+                    doctors={filteredDoctors}
+                    onDeleteDoctor={handleDeleteDoctor}
+                    fetchDoctors={fetchDoctors}
+                    handleEdit={handleEdit}
+                    editDoctor={editDoctor}
+                    addDoctor={handleCreate}
+                  />
                   <Footer />
                 </>
               }

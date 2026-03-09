@@ -14,9 +14,21 @@ import type { DoctorResponse } from '../api/User/user.types'
 
 interface AdminDashboardProps {
   doctors: DoctorResponse[]
+  onDeleteDoctor: (id: string) => void
+  fetchDoctors: () => void
+  handleEdit: (doctor: DoctorResponse | null) => void
+  addDoctor: () => void
+  editDoctor: DoctorResponse | null
 }
 
-const AdminDashboard = ({ doctors }: AdminDashboardProps) => {
+const AdminDashboard = ({
+  doctors,
+  onDeleteDoctor,
+  fetchDoctors,
+  handleEdit,
+  addDoctor,
+  editDoctor,
+}: AdminDashboardProps) => {
   const [activeTab, setActiveTab] = useState('overview')
 
   return (
@@ -73,7 +85,14 @@ const AdminDashboard = ({ doctors }: AdminDashboardProps) => {
         {activeTab === 'doctorsDashboard' && (
           <div>
             {' '}
-            <DoctorsAdminDashboard doctors={doctors} />{' '}
+            <DoctorsAdminDashboard
+              doctors={doctors}
+              onDeleteDoctor={onDeleteDoctor}
+              fetchDoctors={fetchDoctors}
+              handleEdit={handleEdit}
+              addDoctor={addDoctor}
+              editDoctor={editDoctor}
+            />{' '}
           </div>
         )}
         {activeTab === 'appointmentsDashboard' && (

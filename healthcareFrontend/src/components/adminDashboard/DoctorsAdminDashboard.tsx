@@ -9,10 +9,27 @@ import type { DoctorResponse } from '../../api/User/user.types'
 
 interface AdminDashboardProps {
   doctors: DoctorResponse[]
+  onDeleteDoctor: (id: string) => void
+  fetchDoctors: () => void
+  handleEdit: (doctor: DoctorResponse | null) => void
+  addDoctor: () => void
+  editDoctor: DoctorResponse | null
 }
 
-const DoctorsAdminDashboard = ({ doctors }: AdminDashboardProps) => {
+const DoctorsAdminDashboard = ({
+  doctors,
+  onDeleteDoctor,
+  fetchDoctors,
+  handleEdit,
+  addDoctor,
+  editDoctor,
+}: AdminDashboardProps) => {
   const [open, setOpen] = useState(false)
+
+  const handleAddClick = () => {
+    addDoctor()
+    setOpen(true)
+  }
   return (
     <div className="py-5 md:py-13 px-5 md:px-20">
       <div className="flex flex-col md:flex-row justify-between items-center gap-5">
@@ -28,11 +45,11 @@ const DoctorsAdminDashboard = ({ doctors }: AdminDashboardProps) => {
           <Input
             type="search"
             icon={<SearchIcon className="w-5 h-5" />}
-            placeholder="Search patients..."
+            placeholder="Search doctors..."
             className="w-64"
           />
           <Button
-            onClick={() => setOpen(true)}
+            onClick={handleAddClick}
             variant="active"
             className="mb-3 pr-4 gap-1"
           >
@@ -43,9 +60,21 @@ const DoctorsAdminDashboard = ({ doctors }: AdminDashboardProps) => {
       </div>
 
       <div className="mt-9">
-        <TableDoctor doctors={doctors} />
+        <TableDoctor
+          doctors={doctors}
+          onDeleteDoctor={onDeleteDoctor}
+          handleEdit={(doctor) => {
+            handleEdit(doctor)
+            setOpen(true)
+          }}
+        />
       </div>
-      <AddDoctor isOpen={open} onClose={() => setOpen(false)} />
+      <AddDoctor
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        editDoctor={editDoctor}
+        fetchDoctors={fetchDoctors}
+      />
     </div>
   )
 }
