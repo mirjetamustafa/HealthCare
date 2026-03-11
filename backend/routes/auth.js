@@ -8,13 +8,14 @@ const router = express.Router()
 // REGISTER (PATIENT ONLY)
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password, role } = req.body
+    const { firstName, lastName, email, password, dateOfBirth, contactNumber } =
+      req.body
     const db = req.app.get('db')
 
     // vetem pacientet mund te regjistrohen nga frontend
-    if (!name || !email || !password || role !== 'patient') {
+    if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({
-        error: 'Name, email, password and role (patient) are required',
+        error: 'First name, last name, email and password are required',
       })
     }
 
@@ -26,10 +27,14 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10)
 
     const newUser = {
-      name,
+      firstName,
+      lastName,
       email,
       password: hashedPassword,
       role: 'patient',
+      status: 'Active',
+      dateOfBirth,
+      contactNumber,
       createdAt: new Date(),
     }
 
@@ -39,9 +44,11 @@ router.post('/register', async (req, res) => {
       message: 'Patient registered successfully',
       user: {
         id: result.insertedId,
-        name,
+        firstName,
+        lastName,
         email,
-        role: newUser.role,
+        role: 'patient',
+        status: 'Active',
       },
     })
   } catch (err) {
