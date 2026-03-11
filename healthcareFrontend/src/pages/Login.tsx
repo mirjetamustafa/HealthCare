@@ -70,12 +70,7 @@ const Login = () => {
                 setLoginData({ ...loginData, password: e.target.value })
               }
             />
-            <Link
-              to="/register"
-              className="text-xs text-blue-600 hover:text-blue-700"
-            >
-              Register Patient Only
-            </Link>
+
             <Button variant="active" type="submit" className="w-full mt-9">
               Sign in
             </Button>
@@ -103,6 +98,16 @@ const Login = () => {
                 </Button>
               ))}
             </div>
+
+            <p className="flex justify-center gap-2 mt-5 text-xs">
+              Patient only{' '}
+              <Link
+                to="/register"
+                className="text-xs text-blue-600 hover:text-blue-700"
+              >
+                Register
+              </Link>
+            </p>
           </form>
         </div>
       </div>

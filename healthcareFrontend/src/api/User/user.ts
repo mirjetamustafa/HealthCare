@@ -9,6 +9,14 @@ export const loginUser = (credentials: LoginInput): any => {
   })
 }
 
+export const patientRegister = (data: any): any => {
+  return apiRequest({
+    url: '/api/auth/register',
+    method: 'POST',
+    data: data,
+  })
+}
+
 export const doctorRegister = (data: DoctorRegisterInput): any => {
   return apiRequest({
     url: '/api/admin/create-doctor',
