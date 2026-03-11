@@ -18,6 +18,7 @@ import { AuthProvider } from './lib/AuthContext'
 import { useEffect, useState } from 'react'
 import type { DoctorResponse } from './api/User/user.types'
 import { deleteDoctor, getDoctors } from './api/User/user'
+import Register from './pages/Register'
 
 function App() {
   const [doctors, setDoctors] = useState<DoctorResponse[]>([])
@@ -195,6 +196,16 @@ function App() {
                 </>
               }
             />
+
+            <Route
+              path="/register"
+              element={
+                <>
+                  <Register />
+                </>
+              }
+            />
+
             <Route
               path="/adminRegister"
               element={

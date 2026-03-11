@@ -5,7 +5,7 @@ import Input from '../components/shared/Input/Input'
 import PasswordField from '../components/shared/PasswordField/PasswordField'
 import { toast } from 'react-toastify'
 import { loginUser } from '../api/User/user'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../lib/AuthContext'
 
 const intialForm = {
@@ -70,6 +70,12 @@ const Login = () => {
                 setLoginData({ ...loginData, password: e.target.value })
               }
             />
+            <Link
+              to="/register"
+              className="text-xs text-blue-600 hover:text-blue-700"
+            >
+              Register Patient Only
+            </Link>
             <Button variant="active" type="submit" className="w-full mt-9">
               Sign in
             </Button>
