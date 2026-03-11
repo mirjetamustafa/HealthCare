@@ -29,7 +29,7 @@ const initialFormData = {
   yearsOfExperience: 0,
   contactNumber: '',
   schedule: '',
-  status: 'Active',
+  status,
   biography: '',
   img: '',
 }
@@ -144,6 +144,7 @@ const AddDoctor = ({
             <Input
               label="Status"
               name="status"
+              placeholder="Enter doctor's status"
               value={formData.status || ''}
               onChange={handleChange}
               type="text"
