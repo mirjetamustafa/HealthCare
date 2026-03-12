@@ -32,6 +32,13 @@ export const getDoctors = (): any => {
   })
 }
 
+export const getPatients = (): any => {
+  return apiRequest({
+    url: '/api/patients',
+    method: 'GET',
+  })
+}
+
 export const updateDoctors = (_id: string, updateData: any): any => {
   return apiRequest({
     url: `/api/admin/${_id}`,

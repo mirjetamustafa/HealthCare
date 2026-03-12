@@ -1,33 +1,38 @@
 import Input from '../shared/Input/Input'
 import SearchIcon from '../../assets/Search.svg?react'
 import Table from '../shared/table/Table'
+import type { PatientResponse } from '../../api/User/user.types'
 
-const patients = [
-  {
-    id: '1',
-    name: 'John Smith',
-    email: 'john@example.com',
-    joinDate: '6/15/2025',
-    status: 'Active',
-  },
-  {
-    id: '2',
-    name: 'Sarah Johnson',
-    email: 'sarah@example.com',
-    joinDate: '6/15/2025',
-    status: 'Active',
-  },
+// const patients = [
+//   {
+//     id: '1',
+//     name: 'John Smith',
+//     email: 'john@example.com',
+//     joinDate: '6/15/2025',
+//     status: 'Active',
+//   },
+//   {
+//     id: '2',
+//     name: 'Sarah Johnson',
+//     email: 'sarah@example.com',
+//     joinDate: '6/15/2025',
+//     status: 'Active',
+//   },
 
-  {
-    id: '3',
-    name: 'Michael Brown',
-    email: 'michael@example.com',
-    joinDate: '6/15/2025',
-    status: 'Inactive',
-  },
-]
+//   {
+//     id: '3',
+//     name: 'Michael Brown',
+//     email: 'michael@example.com',
+//     joinDate: '6/15/2025',
+//     status: 'Inactive',
+//   },
+// ]
 
-const Patients = () => {
+interface PatentsProps {
+  patients: PatientResponse[]
+}
+
+const Patients = ({ patients }: PatentsProps) => {
   return (
     <div className="py-5 md:py-13 px-5 md:px-20">
       <div className="flex flex-col md:flex-row justify-between items-center gap-5">

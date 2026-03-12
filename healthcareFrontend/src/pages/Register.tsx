@@ -15,6 +15,7 @@ const initialForm = {
   password: '',
   confirmPassword: '',
   contactNumber: '',
+  createdAt: new Date(),
 }
 
 const Register = () => {

@@ -35,6 +35,17 @@ export interface DoctorResponse {
   biography: string
 }
 
+export interface PatientResponse {
+  _id: string
+  firstName: string
+  lastName: string
+  email: string
+  contactNumber: string
+  dateOfBirth: string
+  status: string
+  createdAt: string
+}
+
 export interface RegisterInput {
   name: string
   email: string

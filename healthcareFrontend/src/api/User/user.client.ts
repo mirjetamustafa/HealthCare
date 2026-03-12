@@ -35,6 +35,20 @@ export const getDoctorById = async (id: string) => {
   })
 }
 
+export const getPatient = async () => {
+  return await apiRequest<any, any>({
+    url: '/api/patients',
+    method: 'GET',
+  })
+}
+
+export const getPatientById = async (id: string) => {
+  return await apiRequest<any, any>({
+    url: `/api/patients/${id}`,
+    method: 'GET',
+  })
+}
+
 export const updateDoctorById = async (id: string, data: any) => {
   return await apiRequest<any, any>({
     url: `api/doctors/${id}`,

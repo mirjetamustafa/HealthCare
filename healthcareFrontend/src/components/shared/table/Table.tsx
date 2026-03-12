@@ -1,17 +1,18 @@
 import User from '../../../assets/user.svg?react'
 import Pencil from '../../../assets/pencil.svg?react'
 import Trash from '../../../assets/trash.svg?react'
+import type { PatientResponse } from '../../../api/User/user.types'
 
-export type Patient = {
-  id: string
-  name: string
-  email: string
-  joinDate: string
-  status: 'Active' | 'Inactive'
-}
+// export type Patient = {
+//   id: string
+//   name: string
+//   email: string
+//   joinDate: string
+//   status: 'Active' | 'Inactive'
+// }
 
-type Props = {
-  patients: Patient[]
+interface Props {
+  patients: PatientResponse[]
 }
 
 const Table = ({ patients }: Props) => {
@@ -29,20 +30,23 @@ const Table = ({ patients }: Props) => {
         </thead>
 
         <tbody className="divide-y divide-gray-100">
-          {patients.map((patient) => (
-            <tr key={patient.id} className="bg-white">
+          {patients?.map((patient) => (
+            <tr key={patient._id} className="bg-white">
               <td className="px-6 py-4  last:rounded-b-3xl">
                 <div className="flex items-center gap-3 ">
                   <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
                     <User className="w-5 h-5 text-blue-500" />
                   </div>
                   <span className="font-medium text-gray-900">
-                    {patient.name}
+                    {patient.firstName} {patient.lastName}
                   </span>
                 </div>
               </td>
               <td className="px-6 py-4">{patient.email}</td>
-              <td className="px-6 py-4">{patient.joinDate}</td>
+              <td className="px-6 py-4">
+                {' '}
+                {new Date(patient.createdAt).toLocaleDateString('en-GB')}
+              </td>
 
               <td className="px-6 py-4">
                 <span

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AdminHeader from '../components/adminHeader/AdminHeader'
 import Button from '../components/shared/Button/Button'
 import Chart from '../assets/chart.svg?react'
@@ -10,7 +10,11 @@ import Patients from '../components/adminDashboard/Patients'
 
 import Appointment from '../components/adminDashboard/Appointment'
 import DoctorsAdminDashboard from '../components/adminDashboard/DoctorsAdminDashboard'
-import type { DoctorResponse } from '../api/User/user.types'
+import {
+  type PatientResponse,
+  type DoctorResponse,
+} from '../api/User/user.types'
+import { getPatients } from '../api/User/user'
 
 interface AdminDashboardProps {
   doctors: DoctorResponse[]
@@ -30,6 +34,20 @@ const AdminDashboard = ({
   editDoctor,
 }: AdminDashboardProps) => {
   const [activeTab, setActiveTab] = useState('overview')
+  const [patients, setPatents] = useState<PatientResponse[]>([])
+
+  const fetchPatients = async () => {
+    try {
+      const response = await getPatients()
+      setPatents(response.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchPatients()
+  }, [])
 
   return (
     <div className="py-20 bg-gray-50">
@@ -79,7 +97,7 @@ const AdminDashboard = ({
         {activeTab === 'patientsDashboard' && (
           <div>
             {' '}
-            <Patients />{' '}
+            <Patients patients={patients} />{' '}
           </div>
         )}
         {activeTab === 'doctorsDashboard' && (
