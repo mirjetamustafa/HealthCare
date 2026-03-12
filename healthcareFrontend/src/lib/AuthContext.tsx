@@ -8,6 +8,9 @@ interface User {
   name?: string
   email: string
   role: 'admin' | 'doctor' | 'patient'
+  patientId?: string
+  firstName: string
+  lastName: string
 }
 
 interface UserLoginData {
@@ -56,6 +59,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         name: userData.name,
         email: userData.email,
         role: userData.role,
+        patientId: userData.patientId,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
       }
       setUser(loggedUser)
       setToken(token)

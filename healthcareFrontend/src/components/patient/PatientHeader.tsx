@@ -14,9 +14,9 @@ const PatientHeader = () => {
         </div>
         <div className="">
           <h1 className="text-xl md:text-2xl font-bold">
-            Welcome, {getUserDisplayName(user)}
+            Welcome, {user?.firstName}
           </h1>
-          <p className="text-gray-600">Patient ID: MED-2024-001234</p>
+          <p className="text-gray-600">Patient ID: {user?.patientId}</p>
         </div>
       </div>
 
