@@ -4,16 +4,23 @@ import { useNavigate } from 'react-router'
 import { loginUser } from '../api/User/user'
 
 interface User {
-  token: string
-  name: string
-  email?: string
+  id: string
+  name?: string
+  email: string
+  role: 'admin' | 'doctor' | 'patient'
+}
+
+interface UserLoginData {
+  email: string
+  password: string
 }
 
 interface AuthContextType {
   user: User | null
+  token: string | null
   isAuthenticated: boolean
   isLoading: boolean
-  login: (credentials: UserLoginData) => Promise<void>
+  login: (credentials: UserLoginData) => Promise<User>
   logout: () => void
 }
 
@@ -23,15 +30,18 @@ export const useAuthContext = () => useContext(AuthContext)
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null)
+  const [token, setToken] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate()
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user')
-    if (storedUser) {
-      const parsedUser: User = JSON.parse(storedUser)
-      setUser(parsedUser)
-      axios.defaults.headers.common.Authorization = `Bearer ${parsedUser.token}`
+    const storedToken = localStorage.getItem('token')
+
+    if (storedUser && storedToken) {
+      setUser(JSON.parse(storedUser))
+      setToken(storedToken)
+      axios.defaults.headers.common.Authorization = `Bearer ${storedToken}`
     }
     setIsLoading(false)
   }, [])
@@ -41,35 +51,42 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const res = await loginUser(credentials)
       const { token, user: userData } = res.data
-      const newUser: User = {
-        token,
+      const loggedUser: User = {
+        id: userData.id,
         name: userData.name,
         email: userData.email,
+        role: userData.role,
       }
-      setUser(newUser)
+      setUser(loggedUser)
+      setToken(token)
 
+      localStorage.setItem('user', JSON.stringify(loggedUser))
       localStorage.setItem('token', token)
-      localStorage.setItem('user', JSON.stringify(newUser))
+
       axios.defaults.headers.common.Authorization = `Bearer ${token}`
 
       setIsLoading(false)
+      return loggedUser
     } catch (error) {
+      setIsLoading(false)
       console.error(error)
       throw error
     }
   }
-
+  console.log(user)
   const logout = () => {
     setUser(null)
-    localStorage.removeItem('token')
+    setToken(null)
     localStorage.removeItem('user')
+    localStorage.removeItem('token')
+
     delete axios.defaults.headers.common.Authorization
     navigate('/login')
   }
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated: !!user, isLoading, login, logout }}
+      value={{ user, token, isAuthenticated: !!user, isLoading, login, logout }}
     >
       {children}
     </AuthContext.Provider>

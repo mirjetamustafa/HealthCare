@@ -1,8 +1,6 @@
 import Shield from '../../assets/shield.svg?react'
 import Logout from '../../assets/logout.svg?react'
 import Button from '../shared/Button/Button'
-import { Navigate } from 'react-router'
-import { toast } from 'react-toastify'
 import { useAuthContext } from '../../lib/AuthContext'
 
 const AdminHeader = () => {
