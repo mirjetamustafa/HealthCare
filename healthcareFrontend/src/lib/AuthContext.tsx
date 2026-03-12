@@ -11,6 +11,7 @@ interface User {
   patientId?: string
   firstName: string
   lastName: string
+  specialization?: string
 }
 
 interface UserLoginData {
@@ -62,6 +63,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         patientId: userData.patientId,
         firstName: userData.firstName,
         lastName: userData.lastName,
+        specialization: userData.specialization,
       }
       setUser(loggedUser)
       setToken(token)

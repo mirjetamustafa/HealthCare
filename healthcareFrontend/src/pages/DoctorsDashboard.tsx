@@ -10,6 +10,7 @@ import AvailabilityDoctorDashboard from '../components/doctorDashboard/Availabil
 
 const DoctorsDashboard = () => {
   const [activeTab, setActiveTab] = useState('appointments')
+
   return (
     <div className="py-20 bg-gray-50">
       <DoctorHeader />
