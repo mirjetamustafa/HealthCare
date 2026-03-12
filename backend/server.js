@@ -8,6 +8,7 @@ const adminRoutes = require('./routes/admin')
 const userRoutes = require('./routes/user')
 const appointmentRoutes = require('./routes/book_appointment')
 const doctorRoutes = require('./routes/doctorRoutes')
+const patientsRouter = require('./routes/patientRoutes')
 const app = express()
 const PORT = process.env.PORT || 4000
 
@@ -34,6 +35,7 @@ app.use('/api/admin', adminRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/doctors', doctorRoutes)
 app.use('/api/appointments', appointmentRoutes)
+app.use('/api', patientsRouter)
 
 // START SERVER
 
