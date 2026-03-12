@@ -33,6 +33,7 @@ router.post('/register', async (req, res) => {
       password: hashedPassword,
       role: 'patient',
       status: 'Active',
+      patientId: `MED-${new Date().getFullYear()}-${Math.floor(Math.random() * 1000000)}`,
       dateOfBirth,
       contactNumber,
       createdAt: new Date(),
@@ -49,6 +50,7 @@ router.post('/register', async (req, res) => {
         email,
         role: 'patient',
         status: 'Active',
+        patientId: newUser.patientId,
       },
     })
   } catch (err) {
@@ -86,6 +88,8 @@ router.post('/login', async (req, res) => {
         lastName: user.lastName,
         email: user.email,
         role: user.role,
+        patientId: user.patientId,
+        specialization: user.specialization,
       },
     })
   } catch (err) {
@@ -114,6 +118,9 @@ const authMiddleware = async (req, res, next) => {
       id: user._id.toString(),
       role: user.role,
       email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      patientId: user.patientId,
     }
     next()
   } catch (err) {
