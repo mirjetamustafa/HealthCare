@@ -60,12 +60,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body
-    console.log(req.body)
     const db = req.app.get('db')
-
-    if (!email || !password) {
-      return res.status(400).json({ error: 'Email and password are required' })
-    }
 
     const user = await db.collection('users').findOne({ email })
     if (!user) return res.status(401).json({ error: 'Invalid credentials' })
@@ -79,11 +74,16 @@ router.post('/login', async (req, res) => {
       { expiresIn: '7d' },
     )
 
+    // krijon name për patient
+    const displayName = user.name || `${user.firstName ?? ''}`.trim()
+
     res.json({
       token,
       user: {
         id: user._id,
-        name: user.name,
+        name: displayName,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         role: user.role,
       },
