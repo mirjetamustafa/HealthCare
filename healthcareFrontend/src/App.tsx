@@ -19,6 +19,7 @@ import { useEffect, useState } from 'react'
 import type { DoctorResponse } from './api/User/user.types'
 import { deleteDoctor, getDoctors } from './api/User/user'
 import Register from './pages/Register'
+import BookAppointment from './pages/BookAppointment'
 
 function App() {
   const [doctors, setDoctors] = useState<DoctorResponse[]>([])
@@ -135,6 +136,17 @@ function App() {
                 <>
                   <Header role="public" />
                   <HealthAdvice />
+                  <Footer />
+                </>
+              }
+            />
+
+            <Route
+              path="/bookAppointment"
+              element={
+                <>
+                  <Header role="public" />
+                  <BookAppointment />
                   <Footer />
                 </>
               }
