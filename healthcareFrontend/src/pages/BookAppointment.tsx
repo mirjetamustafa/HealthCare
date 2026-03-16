@@ -2,6 +2,10 @@ import { useState } from 'react'
 import SelectDoctor from '../components/bookAppointment/SelectDoctor'
 import ChooseTime from '../components/bookAppointment/ChooseTime'
 import YourDetails from '../components/bookAppointment/YourDetails'
+import Phone from '../assets/phone.svg?react'
+import Clock from '../assets/oclock.svg?react'
+import Location from '../assets/mapPin.svg?react'
+import ShieldTick from '../assets/shieldTick.svg?react'
 
 const BookAppointment = () => {
   const [step, setStep] = useState(1)
@@ -18,7 +22,7 @@ const BookAppointment = () => {
         </p>
       </div>
 
-      <div className="flex flex-col-1 md:flex-col-2 gap-9 justify-center bg-gray-50 p-9 md:p-30">
+      <div className="flex flex-col-1 md:flex-col-2 gap-9 justify-center items-start bg-gray-50 p-9 md:p-30">
         <div className="p-6 bg-white shadow rounded-xl w-full">
           <div className="flex items-center justify-between mb-8 p-5">
             <div className="">
@@ -69,7 +73,61 @@ const BookAppointment = () => {
 
           {step === 3 && <YourDetails setStep={setStep} />}
         </div>
-        <div className="bg-gray-100 w-150">hello</div>
+        <div className="w-150">
+          <div className="bg-white rounded-xl shadow-xs p-5">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Need help?
+            </h3>
+            <p className="flex items-center gap-2">
+              <Phone className="w-5 h-5 text-teal-600" />
+              <span className="text-gray-600">(123) 456-789</span>
+            </p>
+
+            <p className="flex items-start gap-2 mt-5">
+              <Clock className="w-5 h-5 text-teal-600 mt-1" />
+              <span className="text-gray-600">
+                Mon - Fri: 8:00 AM - 8:00 PM <br /> Sat: 9:00 AM - 5:00 PM{' '}
+                <br /> Sun: Emergency Only
+              </span>
+            </p>
+
+            <p className="flex items-start gap-2 mt-5">
+              <Location className="w-5 h-5 text-teal-600 mt-1" />
+              <span className="text-gray-600">
+                123 Medical Center Drive <br />
+                Healthcare City, HC 12345
+              </span>
+            </p>
+          </div>
+
+          <div className="bg-white border border-blue-200 rounded-xl shadow-xs mt-5 p-5">
+            <div className="flex items-start gap-2">
+              <ShieldTick className="w-10 h-5 mt-1 text-[#0066CC]" />
+              <div className="">
+                <h3 className="text-gray-900 font-semibold text-lg mb-1">
+                  Secure Booking
+                </h3>
+                <p className="text-sm text-gray-600 pr-12">
+                  Your personal information is encrypted and secure. We'll send
+                  confirmation via email and SMS.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-xs p-5 mt-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              What to Bring
+            </h3>
+
+            <ul className="list-disc marker:text-teal-500 pl-5 text-gray-600 text-sm space-y-2">
+              <li>Valid photo ID</li>
+              <li>Insurance card (if applicable)</li>
+              <li>List of current medications</li>
+              <li>Previous medical records</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   )
