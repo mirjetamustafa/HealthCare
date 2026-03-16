@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import Select from '../components/shared/Select/Select'
-import { departament } from '../components/shared/categories'
-import Button from '../components/shared/Button/Button'
+import SelectDoctor from '../components/bookAppointment/SelectDoctor'
+import ChooseTime from '../components/bookAppointment/ChooseTime'
+import YourDetails from '../components/bookAppointment/YourDetails'
 
 const BookAppointment = () => {
   const [step, setStep] = useState(1)
@@ -63,20 +63,11 @@ const BookAppointment = () => {
             </div>
           </div>
 
-          {step === 1 && (
-            <div className="">
-              <Select label="Department" options={departament} />
+          {step === 1 && <SelectDoctor setStep={setStep} />}
 
-              <Select label="Doctor" options={departament} />
-              <Button
-                variant="active"
-                className="w-full"
-                onClick={() => setStep(2)}
-              >
-                Continue
-              </Button>
-            </div>
-          )}
+          {step === 2 && <ChooseTime setStep={setStep} />}
+
+          {step === 3 && <YourDetails setStep={setStep} />}
         </div>
         <div className="bg-gray-100 w-150">hello</div>
       </div>
