@@ -32,13 +32,6 @@ export const getDoctors = (): any => {
   })
 }
 
-export const getPatients = (): any => {
-  return apiRequest({
-    url: '/api/patients',
-    method: 'GET',
-  })
-}
-
 export const updateDoctors = (_id: string, updateData: any): any => {
   return apiRequest({
     url: `/api/admin/${_id}`,
@@ -50,6 +43,22 @@ export const updateDoctors = (_id: string, updateData: any): any => {
 export const deleteDoctor = (_id: string) => {
   return apiRequest({
     url: `/api/admin/${_id}`,
+    method: 'DELETE',
+  })
+}
+
+// Patient
+
+export const getPatients = (): any => {
+  return apiRequest({
+    url: '/api/patients',
+    method: 'GET',
+  })
+}
+
+export const deletePatient = (_id: string) => {
+  return apiRequest({
+    url: `/api/patients/${_id}`,
     method: 'DELETE',
   })
 }

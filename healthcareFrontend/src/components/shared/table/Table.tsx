@@ -13,9 +13,10 @@ import type { PatientResponse } from '../../../api/User/user.types'
 
 interface Props {
   patients: PatientResponse[]
+  handleDelete: (id: string) => void
 }
 
-const Table = ({ patients }: Props) => {
+const Table = ({ patients, handleDelete }: Props) => {
   return (
     <div className="bg-white overflow-auto md:overflow-hidden last:rounded-b-2xl">
       <table className="w-full text-sm text-left">
@@ -63,7 +64,10 @@ const Table = ({ patients }: Props) => {
               <td className="px-6 py-4">
                 <div className="flex gap-3 text-gray-500">
                   <Pencil className="w-4 h-4 cursor-pointer hover:text-blue-600" />
-                  <Trash className="w-4 h-4 cursor-pointer hover:text-blue-600" />
+                  <Trash
+                    className="w-4 h-4 cursor-pointer hover:text-blue-600"
+                    onClick={() => handleDelete(patient._id)}
+                  />
                 </div>
               </td>
             </tr>

@@ -30,9 +30,10 @@ import type { PatientResponse } from '../../api/User/user.types'
 
 interface PatentsProps {
   patients: PatientResponse[]
+  handleDelete: (id: string) => void
 }
 
-const Patients = ({ patients }: PatentsProps) => {
+const Patients = ({ patients, handleDelete }: PatentsProps) => {
   return (
     <div className="py-5 md:py-13 px-5 md:px-20">
       <div className="flex flex-col md:flex-row justify-between items-center gap-5">
@@ -52,7 +53,7 @@ const Patients = ({ patients }: PatentsProps) => {
         </div>
       </div>
       <div className="mt-9">
-        <Table patients={patients} />
+        <Table patients={patients} handleDelete={handleDelete} />
       </div>
     </div>
   )

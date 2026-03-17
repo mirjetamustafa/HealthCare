@@ -14,7 +14,8 @@ import {
   type PatientResponse,
   type DoctorResponse,
 } from '../api/User/user.types'
-import { getPatients } from '../api/User/user'
+import { deletePatient, getPatients } from '../api/User/user'
+import { toast } from 'react-toastify'
 
 interface AdminDashboardProps {
   doctors: DoctorResponse[]
@@ -48,6 +49,17 @@ const AdminDashboard = ({
   useEffect(() => {
     fetchPatients()
   }, [])
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deletePatient(id)
+      toast.success('Patient deleted successfully')
+      fetchPatients()
+    } catch (error) {
+      toast.error('Failed to delete patient')
+      console.error(error)
+    }
+  }
 
   return (
     <div className="py-20 bg-gray-50">
@@ -97,7 +109,7 @@ const AdminDashboard = ({
         {activeTab === 'patientsDashboard' && (
           <div>
             {' '}
-            <Patients patients={patients} />{' '}
+            <Patients patients={patients} handleDelete={handleDelete} />{' '}
           </div>
         )}
         {activeTab === 'doctorsDashboard' && (
