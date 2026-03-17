@@ -48,6 +48,8 @@ const SelectDoctor = ({ setStep, doctors }: SelectDoctorProps) => {
     setSelectedDoctor('')
   }, [selectedDepartment])
 
+  const doctor = filteredDoctors.find((d) => d._id === selectedDoctor)
+
   return (
     <div className="">
       <Select
@@ -69,11 +71,28 @@ const SelectDoctor = ({ setStep, doctors }: SelectDoctorProps) => {
         }))}
         disabled={filteredDoctors.length === 0}
       />
+      {doctor && (
+        <div className="border border-gray-200 rounded-xl p-5 my-5">
+          <div className="flex items-center gap-3">
+            <img
+              src={doctor.img}
+              alt={getUserDisplayName(doctor)}
+              className="w-12 h-12 rounded-full object-cover"
+            />
+            <div className="">
+              <h3 className="font-semibold">{getUserDisplayName(doctor)}</h3>
+              <p className="text-[#0066CC]"> {doctor.specialization} </p>
+              <p className="text-gray-500 text-sm"> {doctor.schedule} </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Button
         variant="active"
         className="w-full"
         onClick={() => setStep(2)}
-        disabled={filteredDoctors.length === 0}
+        disabled={selectedDoctor.length === 0}
       >
         Continue
       </Button>
