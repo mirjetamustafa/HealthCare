@@ -1,5 +1,7 @@
 const express = require('express')
 const { ObjectId } = require('mongodb')
+const { authMiddleware } = require('./auth')
+const adminMiddleware = require('../middleware/adminMiddleware')
 
 const router = express.Router()
 
@@ -45,5 +47,32 @@ router.get('/patients/:id', async (req, res) => {
     res.status(500).json({ error: err.message })
   }
 })
+
+// DELETE Patient (admin only)
+
+router.delete(
+  '/patients/:id',
+  authMiddleware,
+  adminMiddleware,
+  async (req, res) => {
+    try {
+      const db = req.app.get('db')
+      const { id } = req.params
+
+      const result = await db.collection('users').deleteOne({
+        _id: new ObjectId(id),
+        role: 'patient',
+      })
+
+      if (result.deletedCount === 0) {
+        return res.status(404).json({ error: 'Patient not found' })
+      }
+
+      res.json({ message: 'Patient deleted successfully' })
+    } catch (err) {
+      res.status(500).json({ error: err.message })
+    }
+  },
+)
 
 module.exports = router

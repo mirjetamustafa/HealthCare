@@ -23,6 +23,7 @@ appointmentRoutes.post('/', async (req, res) => {
       departament,
       doctor,
       date,
+      time,
       firstName,
       lastName,
       email,
@@ -35,11 +36,11 @@ appointmentRoutes.post('/', async (req, res) => {
     if (!departament) errors.push('Departament is required')
     if (!doctor) errors.push('Doctor is required')
     if (!date) errors.push('Date is required')
+    if (!time) errors.push('Time is required')
     if (!firstName) errors.push('Name is required')
     if (!lastName) errors.push('Lastname is required')
     if (!email) errors.push('Email is required')
     if (!phoneNumber) errors.push('Phone Number is required')
-    if (!reasonForVisit) errors.push('Reason for visit is required')
 
     if (errors.length > 0) {
       return res.status(400).json({ message: 'Validation failed', errors })
@@ -50,20 +51,22 @@ appointmentRoutes.post('/', async (req, res) => {
       departament,
       doctor,
       date,
+      time,
       firstName,
       lastName,
       email,
       phoneNumber,
       reasonForVisit,
+      createdAt: new Date(),
     }
 
-    const result = await db.collection('appointment').insertOne(newAppointment)
+    const result = await db.collection('appointments').insertOne(newAppointment)
 
     // Send the newly created task back
     res.status(201).json({ ...newAppointment, _id: result.insertedId })
   } catch (error) {
     console.error('Error creating appointment:', error)
-    res.status(500).json({ message: 'Faied to create appointment' })
+    res.status(500).json({ message: 'Failed to create appointment' })
   }
 })
 
@@ -102,7 +105,7 @@ appointmentRoutes.put('/:id', async (req, res) => {
       },
     )
 
-    if (result.matchCount === 0) {
+    if (result.matchedCount === 0) {
       return res.status(404).json({ message: 'Appointment not found' })
     }
     res.json({ message: 'Appointment updated successfully' })
