@@ -2,6 +2,7 @@ type ButtonProps = {
   children: React.ReactNode
   onClick?: () => void
   type?: 'button' | 'submit'
+  disabled?: boolean
   variant: 'default' | 'active' | 'icon' | 'book' | 'register' | 'tab'
   className?: string
 }
@@ -9,6 +10,7 @@ type ButtonProps = {
 const Button = ({
   children,
   type,
+  disabled,
   variant,
   className = '',
   onClick,
@@ -27,7 +29,10 @@ const Button = ({
     <button
       type={type}
       onClick={onClick}
-      className={`${variants[variant]} ${className} cursor-pointer p-2 rounded-md font-semibold`}
+      disabled={disabled}
+      className={`${variants[variant]}  ${
+        disabled ? 'opacity-50 cursor-not-allowed' : ''
+      } ${className} cursor-pointer p-2 rounded-md font-semibold`}
     >
       {children}
     </button>

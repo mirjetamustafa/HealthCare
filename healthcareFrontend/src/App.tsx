@@ -146,7 +146,7 @@ function App() {
               element={
                 <>
                   <Header role="public" />
-                  <BookAppointment />
+                  <BookAppointment doctors={doctors} />
                   <Footer />
                 </>
               }

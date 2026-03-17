@@ -6,8 +6,13 @@ import Phone from '../assets/phone.svg?react'
 import Clock from '../assets/oclock.svg?react'
 import Location from '../assets/mapPin.svg?react'
 import ShieldTick from '../assets/shieldTick.svg?react'
+import type { DoctorResponse } from '../api/User/user.types'
 
-const BookAppointment = () => {
+interface BookAppointmentProps {
+  doctors: DoctorResponse[]
+}
+
+const BookAppointment = ({ doctors }: BookAppointmentProps) => {
   const [step, setStep] = useState(1)
 
   return (
@@ -67,7 +72,7 @@ const BookAppointment = () => {
             </div>
           </div>
 
-          {step === 1 && <SelectDoctor setStep={setStep} />}
+          {step === 1 && <SelectDoctor setStep={setStep} doctors={doctors} />}
 
           {step === 2 && <ChooseTime setStep={setStep} />}
 

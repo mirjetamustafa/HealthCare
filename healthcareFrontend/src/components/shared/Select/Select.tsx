@@ -7,9 +7,10 @@ type SelectProps = {
   label?: string
   value: string
   name: string
-  onChange: React.ChangeEventHandler<HTMLSelectElement>
+  onChange: (value: string) => void
   options: Option[]
   error?: string
+  disabled?: boolean
   labelPosition?: 'block' | 'inline'
 }
 
@@ -20,6 +21,7 @@ const Select = ({
   onChange,
   options,
   error,
+  disabled,
   labelPosition = 'block',
 }: SelectProps) => {
   const id = name
@@ -44,11 +46,12 @@ const Select = ({
         id={id}
         value={value}
         name={name}
-        onChange={onChange}
-        className={`w-full p-2 border text-xs rounded-md bg-white outline-none focus:ring-1 focus:ring-blue-300 ${error ? 'border-red-500' : 'border-gray-200'}`}
+        onChange={(e) => onChange(e.target.value)}
+        disabled={disabled}
+        className={`w-full p-2 border text-xs rounded-md bg-white outline-none focus:ring-1 focus:ring-blue-300 ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}  ${error ? 'border-red-500' : 'border-gray-200'}`}
       >
         <option value="" key="placeholder" disabled>
-          Select Category
+          {label ? `Select ${label}` : 'Select option'}
         </option>
         {options.map((option, index) => (
           <option
