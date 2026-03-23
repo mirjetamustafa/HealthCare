@@ -4,12 +4,22 @@ import User from '../../assets/user.svg?react'
 import Calendar from '../../assets/calendar.svg?react'
 import Clock from '../../assets/oclock.svg?react'
 import Button from '../shared/Button/Button'
+import type { AppointmentInput } from '../../api/BookAppointment/bookAppointment.types'
+import { getUserDisplayName } from '../../utils/userHelpers'
 
 interface YourDetailsProps {
-  setStep: () => void
+  setStep: (step: number) => void
+  appointmentData: AppointmentInput
+  setAppointmentData: React.Dispatch<React.SetStateAction<AppointmentInput>>
+  handleSubmit: () => void
 }
 
-const YourDetails = ({ setStep }: YourDetailsProps) => {
+const YourDetails = ({
+  setStep,
+  appointmentData,
+  setAppointmentData,
+  handleSubmit,
+}: YourDetailsProps) => {
   return (
     <div>
       <form>
@@ -19,12 +29,26 @@ const YourDetails = ({ setStep }: YourDetailsProps) => {
             name="firstName"
             type="text"
             placeholder="John"
+            value={appointmentData.firstName}
+            onChange={(e) =>
+              setAppointmentData((prev) => ({
+                ...prev,
+                firstName: e.target.value,
+              }))
+            }
           />
           <Input
             label="Last Name"
             name="lastName"
             type="text"
             placeholder="Doe"
+            value={appointmentData.lastName}
+            onChange={(e) =>
+              setAppointmentData((prev) => ({
+                ...prev,
+                lastName: e.target.value,
+              }))
+            }
           />
         </div>
 
@@ -33,19 +57,40 @@ const YourDetails = ({ setStep }: YourDetailsProps) => {
           name="email"
           type="email"
           placeholder="johndoe@example.com"
+          value={appointmentData.email}
+          onChange={(e) =>
+            setAppointmentData((prev) => ({
+              ...prev,
+              email: e.target.value,
+            }))
+          }
         />
 
         <Input
           label="Phone Number"
-          name="contactNumber"
+          name="phoneNumber"
           type="text"
           placeholder="(123) 44 456 789"
+          value={appointmentData.phoneNumber}
+          onChange={(e) =>
+            setAppointmentData((prev) => ({
+              ...prev,
+              phoneNumber: e.target.value,
+            }))
+          }
         />
 
         <Textarea
           label="Reason for visit"
           placeholder="Berifly describe your symptoms or reason for the appointment"
           rows={5}
+          value={appointmentData.reasonForVisit}
+          onChange={(e) =>
+            setAppointmentData((prev) => ({
+              ...prev,
+              reasonForVisit: e.target.value,
+            }))
+          }
         />
         <p className="text-xs text-gray-500 -mt-3">
           Optional but helps the doctor prepare
@@ -57,17 +102,29 @@ const YourDetails = ({ setStep }: YourDetailsProps) => {
         </h4>
         <p className="flex items-center gap-2 text-sm">
           <User className="w-4 h-4 text-teal-500" />
-          <span className="text-gray-600">Dr. Michael Chen</span>
+          <span className="text-gray-600">
+            {' '}
+            {getUserDisplayName(appointmentData.doctor)}{' '}
+          </span>
         </p>
 
         <p className="flex items-center gap-2 text-sm mt-2">
           <Calendar className="w-4 h-4 text-teal-500" />
-          <span className="text-gray-600">Thursday, March 19, 2026</span>
+          <span className="text-gray-600">
+            {appointmentData.date
+              ? new Date(appointmentData.date).toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })
+              : 'No date selected'}
+          </span>
         </p>
 
         <p className="flex items-center gap-2 text-sm mt-2">
           <Clock className="w-4 h-4 text-teal-500" />
-          <span className="text-gray-600">9:00 AM</span>
+          <span className="text-gray-600">{appointmentData.time}</span>
         </p>
       </div>
 
@@ -75,7 +132,7 @@ const YourDetails = ({ setStep }: YourDetailsProps) => {
         <Button onClick={() => setStep(2)} variant="default" className="w-full">
           Back
         </Button>
-        <Button variant="active" className="w-full">
+        <Button variant="active" onClick={handleSubmit} className="w-full">
           Confirm Booking
         </Button>
       </div>

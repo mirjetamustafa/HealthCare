@@ -1,7 +1,7 @@
 import { apiRequest } from '../Api'
 import type { DoctorRegisterInput, LoginInput } from './user.types'
 
-export const loginUser = (credentials: LoginInput): any => {
+export const loginUser = async (credentials: LoginInput): any => {
   return apiRequest({
     url: '/api/auth/login',
     method: 'POST',
@@ -9,7 +9,7 @@ export const loginUser = (credentials: LoginInput): any => {
   })
 }
 
-export const patientRegister = (data: any): any => {
+export const patientRegister = async (data: any): any => {
   return apiRequest({
     url: '/api/auth/register',
     method: 'POST',
@@ -17,7 +17,7 @@ export const patientRegister = (data: any): any => {
   })
 }
 
-export const doctorRegister = (data: DoctorRegisterInput): any => {
+export const doctorRegister = async (data: DoctorRegisterInput): any => {
   return apiRequest({
     url: '/api/admin/create-doctor',
     method: 'POST',
@@ -25,14 +25,14 @@ export const doctorRegister = (data: DoctorRegisterInput): any => {
   })
 }
 
-export const getDoctors = (): any => {
+export const getDoctors = async (): any => {
   return apiRequest({
     url: '/api/doctors',
     method: 'GET',
   })
 }
 
-export const updateDoctors = (_id: string, updateData: any): any => {
+export const updateDoctors = async (_id: string, updateData: any): any => {
   return apiRequest({
     url: `/api/admin/${_id}`,
     method: 'PUT',
@@ -40,7 +40,7 @@ export const updateDoctors = (_id: string, updateData: any): any => {
   })
 }
 
-export const deleteDoctor = (_id: string) => {
+export const deleteDoctor = async (_id: string) => {
   return apiRequest({
     url: `/api/admin/${_id}`,
     method: 'DELETE',
@@ -49,14 +49,14 @@ export const deleteDoctor = (_id: string) => {
 
 // Patient
 
-export const getPatients = (): any => {
+export const getPatients = async (): any => {
   return apiRequest({
     url: '/api/patients',
     method: 'GET',
   })
 }
 
-export const deletePatient = (_id: string) => {
+export const deletePatient = async (_id: string) => {
   return apiRequest({
     url: `/api/patients/${_id}`,
     method: 'DELETE',

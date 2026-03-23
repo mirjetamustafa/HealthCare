@@ -7,13 +7,40 @@ import Clock from '../assets/oclock.svg?react'
 import Location from '../assets/mapPin.svg?react'
 import ShieldTick from '../assets/shieldTick.svg?react'
 import type { DoctorResponse } from '../api/User/user.types'
+import { createAppointment } from '../api/BookAppointment/bookAppointment.client'
+import { toast } from 'react-toastify'
 
 interface BookAppointmentProps {
   doctors: DoctorResponse[]
 }
 
+const initialData = {
+  department: '',
+  doctor: '',
+  date: '',
+  time: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  phoneNumber: '',
+  reasonForVisit: '',
+}
+
 const BookAppointment = ({ doctors }: BookAppointmentProps) => {
   const [step, setStep] = useState(1)
+  const [appointmentData, setAppointmentData] = useState(initialData)
+
+  const handleSubmit = async () => {
+    try {
+      const res = await createAppointment(appointmentData)
+      toast.success('Appointment booked successfully!')
+      setStep(1)
+      setAppointmentData(initialData)
+    } catch (error) {
+      console.error('Error:', error)
+      toast.error('Something went wrong')
+    }
+  }
 
   return (
     <section className="">
@@ -72,11 +99,31 @@ const BookAppointment = ({ doctors }: BookAppointmentProps) => {
             </div>
           </div>
 
-          {step === 1 && <SelectDoctor setStep={setStep} doctors={doctors} />}
+          {step === 1 && (
+            <SelectDoctor
+              setStep={setStep}
+              doctors={doctors}
+              appointmentData={appointmentData}
+              setAppointmentData={setAppointmentData}
+            />
+          )}
 
-          {step === 2 && <ChooseTime setStep={setStep} />}
+          {step === 2 && (
+            <ChooseTime
+              setStep={setStep}
+              appointmentData={appointmentData}
+              setAppointmentData={setAppointmentData}
+            />
+          )}
 
-          {step === 3 && <YourDetails setStep={setStep} />}
+          {step === 3 && (
+            <YourDetails
+              setStep={setStep}
+              appointmentData={appointmentData}
+              setAppointmentData={setAppointmentData}
+              handleSubmit={handleSubmit}
+            />
+          )}
         </div>
         <div className="w-150">
           <div className="bg-white rounded-xl shadow-xs p-5">

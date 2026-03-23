@@ -4,17 +4,21 @@ import Button from '../shared/Button/Button'
 // import { departament } from '../shared/categories'
 import Select from '../shared/Select/Select'
 import { getUserDisplayName } from '../../utils/userHelpers'
+import type { AppointmentInput } from '../../api/BookAppointment/bookAppointment.types'
 
 interface SelectDoctorProps {
   setStep: (step: number) => void
   doctors: DoctorResponse[]
+  appointmentData: AppointmentInput
+  setAppointmentData: React.Dispatch<React.SetStateAction<AppointmentInput>>
 }
 
-const SelectDoctor = ({ setStep, doctors }: SelectDoctorProps) => {
-  const [selectedDepartment, setSelectedDepartment] = useState('')
-  const [filteredDoctors, setFilteredDoctors] = useState<DoctorResponse[]>([])
-  const [selectedDoctor, setSelectedDoctor] = useState('')
-
+const SelectDoctor = ({
+  setStep,
+  doctors,
+  appointmentData,
+  setAppointmentData,
+}: SelectDoctorProps) => {
   const departments =
     doctors.length > 0
       ? Array.from(
@@ -29,42 +33,41 @@ const SelectDoctor = ({ setStep, doctors }: SelectDoctorProps) => {
         }))
       : []
 
-  useEffect(() => {
-    if (!selectedDepartment) {
-      setFilteredDoctors([])
-      return
-    } else {
-      const filtered = doctors.filter(
-        (doctor) =>
-          doctor.department?.trim().toLowerCase() ===
-          selectedDepartment?.toLowerCase(),
-      )
+  const filteredDoctors = doctors.filter(
+    (doctor) =>
+      doctor.department?.trim().toLowerCase() ===
+      appointmentData.department?.toLowerCase(),
+  )
 
-      setFilteredDoctors(filtered)
-    }
-  }, [selectedDepartment, doctors])
-
-  useEffect(() => {
-    setSelectedDoctor('')
-  }, [selectedDepartment])
-
-  const doctor = filteredDoctors.find((d) => d._id === selectedDoctor)
+  const doctor = appointmentData.doctor || null
 
   return (
     <div className="">
       <Select
         label="Department"
         name="department"
-        value={selectedDepartment}
+        value={appointmentData.department}
         options={departments}
-        onChange={(value) => setSelectedDepartment(value)}
+        onChange={(value) => {
+          setAppointmentData((prev) => ({
+            ...prev,
+            department: value,
+            doctor: null, // when you change department, reset doctor
+          }))
+        }}
       />
 
       <Select
         label="Doctor"
         name="doctor"
-        value={selectedDoctor}
-        onChange={(value) => setSelectedDoctor(value)}
+        value={doctor?._id || ''}
+        onChange={(value) => {
+          const selectedDoctor = filteredDoctors.find((d) => d._id === value)
+          setAppointmentData((prev) => ({
+            ...prev,
+            doctor: selectedDoctor || null,
+          }))
+        }}
         options={filteredDoctors.map((doctor) => ({
           label: getUserDisplayName(doctor),
           value: doctor._id,
@@ -92,7 +95,9 @@ const SelectDoctor = ({ setStep, doctors }: SelectDoctorProps) => {
         variant="active"
         className="w-full"
         onClick={() => setStep(2)}
-        disabled={selectedDoctor.length === 0}
+        disabled={
+          !appointmentData.doctor || appointmentData.doctor.length === 0
+        }
       >
         Continue
       </Button>

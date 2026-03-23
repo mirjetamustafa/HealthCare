@@ -1,14 +1,19 @@
 import { useState } from 'react'
 import Input from '../shared/Input/Input'
 import Button from '../shared/Button/Button'
+import type { AppointmentInput } from '../../api/BookAppointment/bookAppointment.types'
 
 interface ChooseTimeProps {
-  setStep: () => void
+  setStep: (step: number) => void
+  appointmentData: AppointmentInput
+  setAppointmentData: React.Dispatch<React.SetStateAction<AppointmentInput>>
 }
 
-const ChooseTime = ({ setStep }: ChooseTimeProps) => {
-  const [selectedTime, setSelectedTime] = useState<string | null>(null)
-
+const ChooseTime = ({
+  setStep,
+  appointmentData,
+  setAppointmentData,
+}: ChooseTimeProps) => {
   const times = [
     '9:00 AM',
     '9:30 AM',
@@ -25,7 +30,15 @@ const ChooseTime = ({ setStep }: ChooseTimeProps) => {
   ]
   return (
     <div>
-      <Input label="Preferred Date" type="date" require />
+      <Input
+        label="Preferred Date"
+        type="date"
+        required
+        value={appointmentData.date}
+        onChange={(e) =>
+          setAppointmentData((prev) => ({ ...prev, date: e.target.value }))
+        }
+      />
 
       <div className="max-w-3xl mx-auto p-6">
         <h2 className="text-lg font-medium mb-4">Available Time Slots</h2>
@@ -33,8 +46,13 @@ const ChooseTime = ({ setStep }: ChooseTimeProps) => {
           {times.map((time) => (
             <Button
               key={time}
-              onClick={() => setSelectedTime(time)}
-              className={`py-3 rounded-lg font-medium transition ${selectedTime === time ? 'bg-[#0066CC] text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
+              onClick={() => {
+                setAppointmentData((prev) => ({
+                  ...prev,
+                  time: time,
+                }))
+              }}
+              className={`py-3 rounded-lg font-medium transition ${appointmentData.time === time ? 'bg-[#0066CC] text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
             >
               {' '}
               {time}{' '}

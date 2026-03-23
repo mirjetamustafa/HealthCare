@@ -8,7 +8,7 @@ let appointmentRoutes = express.Router()
 appointmentRoutes.get('/', async (req, res) => {
   try {
     const db = database.getDb()
-    const appointment = await db.collection('appointment').find({}).toArray()
+    const appointment = await db.collection('appointments').find({}).toArray()
     res.json(appointment)
   } catch (error) {
     console.error('Error fetching apointment:', error)
@@ -20,7 +20,7 @@ appointmentRoutes.get('/', async (req, res) => {
 appointmentRoutes.post('/', async (req, res) => {
   try {
     const {
-      departament,
+      department,
       doctor,
       date,
       time,
@@ -33,7 +33,7 @@ appointmentRoutes.post('/', async (req, res) => {
 
     // Server-side validation
     const errors = []
-    if (!departament) errors.push('Departament is required')
+    if (!department) errors.push('Departament is required')
     if (!doctor) errors.push('Doctor is required')
     if (!date) errors.push('Date is required')
     if (!time) errors.push('Time is required')
@@ -48,7 +48,7 @@ appointmentRoutes.post('/', async (req, res) => {
 
     const db = database.getDb()
     const newAppointment = {
-      departament,
+      department,
       doctor,
       date,
       time,
@@ -76,7 +76,7 @@ appointmentRoutes.put('/:id', async (req, res) => {
   try {
     const { id } = req.params
     const {
-      departament,
+      department,
       doctor,
       date,
       firstName,
@@ -89,11 +89,11 @@ appointmentRoutes.put('/:id', async (req, res) => {
     // Optional: server-side validation can be added here as well
 
     const db = database.getDb()
-    const result = await db.collection('appointment').updateOne(
+    const result = await db.collection('appointments').updateOne(
       { _id: new ObjectId(id) },
       {
         $set: {
-          departament,
+          department,
           doctor,
           date,
           firstName,
@@ -122,7 +122,7 @@ appointmentRoutes.delete('/:id', async (req, res) => {
     const { id } = req.params
     const db = database.getDb()
     const result = await db
-      .collection('appointment')
+      .collection('appointments')
       .deleteOne({ _id: new ObjectId(id) })
 
     if (result.deletedCount === 0) {
