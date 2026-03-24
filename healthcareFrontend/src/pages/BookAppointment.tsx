@@ -6,42 +6,16 @@ import Phone from '../assets/phone.svg?react'
 import Clock from '../assets/oclock.svg?react'
 import Location from '../assets/mapPin.svg?react'
 import ShieldTick from '../assets/shieldTick.svg?react'
+import { useBookAppointment } from '../components/hook/useBookAppointment'
 import type { DoctorResponse } from '../api/User/user.types'
-import { createAppointment } from '../api/BookAppointment/bookAppointment.client'
-import { toast } from 'react-toastify'
 
 interface BookAppointmentProps {
   doctors: DoctorResponse[]
 }
 
-const initialData = {
-  department: '',
-  doctor: '',
-  date: '',
-  time: '',
-  firstName: '',
-  lastName: '',
-  email: '',
-  phoneNumber: '',
-  reasonForVisit: '',
-}
-
 const BookAppointment = ({ doctors }: BookAppointmentProps) => {
-  const [step, setStep] = useState(1)
-  const [appointmentData, setAppointmentData] = useState(initialData)
-
-  const handleSubmit = async () => {
-    try {
-      const res = await createAppointment(appointmentData)
-      toast.success('Appointment booked successfully!')
-      setStep(1)
-      setAppointmentData(initialData)
-    } catch (error) {
-      console.error('Error:', error)
-      toast.error('Something went wrong')
-    }
-  }
-
+  const { step, setStep, appointmentData, setAppointmentData, handleSubmit } =
+    useBookAppointment()
   return (
     <section className="">
       <div className="flex flex-col justify-center items-center bg-[#0066CC] h-100 text-center gap-4 px-4 py-0 md:pt-20">

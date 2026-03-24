@@ -11,6 +11,7 @@ import Shield from '../../assets/shield.svg?react'
 import Stethoscope from '../../assets/stethoscope.svg?react'
 import User from '../../assets/user.svg?react'
 import ResponsiveHeader from './ResponsiveHeader'
+import { useAuthContext } from '../../lib/AuthContext'
 
 const icons = {
   user: User,
@@ -18,15 +19,25 @@ const icons = {
   stethoscope: Stethoscope,
 }
 
-const Header = ({ role }) => {
-  const roleLinks =
-    role === 'admin'
-      ? adminLinks
-      : role === 'doctor'
-        ? doctorLinks
-        : role === 'patient'
-          ? patientLinks
-          : loginLink
+const Header = () => {
+  const { isAuthenticated, user } = useAuthContext()
+
+  let roleLinks = loginLink
+
+  if (isAuthenticated) {
+    switch (user?.role) {
+      case 'admin':
+        roleLinks = adminLinks
+        break
+      case 'doctor':
+        roleLinks = doctorLinks
+        break
+      case 'patient':
+        roleLinks = patientLinks
+        break
+    }
+  }
+
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-white border-b border-gray-200">
       <div className="hidden md:block">

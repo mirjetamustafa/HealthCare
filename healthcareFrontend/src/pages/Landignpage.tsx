@@ -1,4 +1,3 @@
-import Footer from '../components/footer/Footer'
 import CallUsSection from '../components/landigpage/CallUsSection'
 import HeroMedicalSection from '../components/landigpage/HeroMedicalSection'
 import HeroSection from '../components/landigpage/HeroSection'
@@ -13,7 +12,6 @@ const Landignpage: React.FC = () => {
       <HeroSectionInfo />
       <CallUsSection />
       <ServiceSection />
-      <Footer />
     </main>
   )
 }
