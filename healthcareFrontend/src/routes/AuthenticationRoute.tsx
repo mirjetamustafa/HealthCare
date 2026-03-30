@@ -1,18 +1,17 @@
-import type { ReactNode } from 'react'
 import { useAuthContext } from '../lib/AuthContext'
 import { RouteType } from './Routes'
 import { Navigate, Outlet } from 'react-router-dom'
 
 interface Props {
   routeType: RouteType
-  children: ReactNode
 }
 
-const AutheticationRoute = ({ routeType, children }: Props) => {
+const AuthenticationRoute = ({ routeType }: Props) => {
   const { isAuthenticated, isLoading, user } = useAuthContext()
 
   if (isLoading) return <p>Loading...</p>
 
+  //public routes
   if (routeType === RouteType.PUBLIC && isAuthenticated) {
     const pathname = window.location.pathname
 
@@ -31,10 +30,11 @@ const AutheticationRoute = ({ routeType, children }: Props) => {
     return <Outlet />
   }
 
+  // private routes
   if (routeType === 'private' && !isAuthenticated) {
     return <Navigate to="/login" replace />
   }
   return <Outlet />
 }
 
-export default AutheticationRoute
+export default AuthenticationRoute

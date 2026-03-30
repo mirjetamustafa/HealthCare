@@ -19,7 +19,11 @@ const icons = {
   stethoscope: Stethoscope,
 }
 
-const Header = () => {
+interface HeaderProps {
+  role: 'public' | 'admin' | 'doctor' | 'patient'
+}
+
+const Header: React.FC<HeaderProps> = ({ role }) => {
   const { isAuthenticated, user } = useAuthContext()
 
   let roleLinks = loginLink

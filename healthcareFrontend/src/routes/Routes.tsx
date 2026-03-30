@@ -1,5 +1,4 @@
 import type { RouteObject } from 'react-router-dom'
-import AutheticationRoute from './AuthenticationRoute'
 import Header from '../components/header/Header'
 import Landignpage from '../pages/Landignpage'
 import Footer from '../components/footer/Footer'
@@ -15,6 +14,7 @@ import AdminDashboard from '../pages/AdminDashboard'
 import DoctorsDashboard from '../pages/DoctorsDashboard'
 import Patient from '../pages/Patient'
 import type { DoctorResponse } from '../api/User/user.types'
+import AuthenticationRoute from './AuthenticationRoute'
 
 export enum RouteType {
   PRIVATE = 'private',
@@ -34,7 +34,7 @@ interface Props {
 }
 export const createRoutes = (props: Props): RouteObject[] => [
   {
-    element: <AutheticationRoute routeType={RouteType.PUBLIC} />,
+    element: <AuthenticationRoute routeType={RouteType.PUBLIC} />,
     children: [
       {
         path: '/',
@@ -128,7 +128,7 @@ export const createRoutes = (props: Props): RouteObject[] => [
   },
 
   {
-    element: <AutheticationRoute routeType={RouteType.PRIVATE} />,
+    element: <AuthenticationRoute routeType={RouteType.PRIVATE} />,
     children: [
       {
         path: '/admin',
@@ -143,7 +143,7 @@ export const createRoutes = (props: Props): RouteObject[] => [
               editDoctor={props.editDoctor}
               addDoctor={props.handleCreate}
             />
-            ,
+
             <Footer />
           </>
         ),
