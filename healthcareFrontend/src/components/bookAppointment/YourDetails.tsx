@@ -6,6 +6,7 @@ import Clock from '../../assets/oclock.svg?react'
 import Button from '../shared/Button/Button'
 import type { AppointmentInput } from '../../api/BookAppointment/bookAppointment.types'
 import { getUserDisplayName } from '../../utils/userHelpers'
+import { useBookAppointment } from '../hook/useBookAppointment'
 
 interface YourDetailsProps {
   setStep: (step: number) => void
@@ -20,6 +21,7 @@ const YourDetails = ({
   setAppointmentData,
   handleSubmit,
 }: YourDetailsProps) => {
+  const { isLoggedIn } = useBookAppointment()
   return (
     <div>
       <form>
@@ -51,20 +53,21 @@ const YourDetails = ({
             }
           />
         </div>
-
-        <Input
-          label="Email Address"
-          name="email"
-          type="email"
-          placeholder="johndoe@example.com"
-          value={appointmentData.email}
-          onChange={(e) =>
-            setAppointmentData((prev) => ({
-              ...prev,
-              email: e.target.value,
-            }))
-          }
-        />
+        {!isLoggedIn && (
+          <Input
+            label="Email Address"
+            name="email"
+            type="email"
+            placeholder="johndoe@example.com"
+            value={appointmentData.email}
+            onChange={(e) =>
+              setAppointmentData((prev) => ({
+                ...prev,
+                email: e.target.value,
+              }))
+            }
+          />
+        )}
 
         <Input
           label="Phone Number"
@@ -132,7 +135,12 @@ const YourDetails = ({
         <Button onClick={() => setStep(2)} variant="default" className="w-full">
           Back
         </Button>
-        <Button variant="active" onClick={handleSubmit} className="w-full">
+        <Button
+          variant="active"
+          type="button"
+          onClick={handleSubmit}
+          className="w-full"
+        >
           Confirm Booking
         </Button>
       </div>

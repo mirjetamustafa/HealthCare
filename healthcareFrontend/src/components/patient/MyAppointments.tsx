@@ -1,8 +1,13 @@
 import { Link } from 'react-router'
 import MyAppointmentCard from '../shared/Cards/MyAppointmentCard'
 import Button from '../shared/Button/Button'
+import useMyApointments from '../hook/useMyApointments'
+import { getUserDisplayName } from '../../utils/userHelpers'
 
 const MyAppointments = () => {
+  const { appointments } = useMyApointments()
+  console.log(appointments)
+
   return (
     <div className="py-5 md:py-13 px-5 md:px-20">
       <div className="flex flex-col md:flex-row justify-between gap-5">
@@ -19,31 +24,17 @@ const MyAppointments = () => {
         </Link>
       </div>
 
-      <MyAppointmentCard
-        name="John Smith"
-        category="General Checkup"
-        date="Sunday, January 25, 2026"
-        time="9:00 AM"
-        reason="Annual checkup"
-        status="Completed"
-      />
-
-      <MyAppointmentCard
-        name="Sarah Johnson"
-        category="Follow-up Consultation"
-        date="Sunday, January 25, 2026"
-        time="10:00 AM"
-        reason="Follow-up consultation"
-        status="Upcoming"
-      />
-      <MyAppointmentCard
-        name="Sarah Johnson"
-        category="Routine Checkup"
-        date="Sunday, January 25, 2026"
-        time="10:00 AM"
-        reason="Follow-up consultation"
-        status="Cancelled"
-      />
+      {appointments.map((appointment) => (
+        <MyAppointmentCard
+          key={appointment._id}
+          name={appointment.doctorName}
+          category={appointment.department}
+          date={appointment.date}
+          time={appointment.time}
+          reason={appointment.reasonForVisit}
+          status={appointment.status}
+        />
+      ))}
     </div>
   )
 }

@@ -10,6 +10,7 @@ import MedicalHistory from '../components/patient/MedicalHistory'
 
 const Patient = () => {
   const [activeTab, setActiveTab] = useState('myOverview')
+
   return (
     <div className="py-20 bg-gray-50">
       <PatientHeader />

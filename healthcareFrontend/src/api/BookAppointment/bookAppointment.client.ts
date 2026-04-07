@@ -1,17 +1,41 @@
 import { apiRequest } from '../Api'
-import type {
-  AppointmenResponse,
-  AppointmentInput,
-} from './bookAppointment.types'
 
-export const createAppointment = async (data: AppointmentInput) =>
-  apiRequest<AppointmentInput, AppointmenResponse>({
+export const createAppointment = async (appointmentData: any) => {
+  return await apiRequest({
+    url: '/api/appointments',
     method: 'POST',
-    url: '/api/appointments',
-    data,
+    data: appointmentData,
   })
-export const getAppointments = async () =>
-  apiRequest<undefined, AppointmenResponse>({
+}
+
+export const getAppointments = async () => {
+  return await apiRequest<any, any>({
+    url: 'api/appointments',
     method: 'GET',
-    url: '/api/appointments',
   })
+}
+
+export const getAppointmentById = async (id: string) => {
+  return await apiRequest<any, any>({
+    url: `api/appointments/${id}`,
+    method: 'GET',
+  })
+}
+
+export const updateAppointmentById = async (
+  id: string,
+  appointmentData: any,
+) => {
+  return await apiRequest<any, any>({
+    url: `api/appointments/${id}`,
+    method: 'PUT',
+    data: { appointment: appointmentData },
+  })
+}
+
+export const deleteAppointment = async (id: any) => {
+  return await apiRequest<any, any>({
+    url: `api/appointments/${id}`,
+    method: 'DELETE',
+  })
+}

@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
 import type { DoctorResponse } from '../../api/User/user.types'
 import Button from '../shared/Button/Button'
-// import { departament } from '../shared/categories'
+
 import Select from '../shared/Select/Select'
 import { getUserDisplayName } from '../../utils/userHelpers'
 import type { AppointmentInput } from '../../api/BookAppointment/bookAppointment.types'
@@ -39,7 +38,7 @@ const SelectDoctor = ({
       appointmentData.department?.toLowerCase(),
   )
 
-  const doctor = appointmentData.doctor || null
+  const doctor = filteredDoctors.find((d) => d._id === appointmentData.doctor)
 
   return (
     <div className="">
@@ -52,7 +51,8 @@ const SelectDoctor = ({
           setAppointmentData((prev) => ({
             ...prev,
             department: value,
-            doctor: null, // when you change department, reset doctor
+            doctor: '', // when you change department, reset doctor
+            doctorName: '',
           }))
         }}
       />
@@ -60,18 +60,22 @@ const SelectDoctor = ({
       <Select
         label="Doctor"
         name="doctor"
-        value={doctor?._id || ''}
-        onChange={(value) => {
-          const selectedDoctor = filteredDoctors.find((d) => d._id === value)
-          setAppointmentData((prev) => ({
-            ...prev,
-            doctor: selectedDoctor || null,
-          }))
-        }}
+        value={appointmentData.doctor}
         options={filteredDoctors.map((doctor) => ({
           label: getUserDisplayName(doctor),
           value: doctor._id,
         }))}
+        onChange={(value) => {
+          const selectedDoctor = filteredDoctors.find((d) => d._id === value)
+          console.log('selectedDoctor', selectedDoctor)
+          if (selectedDoctor) {
+            setAppointmentData((prev) => ({
+              ...prev,
+              doctor: selectedDoctor._id, // ID për backend
+              doctorName: selectedDoctor.name,
+            }))
+          }
+        }}
         disabled={filteredDoctors.length === 0}
       />
       {doctor && (
@@ -79,11 +83,11 @@ const SelectDoctor = ({
           <div className="flex items-center gap-3">
             <img
               src={doctor.img}
-              alt={getUserDisplayName(doctor)}
+              alt={doctor.name}
               className="w-12 h-12 rounded-full object-cover"
             />
             <div className="">
-              <h3 className="font-semibold">{getUserDisplayName(doctor)}</h3>
+              <h3 className="font-semibold">{doctor.name}</h3>
               <p className="text-[#0066CC]"> {doctor.specialization} </p>
               <p className="text-gray-500 text-sm"> {doctor.schedule} </p>
             </div>
@@ -95,9 +99,7 @@ const SelectDoctor = ({
         variant="active"
         className="w-full"
         onClick={() => setStep(2)}
-        disabled={
-          !appointmentData.doctor || appointmentData.doctor.length === 0
-        }
+        disabled={!appointmentData.doctor}
       >
         Continue
       </Button>

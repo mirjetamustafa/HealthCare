@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import SelectDoctor from '../components/bookAppointment/SelectDoctor'
 import ChooseTime from '../components/bookAppointment/ChooseTime'
 import YourDetails from '../components/bookAppointment/YourDetails'
