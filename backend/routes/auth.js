@@ -2,6 +2,7 @@ const express = require('express')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { ObjectId } = require('mongodb')
+const database = require('../connect')
 
 const router = express.Router()
 
@@ -10,9 +11,9 @@ router.post('/register', async (req, res) => {
   try {
     const { firstName, lastName, email, password, dateOfBirth, contactNumber } =
       req.body
-    const db = req.app.get('db')
+    const db = database.getDb() // ndryshimi kryesor
 
-    // vetem pacientet mund te regjistrohen nga frontend
+    // Vetëm pacientët mund të regjistrohen nga frontend
     if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({
         error: 'First name, last name, email and password are required',
@@ -33,7 +34,9 @@ router.post('/register', async (req, res) => {
       password: hashedPassword,
       role: 'patient',
       status: 'Active',
-      patientId: `MED-${new Date().getFullYear()}-${Math.floor(Math.random() * 1000000)}`,
+      patientId: `MED-${new Date().getFullYear()}-${Math.floor(
+        Math.random() * 1000000,
+      )}`,
       dateOfBirth,
       contactNumber,
       createdAt: new Date(),
@@ -54,7 +57,8 @@ router.post('/register', async (req, res) => {
       },
     })
   } catch (err) {
-    res.status(500).json({ error: err.message })
+    console.error('Error registering patient:', err)
+    res.status(500).json({ error: 'Failed to register patient' })
   }
 })
 
@@ -62,7 +66,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body
-    const db = req.app.get('db')
+    const db = database.getDb() // ndryshimi kryesor
 
     const user = await db.collection('users').findOne({ email })
     if (!user) return res.status(401).json({ error: 'Invalid credentials' })
@@ -76,8 +80,9 @@ router.post('/login', async (req, res) => {
       { expiresIn: '7d' },
     )
 
-    // krijon name për patient
-    const displayName = user.name || `${user.firstName ?? ''}`.trim()
+    // krijon display name për patient ose doctor
+    const displayName =
+      user.name || `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim()
 
     res.json({
       token,
@@ -93,7 +98,8 @@ router.post('/login', async (req, res) => {
       },
     })
   } catch (err) {
-    res.status(500).json({ error: err.message })
+    console.error('Error logging in:', err)
+    res.status(500).json({ error: 'Failed to login' })
   }
 })
 
@@ -107,7 +113,7 @@ const authMiddleware = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
-    const db = req.app.get('db')
+    const db = database.getDb() // ndryshimi kryesor
     const user = await db.collection('users').findOne({
       _id: new ObjectId(decoded.id),
     })
@@ -124,6 +130,7 @@ const authMiddleware = async (req, res, next) => {
     }
     next()
   } catch (err) {
+    console.error('Invalid token:', err)
     return res.status(401).json({ error: 'Invalid token' })
   }
 }

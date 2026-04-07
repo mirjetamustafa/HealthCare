@@ -8,7 +8,7 @@ module.exports = {
   connectToServer: async () => {
     try {
       await client.connect()
-      database = client.db('healthCare') // DB e saktë
+      database = client.db('healthCare') // emri i DB-së
       console.log('Connected to MongoDB Atlas')
     } catch (err) {
       console.error('Failed to connect to MongoDB:', err)

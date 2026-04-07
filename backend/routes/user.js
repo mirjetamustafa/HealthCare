@@ -1,13 +1,14 @@
 const express = require('express')
 const { authMiddleware } = require('./auth')
 const { ObjectId } = require('mongodb')
+const database = require('../connect')
 
 const router = express.Router()
 
 // Get current user
 router.get('/me', authMiddleware, async (req, res) => {
   try {
-    const db = req.app.get('db')
+    const db = database.getDb() // përdorim database.getDb()
 
     const user = await db.collection('users').findOne(
       { _id: new ObjectId(req.user.id) },
@@ -18,7 +19,8 @@ router.get('/me', authMiddleware, async (req, res) => {
 
     res.json(user)
   } catch (err) {
-    res.status(500).json({ error: err.message })
+    console.error('Error fetching current user:', err)
+    res.status(500).json({ error: 'Failed to fetch user' })
   }
 })
 

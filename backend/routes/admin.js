@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs')
 const { authMiddleware } = require('./auth')
 const adminMiddleware = require('../middleware/adminMiddleware')
 const { ObjectId } = require('mongodb')
+const database = require('../connect')
 
 const router = express.Router()
 
@@ -13,6 +14,7 @@ router.post(
   adminMiddleware,
   async (req, res) => {
     try {
+      const db = database.getDb()
       const {
         name,
         email,
@@ -27,8 +29,6 @@ router.post(
         biography,
         img,
       } = req.body
-
-      const db = req.app.get('db')
 
       if (!name || !email || !password) {
         return res
@@ -47,7 +47,7 @@ router.post(
         name,
         email,
         password: hashedPassword,
-        role: 'doctor', // gjithmonë role doctor
+        role: 'doctor',
         specialization,
         department,
         education,
@@ -72,7 +72,8 @@ router.post(
         },
       })
     } catch (err) {
-      res.status(500).json({ error: err.message })
+      console.error('Error creating doctor:', err)
+      res.status(500).json({ error: 'Failed to create doctor' })
     }
   },
 )
@@ -80,11 +81,10 @@ router.post(
 // UPDATE Doctor (admin only)
 router.put('/:id', authMiddleware, adminMiddleware, async (req, res) => {
   try {
-    const db = req.app.get('db')
+    const db = database.getDb()
     const { id } = req.params
     const updateData = req.body
 
-    // Siguro numerik për experience
     if (updateData.yearsOfExperience) {
       updateData.yearsOfExperience = Number(updateData.yearsOfExperience)
     }
@@ -102,14 +102,15 @@ router.put('/:id', authMiddleware, adminMiddleware, async (req, res) => {
 
     res.json({ message: 'Doctor updated successfully' })
   } catch (err) {
-    res.status(500).json({ error: err.message })
+    console.error('Error updating doctor:', err)
+    res.status(500).json({ error: 'Failed to update doctor' })
   }
 })
 
 // DELETE Doctor (admin only)
 router.delete('/:id', authMiddleware, adminMiddleware, async (req, res) => {
   try {
-    const db = req.app.get('db')
+    const db = database.getDb()
     const { id } = req.params
 
     const result = await db.collection('users').deleteOne({
@@ -123,7 +124,8 @@ router.delete('/:id', authMiddleware, adminMiddleware, async (req, res) => {
 
     res.json({ message: 'Doctor deleted successfully' })
   } catch (err) {
-    res.status(500).json({ error: err.message })
+    console.error('Error deleting doctor:', err)
+    res.status(500).json({ error: 'Failed to delete doctor' })
   }
 })
 
