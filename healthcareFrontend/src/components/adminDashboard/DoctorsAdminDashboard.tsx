@@ -6,6 +6,7 @@ import TableDoctor from '../shared/table/TableDoctor'
 import { useState } from 'react'
 import AddDoctor from './AddDoctor'
 import type { DoctorResponse } from '../../api/User/user.types'
+import { useDoctors } from '../hook/useDoctors'
 
 interface AdminDashboardProps {
   doctors: DoctorResponse[]
@@ -16,19 +17,21 @@ interface AdminDashboardProps {
   editDoctor: DoctorResponse | null
 }
 
-const DoctorsAdminDashboard = ({
-  doctors,
-  onDeleteDoctor,
-  fetchDoctors,
-  handleEdit,
-  addDoctor,
-  editDoctor,
-}: AdminDashboardProps) => {
-  const [open, setOpen] = useState(false)
+const DoctorsAdminDashboard = () => {
+  //const [open, setOpen] = useState(false)
+  const {
+    doctors,
+    handleDeleteDoctor,
+    fetchDoctors,
+    handleCreate,
+    handleEdit,
+    editDoctor,
+    open,
+    setOpen,
+  } = useDoctors()
 
   const handleAddClick = () => {
-    addDoctor()
-    setOpen(true)
+    handleCreate()
   }
   return (
     <div className="py-5 md:py-13 px-5 md:px-20">
@@ -62,11 +65,8 @@ const DoctorsAdminDashboard = ({
       <div className="mt-9">
         <TableDoctor
           doctors={doctors}
-          onDeleteDoctor={onDeleteDoctor}
-          handleEdit={(doctor) => {
-            handleEdit(doctor)
-            setOpen(true)
-          }}
+          onDeleteDoctor={handleDeleteDoctor}
+          handleEdit={handleEdit}
         />
       </div>
       <AddDoctor

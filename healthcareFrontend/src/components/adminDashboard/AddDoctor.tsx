@@ -29,7 +29,7 @@ const initialFormData = {
   yearsOfExperience: 0,
   contactNumber: '',
   schedule: '',
-  status,
+  status: '',
   biography: '',
   img: '',
 }
@@ -75,7 +75,7 @@ const AddDoctor = ({
       if (editDoctor) {
         const { _id, ...updateData } = formData
         await updateDoctors(editDoctor._id, updateData)
-        toast.success('Doctor added successfully!')
+        toast.success('Doctor updated successfully!')
       } else {
         await doctorRegister(formData)
         toast.success('Doctor added successfully!')
@@ -89,8 +89,6 @@ const AddDoctor = ({
       console.error('Error adding doctor:', err)
     }
   }
-
-  console.log(formData)
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

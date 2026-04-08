@@ -1,36 +1,12 @@
-import { useState } from 'react'
 import Stethoscope from '../assets/stethoscope.svg?react'
 import Button from '../components/shared/Button/Button'
 import Input from '../components/shared/Input/Input'
 import PasswordField from '../components/shared/PasswordField/PasswordField'
-import { toast } from 'react-toastify'
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuthContext } from '../lib/AuthContext'
-
-const intialForm = {
-  email: '',
-  password: '',
-}
+import { Link } from 'react-router-dom'
+import { useLogin } from '../components/hook/usePatient'
 
 const Login = () => {
-  const [loginData, setLoginData] = useState(intialForm)
-  const { login } = useAuthContext()
-  const navigate = useNavigate()
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    try {
-      const user = await login(loginData)
-
-      if (user.role === 'admin') navigate('/admin')
-      if (user.role === 'doctor') navigate('/doctorDashboard')
-      if (user.role === 'patient') navigate('/patient')
-
-      toast.success('Logged in successfully!')
-    } catch {
-      toast.error('Login failed')
-    }
-  }
+  const { loginData, setLoginData, handleSubmit } = useLogin()
 
   return (
     <div className="flex items-center justify-center py-[100px] bg-gray-50">
@@ -67,15 +43,6 @@ const Login = () => {
             <Button variant="active" type="submit" className="w-full mt-9">
               Sign in
             </Button>
-            {/* <div className="flex items-center justify-center my-8">
-              <div className="flex-grow border-t border-gray-300"></div>
-
-              <span className="mx-4 text-gray-600 text-sm">
-                Demo Credentials
-              </span>
-
-              <div className="flex-grow border-t border-gray-300"></div>
-            </div> */}
 
             <p className="flex justify-center gap-2 mt-5 text-xs">
               Patient only{' '}

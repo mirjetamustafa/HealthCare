@@ -16,6 +16,7 @@ import {
 } from '../api/User/user.types'
 import { deletePatient, getPatients } from '../api/User/user'
 import { toast } from 'react-toastify'
+import { useDoctors } from '../components/hook/useDoctors'
 
 interface AdminDashboardProps {
   doctors: DoctorResponse[]
@@ -26,14 +27,7 @@ interface AdminDashboardProps {
   editDoctor: DoctorResponse | null
 }
 
-const AdminDashboard = ({
-  doctors,
-  onDeleteDoctor,
-  fetchDoctors,
-  handleEdit,
-  addDoctor,
-  editDoctor,
-}: AdminDashboardProps) => {
+const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview')
   const [patients, setPatents] = useState<PatientResponse[]>([])
 
@@ -115,14 +109,7 @@ const AdminDashboard = ({
         {activeTab === 'doctorsDashboard' && (
           <div>
             {' '}
-            <DoctorsAdminDashboard
-              doctors={doctors}
-              onDeleteDoctor={onDeleteDoctor}
-              fetchDoctors={fetchDoctors}
-              handleEdit={handleEdit}
-              addDoctor={addDoctor}
-              editDoctor={editDoctor}
-            />{' '}
+            <DoctorsAdminDashboard />{' '}
           </div>
         )}
         {activeTab === 'appointmentsDashboard' && (

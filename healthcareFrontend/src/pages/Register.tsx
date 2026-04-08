@@ -3,57 +3,10 @@ import Input from '../components/shared/Input/Input'
 import PasswordField from '../components/shared/PasswordField/PasswordField'
 import Stethoscope from '../assets/stethoscope.svg?react'
 import { Link } from 'react-router'
-import React, { useState } from 'react'
-import { toast } from 'react-toastify'
-import { patientRegister } from '../api/User/user'
-
-const initialForm = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  dateOfBirth: '',
-  password: '',
-  confirmPassword: '',
-  contactNumber: '',
-  createdAt: new Date(),
-}
+import { usePatient } from '../components/hook/usePatient'
 
 const Register = () => {
-  const [formData, setFormData] = useState(initialForm)
-
-  const handleChange = (event: any) => {
-    setFormData((prev) => ({
-      ...prev,
-      [event.target.name]: event.target.value,
-    }))
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (formData.password !== formData.confirmPassword) {
-      toast.error("Password don't match")
-      return
-    }
-
-    try {
-      const res = await patientRegister({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        dateOfBirth: formData.dateOfBirth,
-        password: formData.password,
-        confirmPassword: formData.confirmPassword,
-        contactNumber: formData.contactNumber,
-      })
-      toast.success('Registered successfully!')
-      console.log('Registered patient:', res.data)
-      setFormData(initialForm)
-    } catch (err: any) {
-      toast.error('Registration failed')
-      console.error(err)
-    }
-  }
+  const { formData, handleChange, handleSubmit } = usePatient()
 
   return (
     <div className="flex items-center justify-center py-[100px] bg-gray-50">

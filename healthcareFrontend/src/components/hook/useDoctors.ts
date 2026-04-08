@@ -70,6 +70,7 @@ export const useDoctors = () => {
     fetchDoctors,
     handleEdit,
     handleCreate,
+    editDoctor,
     open,
     setOpen,
   }

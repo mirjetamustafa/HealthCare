@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
 import { toast } from 'react-toastify'
-import type { DoctorResponse } from '../../api/User/user.types'
 import type {
   AppointmenResponse,
   AppointmentInput,
