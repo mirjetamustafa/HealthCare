@@ -46,6 +46,43 @@ router.get('/patients/:id', async (req, res) => {
   }
 })
 
+router.put(
+  '/patients/:id',
+  authMiddleware,
+  adminMiddleware,
+  async (req, res) => {
+    try {
+      const db = database.getDb()
+      const { id } = req.params
+      const updateData = { ...req.body } // marrë të dhënat nga frontend
+
+      // mos lejo të modifikohet role ose password nëse nuk ka fushë password
+      delete updateData.role
+      if (!updateData.password) delete updateData.password
+
+      const result = await db
+        .collection('users')
+        .updateOne(
+          { _id: new ObjectId(id), role: 'patient' },
+          { $set: updateData },
+        )
+
+      if (result.matchedCount === 0) {
+        return res.status(404).json({ error: 'Patient not found' })
+      }
+
+      const updatedPatient = await db
+        .collection('users')
+        .findOne({ _id: new ObjectId(id) }, { projection: { password: 0 } })
+
+      res.json(updatedPatient)
+    } catch (err) {
+      console.error('Error updating patient:', err)
+      res.status(500).json({ error: 'Failed to update patient' })
+    }
+  },
+)
+
 // DELETE Patient (admin only)
 router.delete(
   '/patients/:id',
