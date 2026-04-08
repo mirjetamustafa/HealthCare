@@ -62,3 +62,11 @@ export const deletePatient = async (_id: string) => {
     method: 'DELETE',
   })
 }
+
+export const updatePatient = async (_id: string, updateData: any) => {
+  return apiRequest({
+    url: `/api/patients/${_id}`,
+    method: 'PUT',
+    data: updateData,
+  })
+}

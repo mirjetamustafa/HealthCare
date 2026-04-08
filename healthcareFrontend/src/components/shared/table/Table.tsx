@@ -3,20 +3,13 @@ import Pencil from '../../../assets/pencil.svg?react'
 import Trash from '../../../assets/trash.svg?react'
 import type { PatientResponse } from '../../../api/User/user.types'
 
-// export type Patient = {
-//   id: string
-//   name: string
-//   email: string
-//   joinDate: string
-//   status: 'Active' | 'Inactive'
-// }
-
 interface Props {
   patients: PatientResponse[]
   handleDelete: (id: string) => void
+  handleEdit: (patient: PatientResponse) => void
 }
 
-const Table = ({ patients, handleDelete }: Props) => {
+const Table = ({ patients, handleDelete, handleEdit }: Props) => {
   return (
     <div className="bg-white overflow-auto md:overflow-hidden last:rounded-b-2xl">
       <table className="w-full text-sm text-left">
@@ -63,7 +56,10 @@ const Table = ({ patients, handleDelete }: Props) => {
 
               <td className="px-6 py-4">
                 <div className="flex gap-3 text-gray-500">
-                  <Pencil className="w-4 h-4 cursor-pointer hover:text-blue-600" />
+                  <Pencil
+                    className="w-4 h-4 cursor-pointer hover:text-blue-600"
+                    onClick={() => handleEdit(patient)}
+                  />
                   <Trash
                     className="w-4 h-4 cursor-pointer hover:text-blue-600"
                     onClick={() => handleDelete(patient._id)}

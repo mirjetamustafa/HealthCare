@@ -6,7 +6,7 @@ import { Link } from 'react-router'
 import { usePatient } from '../components/hook/usePatient'
 
 const Register = () => {
-  const { formData, handleChange, handleSubmit } = usePatient()
+  const { formData, handleChange, handleSubmit, editPatient } = usePatient()
 
   return (
     <div className="flex items-center justify-center py-[100px] bg-gray-50">
@@ -81,7 +81,7 @@ const Register = () => {
             />
 
             <Button type="submit" variant="active" className="mt-4 w-full">
-              Create Account
+              {editPatient ? 'Update Account' : 'Create Account'}
             </Button>
 
             <p className="flex justify-center mt-5 gap-2 text-xs ">

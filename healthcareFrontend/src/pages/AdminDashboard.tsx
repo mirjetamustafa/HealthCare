@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import AdminHeader from '../components/adminHeader/AdminHeader'
 import Button from '../components/shared/Button/Button'
 import Chart from '../assets/chart.svg?react'
@@ -7,53 +7,34 @@ import Stethoscope from '../assets/stethoscope.svg?react'
 import Calendar from '../assets/calendar.svg?react'
 import Overview from '../components/adminDashboard/Overview'
 import Patients from '../components/adminDashboard/Patients'
-
 import Appointment from '../components/adminDashboard/Appointment'
 import DoctorsAdminDashboard from '../components/adminDashboard/DoctorsAdminDashboard'
-import {
-  type PatientResponse,
-  type DoctorResponse,
-} from '../api/User/user.types'
-import { deletePatient, getPatients } from '../api/User/user'
-import { toast } from 'react-toastify'
-import { useDoctors } from '../components/hook/useDoctors'
+import { usePatient } from '../components/hook/usePatient'
+import Input from '../components/shared/Input/Input'
+import PasswordField from '../components/shared/PasswordField/PasswordField'
 
-interface AdminDashboardProps {
-  doctors: DoctorResponse[]
-  onDeleteDoctor: (id: string) => void
-  fetchDoctors: () => void
-  handleEdit: (doctor: DoctorResponse | null) => void
-  addDoctor: () => void
-  editDoctor: DoctorResponse | null
-}
+// interface AdminDashboardProps {
+//   doctors: DoctorResponse[]
+//   onDeleteDoctor: (id: string) => void
+//   fetchDoctors: () => void
+//   handleEdit: (doctor: DoctorResponse | null) => void
+//   addDoctor: () => void
+//   editDoctor: DoctorResponse | null
+// }
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview')
-  const [patients, setPatents] = useState<PatientResponse[]>([])
-
-  const fetchPatients = async () => {
-    try {
-      const response = await getPatients()
-      setPatents(response.data)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  useEffect(() => {
-    fetchPatients()
-  }, [])
-
-  const handleDelete = async (id: string) => {
-    try {
-      await deletePatient(id)
-      toast.success('Patient deleted successfully')
-      fetchPatients()
-    } catch (error) {
-      toast.error('Failed to delete patient')
-      console.error(error)
-    }
-  }
+  const {
+    patients,
+    editPatient,
+    openPatientModal,
+    handleEditPatient,
+    handleDelete,
+    formData,
+    handleChange,
+    handleSubmit,
+    setOpenPatientModal,
+  } = usePatient()
 
   return (
     <div className="py-20 bg-gray-50">
@@ -103,7 +84,14 @@ const AdminDashboard = () => {
         {activeTab === 'patientsDashboard' && (
           <div>
             {' '}
-            <Patients patients={patients} handleDelete={handleDelete} />{' '}
+            <Patients
+              patients={patients}
+              handleDelete={handleDelete}
+              handleEdit={(patient) => {
+                handleEditPatient(patient)
+                setOpenPatientModal(true)
+              }}
+            />{' '}
           </div>
         )}
         {activeTab === 'doctorsDashboard' && (
@@ -119,6 +107,82 @@ const AdminDashboard = () => {
           </div>
         )}
       </div>
+
+      {openPatientModal && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg w-[500px]">
+            <h2 className="text-xl font-bold mb-4">
+              {editPatient ? 'Edit Patient' : 'Add Patient'}
+            </h2>
+            <form onSubmit={handleSubmit}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <Input
+                  label="First Name"
+                  name="firstName"
+                  type="text"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                />
+                <Input
+                  label="Last Name"
+                  name="lastName"
+                  type="text"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                />
+              </div>
+              <Input
+                label="Email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              <Input
+                label="Date of Birth"
+                name="dateOfBirth"
+                type="date"
+                value={formData.dateOfBirth}
+                onChange={handleChange}
+              />
+
+              <PasswordField
+                name="password"
+                label="Password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <PasswordField
+                name="confirmPassword"
+                label="Confirm Password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
+              <Input
+                label="Phone Number"
+                name="contactNumber"
+                type="text"
+                value={formData.contactNumber}
+                onChange={handleChange}
+              />
+
+              <div className="flex gap-3 mt-4">
+                <Button type="submit" variant="active" className="flex-1">
+                  {editPatient ? 'Update' : 'Create'}
+                </Button>
+                <Button
+                  type="button"
+                  variant="default"
+                  className="flex-1"
+                  onClick={() => setOpenPatientModal(false)}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

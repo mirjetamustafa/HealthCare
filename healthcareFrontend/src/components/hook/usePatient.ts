@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { patientRegister } from '../../api/User/user'
+import {
+  deletePatient,
+  getPatients,
+  patientRegister,
+  updatePatient,
+} from '../../api/User/user'
 import { useNavigate } from 'react-router'
 import { useAuthContext } from '../../lib/AuthContext'
+import type { PatientResponse } from '../../api/User/user.types'
 
 // Register patient
 const initialForm = {
@@ -18,7 +24,56 @@ const initialForm = {
 
 export const usePatient = () => {
   const [formData, setFormData] = useState(initialForm)
+  const [patients, setPatents] = useState<PatientResponse[]>([])
+  const [editPatient, setEditPatient] = useState<PatientResponse | null>(null)
+  const [openPatientModal, setOpenPatientModal] = useState(false)
 
+  // fetch patients
+  const fetchPatients = async () => {
+    try {
+      const response = await getPatients()
+      setPatents(response.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchPatients()
+  }, [])
+
+  // delete patient
+  const handleDelete = async (id: string) => {
+    try {
+      await deletePatient(id)
+      toast.success('Patient deleted successfully')
+      fetchPatients()
+    } catch (error) {
+      toast.error('Failed to delete patient')
+      console.error(error)
+    }
+  }
+
+  const handleEditPatient = (patient: PatientResponse) => {
+    setEditPatient(patient)
+    setOpenPatientModal(true)
+  }
+
+  // sync formData with editPatient when it changes
+
+  useEffect(() => {
+    if (editPatient) {
+      setFormData({
+        ...editPatient,
+        password: '',
+        confirmPassword: '',
+      })
+    } else {
+      setFormData(initialForm)
+    }
+  }, [editPatient])
+
+  // handle form change
   const handleChange = (event: any) => {
     setFormData((prev) => ({
       ...prev,
@@ -26,34 +81,49 @@ export const usePatient = () => {
     }))
   }
 
+  // submit form
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (formData.password !== formData.confirmPassword) {
+    if (!editPatient && formData.password !== formData.confirmPassword) {
       toast.error("Password don't match")
       return
     }
 
     try {
-      const res = await patientRegister({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        dateOfBirth: formData.dateOfBirth,
-        password: formData.password,
-        confirmPassword: formData.confirmPassword,
-        contactNumber: formData.contactNumber,
-      })
-      toast.success('Registered successfully!')
-      console.log('Registered patient:', res.data)
+      if (editPatient) {
+        // update
+        const { _id, ...updateData } = formData
+        await updatePatient(editPatient._id, updateData)
+        toast.success('Patient updated successfully!')
+      } else {
+        // register
+        await patientRegister(formData)
+        toast.success('Registered successfully!')
+      }
       setFormData(initialForm)
+      setEditPatient(null)
+      setOpenPatientModal(false)
+      fetchPatients()
     } catch (err: any) {
       toast.error('Registration failed')
       console.error(err)
     }
   }
 
-  return { formData, handleChange, handleSubmit }
+  return {
+    formData,
+    handleChange,
+    handleSubmit,
+    patients,
+    fetchPatients,
+    editPatient,
+    setEditPatient,
+    openPatientModal,
+    handleEditPatient,
+    handleDelete,
+    setOpenPatientModal,
+  }
 }
 
 // useLogin hook
