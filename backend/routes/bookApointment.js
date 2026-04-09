@@ -100,4 +100,29 @@ router.post('/', async (req, res) => {
   }
 })
 
+router.patch('/:id', async (req, res) => {
+  try {
+    const db = database.getDb()
+    const { id } = req.params
+    const { status } = req.body
+
+    if (!status) {
+      return res.status(400).json({ message: 'Status is required' })
+    }
+
+    const result = await db
+      .collection('appointments')
+      .updateOne({ _id: new ObjectId(id) }, { $set: { status } })
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ message: 'Appointment not found' })
+    }
+
+    res.json({ message: 'Status updated successfully' })
+  } catch (error) {
+    console.error('Error updating appointment status:', error)
+    res.status(500).json({ message: 'Failed to update appointment status' })
+  }
+})
+
 module.exports = router
