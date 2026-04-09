@@ -1,5 +1,6 @@
 import Calendar from '../../../assets/calendar.svg?react'
 import Clock from '../../../assets/oclock.svg?react'
+import { useAppointments } from '../../hook/useAppointments'
 import Button from '../Button/Button'
 
 export type AppointmentStatus = 'Upcoming' | 'Completed' | 'Cancelled'
@@ -12,6 +13,8 @@ type AppointmentCardProps = {
   reason: string
   status: AppointmentStatus
   notes?: string
+  onCancel: (id: string) => void
+  id: string
 }
 
 const MyAppointmentCard = ({
@@ -21,6 +24,8 @@ const MyAppointmentCard = ({
   time,
   reason,
   status,
+  id,
+  onCancel,
 }: AppointmentCardProps) => {
   return (
     <div className=" w-full bg-white rounded-2xl shadow-sm border border-gray-200 p-6  my-6">
@@ -70,7 +75,10 @@ const MyAppointmentCard = ({
                 Reschedule
               </Button>
 
-              <Button className="border border-red-200 text-red-600 text-sm px-5 hover:bg-red-50">
+              <Button
+                onClick={() => onCancel(id)}
+                className="border border-red-200 text-red-600 text-sm px-5 hover:bg-red-50"
+              >
                 Cancel
               </Button>
             </div>

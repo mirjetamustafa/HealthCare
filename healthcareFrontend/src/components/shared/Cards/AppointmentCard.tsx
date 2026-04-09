@@ -4,9 +4,15 @@ import Check from '../../../assets/circleCheckBig.svg?react'
 import Xcircle from '../../../assets/xCircle.svg?react'
 import FileText from '../../../assets/fileText.svg?react'
 
-export type AppointmentStatus = 'Pending' | 'Approved' | 'Cancelled'
+export type AppointmentStatus =
+  | 'Pending'
+  | 'Approved'
+  | 'Cancelled'
+  | 'Upcoming'
+  | 'Completed'
 
 type AppointmentCardProps = {
+  id: string
   name: string
   email: string
   date: string
@@ -14,9 +20,12 @@ type AppointmentCardProps = {
   reason: string
   status: AppointmentStatus
   notes?: string
+  onApprove: (id: string) => void
+  onCancel: (id: string) => void
 }
 
 const AppointmentCard = ({
+  id,
   name,
   email,
   date,
@@ -24,7 +33,13 @@ const AppointmentCard = ({
   reason,
   status,
   notes,
+  onApprove,
+  onCancel,
 }: AppointmentCardProps) => {
+  const isPadding = status === 'Pending' || status === 'Upcoming'
+  const isApproved = status === 'Completed' || status === 'Approved'
+  const isCancelled = status === 'Cancelled'
+
   return (
     <div className=" w-full bg-white rounded-2xl shadow-sm border border-gray-200 p-6  my-6">
       <div className="flex justify-between mb-5">
@@ -50,32 +65,43 @@ const AppointmentCard = ({
         </p>
 
         <div className="flex  items-start gap-3">
-          {status === 'Pending' && (
+          {isPadding && (
             <span className="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">
               Pending
             </span>
           )}
 
-          {status === 'Approved' && (
+          {isApproved && (
             <span className="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
               Approved
             </span>
           )}
 
-          {status === 'Cancelled' && (
+          {isCancelled && (
             <span className="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">
               Cancelled
             </span>
           )}
 
-          {status === 'Pending' && (
+          {isPadding && (
             <div className="flex flex-col gap-2 mt-5 ml-5">
-              <button className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+              <button
+                onClick={() => {
+                  console.log('ID:', id)
+                  onApprove(id)
+                }}
+                className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+              >
                 <Check size={16} />
                 Approve
               </button>
 
-              <button className="border border-gray-200 cursor-pointer px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-50">
+              <button
+                onClick={() => {
+                  onCancel(id)
+                }}
+                className="border border-gray-200 cursor-pointer px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-50"
+              >
                 <Xcircle size={16} />
                 Cancel
               </button>
@@ -87,7 +113,7 @@ const AppointmentCard = ({
             </div>
           )}
 
-          {status === 'Approved' && (
+          {isApproved && (
             <div className="flex justify-items-center gap-4 mt-9 ml-5">
               <button className="border border-gray-200 cursor-pointer px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-50">
                 <FileText size={16} />
@@ -96,7 +122,7 @@ const AppointmentCard = ({
             </div>
           )}
 
-          {status === 'Cancelled' && (
+          {isCancelled && (
             <div className="flex justify-items-center gap-4 mt-9 ml-5">
               <button className="border border-gray-200 cursor-pointer px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-50">
                 <FileText size={16} />

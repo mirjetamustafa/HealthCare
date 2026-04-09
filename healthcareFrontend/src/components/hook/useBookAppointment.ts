@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-
 import { toast } from 'react-toastify'
 import type {
   AppointmenResponse,
@@ -36,13 +35,13 @@ export const useBookAppointment = () => {
     useState<AppointmentInput>(initialData)
   const [appointments, setAppointments] = useState<AppointmenResponse[]>([])
 
-  const userEmail = user?.email || appointmentData.email
+  const userEmail = user?.email || ''
 
-  const fetchApointments = async (email?: string) => {
-    if (!email) return
+  const fetchApointments = async () => {
+    if (!userEmail) return
 
     try {
-      const response = await getAppointment(email)
+      const response = await getAppointment(userEmail)
       setAppointments(response.data)
     } catch (error) {
       console.error('Error fetching appointments:', error)
@@ -50,9 +49,7 @@ export const useBookAppointment = () => {
   }
 
   useEffect(() => {
-    if (userEmail) {
-      fetchApointments(userEmail)
-    }
+    fetchApointments()
   }, [userEmail])
 
   const handleSubmit = async () => {
@@ -79,7 +76,6 @@ export const useBookAppointment = () => {
       doctorName: appointmentData.doctorName,
       doctor: appointmentData.doctor,
     }
-    console.log('payload', payload)
 
     try {
       await createAppointment(payload)
@@ -88,7 +84,7 @@ export const useBookAppointment = () => {
       setAppointmentData(initialData)
 
       //rifetch after submit
-      await fetchApointments(userEmail)
+      await fetchApointments()
     } catch (error) {
       console.error('Error:', error)
 

@@ -81,7 +81,7 @@ const Register = () => {
             />
 
             <Button type="submit" variant="active" className="mt-4 w-full">
-              {editPatient ? 'Update Account' : 'Create Account'}
+              Create Account
             </Button>
 
             <p className="flex justify-center mt-5 gap-2 text-xs ">

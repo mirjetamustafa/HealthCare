@@ -33,6 +33,14 @@ export const updateAppointmentById = async (
   })
 }
 
+export const updateAppointmentStatus = async (id: string, status: any) => {
+  return await apiRequest<any, any>({
+    url: `api/appointments/${id}`,
+    method: 'PATCH',
+    data: { status: status },
+  })
+}
+
 export const deleteAppointment = async (id: any) => {
   return await apiRequest<any, any>({
     url: `api/appointments/${id}`,

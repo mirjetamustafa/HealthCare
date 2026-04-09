@@ -28,6 +28,15 @@ export const updateAppointment = (_id: string, data: AppointmenResponse) => {
   })
 }
 
+// update status
+export const updateAppointmentStatus = (_id: string, status: string) => {
+  return apiRequest({
+    url: `api/appointments/${_id}`,
+    method: 'PATCH',
+    data: { status },
+  })
+}
+
 export const deleteAppointment = (_id: string) => {
   return apiRequest({
     url: `api/appointments/${_id}`,

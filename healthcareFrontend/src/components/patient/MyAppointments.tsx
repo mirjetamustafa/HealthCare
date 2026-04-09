@@ -2,11 +2,12 @@ import { Link } from 'react-router'
 import MyAppointmentCard from '../shared/Cards/MyAppointmentCard'
 import Button from '../shared/Button/Button'
 import useMyApointments from '../hook/useMyApointments'
-import { getUserDisplayName } from '../../utils/userHelpers'
+import { useAppointments } from '../hook/useAppointments'
+import { useBookAppointment } from '../hook/useBookAppointment'
 
 const MyAppointments = () => {
-  const { appointments } = useMyApointments()
-  console.log(appointments)
+  const { appointments } = useBookAppointment()
+  const { handleCancel } = useAppointments()
 
   return (
     <div className="py-5 md:py-13 px-5 md:px-20">
@@ -27,12 +28,14 @@ const MyAppointments = () => {
       {appointments.map((appointment) => (
         <MyAppointmentCard
           key={appointment._id}
+          id={appointment._id}
           name={appointment.doctorName}
           category={appointment.department}
           date={appointment.date}
           time={appointment.time}
           reason={appointment.reasonForVisit}
           status={appointment.status}
+          onCancel={handleCancel}
         />
       ))}
     </div>

@@ -165,6 +165,13 @@ const AdminDashboard = () => {
                 value={formData.contactNumber}
                 onChange={handleChange}
               />
+              <Input
+                label="Status"
+                name="status"
+                type="text"
+                value={formData.status}
+                onChange={handleChange}
+              />
 
               <div className="flex gap-3 mt-4">
                 <Button type="submit" variant="active" className="flex-1">

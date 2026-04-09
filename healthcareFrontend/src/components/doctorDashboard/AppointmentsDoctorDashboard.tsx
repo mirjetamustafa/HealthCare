@@ -1,6 +1,13 @@
+import { useAppointments } from '../hook/useAppointments'
+import { useDoctorAppointments } from '../hook/useDoctorAppointments'
 import AppointmentCard from '../shared/Cards/AppointmentCard'
 
 const AppointmentsDoctorDashboard = () => {
+  const { appointments, fetchAppointments } = useDoctorAppointments()
+
+  const { handleApprove, handleCancel } = useAppointments(fetchAppointments)
+
+  console.log(appointments)
   return (
     <div className="py-5 md:py-13 px-5 md:px-20">
       <div className="">
@@ -10,32 +17,20 @@ const AppointmentsDoctorDashboard = () => {
         </p>
       </div>
       <div className="mt-9">
-        <AppointmentCard
-          name="John Smith"
-          email="john@example.com"
-          date="Sunday, January 25, 2026"
-          time="9:00 AM"
-          reason="Annual checkup"
-          status="Pending"
-        />
-
-        <AppointmentCard
-          name="Sarah Johnson"
-          email="sarah@example.com"
-          date="Sunday, January 25, 2026"
-          time="10:00 AM"
-          reason="Follow-up consultation"
-          status="Approved"
-          notes="Patient recovering well from previous treatment."
-        />
-        <AppointmentCard
-          name="Sarah Johnson"
-          email="sarah@example.com"
-          date="Sunday, January 25, 2026"
-          time="10:00 AM"
-          reason="Follow-up consultation"
-          status="Cancelled"
-        />
+        {appointments.map((appointment) => (
+          <AppointmentCard
+            key={appointment._id}
+            id={appointment._id}
+            name={appointment.firstName + ' ' + appointment.lastName}
+            email={appointment.email}
+            date={appointment.date}
+            time={appointment.time}
+            reason={appointment.reason}
+            status={appointment.status}
+            onApprove={handleApprove}
+            onCancel={handleCancel}
+          />
+        ))}
       </div>
     </div>
   )
