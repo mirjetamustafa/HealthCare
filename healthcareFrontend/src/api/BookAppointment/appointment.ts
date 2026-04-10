@@ -12,11 +12,15 @@ export const createAppointment = (appointment: AppointmentInput) => {
   })
 }
 
-export const getAppointment = (email?: string) => {
+export const getAppointment = (email?: string, doctorEmail?: string) => {
+  const params: Record<string, string> = {}
+  if (email) params.email = email
+  if (doctorEmail) params.doctorEmail = doctorEmail
+
   return apiRequest({
-    url: 'api/appointments',
+    url: '/api/appointments',
     method: 'GET',
-    params: email ? { email } : {},
+    params,
   })
 }
 

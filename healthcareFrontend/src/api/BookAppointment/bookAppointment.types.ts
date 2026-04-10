@@ -1,6 +1,6 @@
 export interface AppointmentInput {
   department: string
-  doctor: string
+  doctorEmail: string
   doctorName: string
   date: string
   time: string
@@ -15,7 +15,7 @@ export interface AppointmentInput {
 export interface AppointmenResponse {
   _id: string
   department: string
-  doctor: string
+  doctorEmail: string
   doctorName: string
   date: string
   time: string
@@ -30,7 +30,7 @@ export interface AppointmenResponse {
 
 export interface UpdateAppointmentInput {
   department?: string
-  doctor?: string
+  doctorEmail?: string
   doctorName: string
   date?: string
   time?: string

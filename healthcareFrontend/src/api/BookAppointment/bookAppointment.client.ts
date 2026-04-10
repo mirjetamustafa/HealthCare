@@ -8,10 +8,15 @@ export const createAppointment = async (appointmentData: any) => {
   })
 }
 
-export const getAppointments = async () => {
+export const getAppointments = async (email?: string, doctorEmail?: string) => {
+  const params: Record<string, string> = {}
+  if (email) params.email = email
+  if (doctorEmail) params.doctorEmail = doctorEmail
+
   return await apiRequest<any, any>({
     url: 'api/appointments',
     method: 'GET',
+    params,
   })
 }
 

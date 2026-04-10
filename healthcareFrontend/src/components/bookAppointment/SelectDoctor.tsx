@@ -34,11 +34,12 @@ const SelectDoctor = ({
 
   const filteredDoctors = doctors.filter(
     (doctor) =>
-      doctor.department?.trim().toLowerCase() ===
-      appointmentData.department?.toLowerCase(),
+      doctor.department?.toLocaleLowerCase() === appointmentData.department,
   )
 
-  const doctor = filteredDoctors.find((d) => d._id === appointmentData.doctor)
+  const doctor = filteredDoctors.find(
+    (d) => d.email === appointmentData.doctorEmail,
+  )
 
   return (
     <div className="">
@@ -51,7 +52,7 @@ const SelectDoctor = ({
           setAppointmentData((prev) => ({
             ...prev,
             department: value,
-            doctor: '', // when you change department, reset doctor
+            doctorEmail: '', // when you change department, reset doctor
             doctorName: '',
           }))
         }}
@@ -60,18 +61,18 @@ const SelectDoctor = ({
       <Select
         label="Doctor"
         name="doctor"
-        value={appointmentData.doctor}
+        value={appointmentData.doctorEmail}
         options={filteredDoctors.map((doctor) => ({
           label: getUserDisplayName(doctor),
-          value: doctor._id,
+          value: doctor.email,
         }))}
         onChange={(value) => {
-          const selectedDoctor = filteredDoctors.find((d) => d._id === value)
-          console.log('selectedDoctor', selectedDoctor)
+          const selectedDoctor = filteredDoctors.find((d) => d.email === value)
+
           if (selectedDoctor) {
             setAppointmentData((prev) => ({
               ...prev,
-              doctor: selectedDoctor._id, // ID për backend
+              doctorEmail: selectedDoctor.email,
               doctorName: selectedDoctor.name,
             }))
           }
@@ -99,7 +100,7 @@ const SelectDoctor = ({
         variant="active"
         className="w-full"
         onClick={() => setStep(2)}
-        disabled={!appointmentData.doctor}
+        disabled={!appointmentData.doctorEmail}
       >
         Continue
       </Button>

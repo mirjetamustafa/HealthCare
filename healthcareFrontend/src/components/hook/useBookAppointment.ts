@@ -16,7 +16,7 @@ import {
 
 const initialData: AppointmentInput = {
   department: '',
-  doctor: '',
+  doctorEmail: '',
   doctorName: '',
   date: '',
   time: '',
@@ -35,7 +35,7 @@ export const useBookAppointment = () => {
     useState<AppointmentInput>(initialData)
   const [appointments, setAppointments] = useState<AppointmenResponse[]>([])
 
-  const userEmail = user?.email || ''
+  const userEmail = user?.email || appointmentData.email
 
   const fetchApointments = async () => {
     if (!userEmail) return
@@ -74,7 +74,7 @@ export const useBookAppointment = () => {
       email: userEmail,
       status: appointmentData.status || 'Upcoming',
       doctorName: appointmentData.doctorName,
-      doctor: appointmentData.doctor,
+      doctorEmail: appointmentData.doctorEmail,
     }
 
     try {
