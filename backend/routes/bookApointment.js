@@ -8,13 +8,18 @@ const router = express.Router()
 router.get('/', async (req, res) => {
   try {
     const db = database.getDb()
-    const { email } = req.query
-    const query = email ? { email } : {}
+    const { email, doctorEmail } = req.query
+
+    const query = {}
+    if (email) query.email = email.toString()
+    if (doctorEmail) query.doctorEmail = doctorEmail.toString()
+
     const appointments = await db
       .collection('appointments')
       .find(query)
       .sort({ createdAt: -1 })
       .toArray()
+
     res.json(appointments)
   } catch (error) {
     console.error('Error fetching appointments:', error)
@@ -26,11 +31,10 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const db = database.getDb()
-    console.log('Body:', req.body)
 
     const {
       department,
-      doctor,
+      doctorEmail,
       doctorName,
       date,
       time,
@@ -45,7 +49,7 @@ router.post('/', async (req, res) => {
     // validation
     const errors = []
     if (!department) errors.push('Department is required')
-    if (!doctor) errors.push('Doctor is required')
+    if (!doctorEmail) errors.push('Doctor Email is required')
     if (!doctorName) errors.push('Doctor name is required')
     if (!date) errors.push('Date is required')
     if (!time) errors.push('Time is required')
@@ -62,8 +66,7 @@ router.post('/', async (req, res) => {
     const existingAppointment = await db.collection('appointments').findOne({
       email,
       department,
-      date,
-      time,
+      doctorEmail,
     })
 
     if (existingAppointment) {
@@ -74,20 +77,19 @@ router.post('/', async (req, res) => {
 
     const newAppointment = {
       department,
-      doctor,
+      doctorEmail: doctorEmail.toString().toLowerCase(),
       doctorName,
       date,
       time,
       firstName,
       lastName,
-      email,
+      email: email.toString().toLowerCase(),
       phoneNumber,
       reasonForVisit: reasonForVisit || '',
       status: status || 'Upcoming',
       createdAt: new Date(),
     }
 
-    console.log('Saving:', newAppointment)
     const result = await db.collection('appointments').insertOne(newAppointment)
 
     res.status(201).json({
