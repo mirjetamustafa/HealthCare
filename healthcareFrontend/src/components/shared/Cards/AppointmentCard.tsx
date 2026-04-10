@@ -22,6 +22,7 @@ type AppointmentCardProps = {
   notes?: string
   onApprove: (id: string) => void
   onCancel: (id: string) => void
+  onComplete: (id: string) => void
 }
 
 const AppointmentCard = ({
@@ -35,10 +36,12 @@ const AppointmentCard = ({
   notes,
   onApprove,
   onCancel,
+  onComplete,
 }: AppointmentCardProps) => {
-  const isPadding = status === 'Pending' || status === 'Upcoming'
-  const isApproved = status === 'Completed' || status === 'Approved'
+  const isPadding = status === 'Pending'
+  const isApproved = status === 'Approved' || status === 'Upcoming'
   const isCancelled = status === 'Cancelled'
+  const isCompleted = status === 'Completed'
 
   return (
     <div className=" w-full bg-white rounded-2xl shadow-sm border border-gray-200 p-6  my-6">
@@ -72,8 +75,14 @@ const AppointmentCard = ({
           )}
 
           {isApproved && (
-            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
               Approved
+            </span>
+          )}
+
+          {isCompleted && (
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+              Completed
             </span>
           )}
 
@@ -114,8 +123,16 @@ const AppointmentCard = ({
           )}
 
           {isApproved && (
-            <div className="flex justify-items-center gap-4 mt-9 ml-5">
-              <button className="border border-gray-200 cursor-pointer px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-50">
+            <div className="justify-items-center gap-4 mt-9 ml-5">
+              <button
+                onClick={() => onComplete(id)}
+                className="bg-green-600 cursor-pointer hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+              >
+                <Check size={16} />
+                Completed
+              </button>
+
+              <button className="border border-gray-200 cursor-pointer mt-3 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-50">
                 <FileText size={16} />
                 Edit Notes
               </button>

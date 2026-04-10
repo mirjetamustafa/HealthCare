@@ -9,7 +9,7 @@ export interface AppointmentInput {
   email: string
   phoneNumber: string
   reasonForVisit?: string
-  status: 'Upcoming' | 'Completed' | 'Cancelled'
+  status: 'Upcoming' | 'Approved' | 'Cancelled' | 'Completed'
 }
 
 export interface AppointmenResponse {
@@ -25,7 +25,7 @@ export interface AppointmenResponse {
   phoneNumber: string
   reasonForVisit?: string
   createdAt: string
-  status: 'Upcoming' | 'Completed' | 'Cancelled'
+  status: 'Upcoming' | 'Approved' | 'Cancelled' | 'Completed'
 }
 
 export interface UpdateAppointmentInput {
@@ -39,5 +39,5 @@ export interface UpdateAppointmentInput {
   email?: string
   phoneNumber?: string
   reasonForVisit?: string
-  status?: 'Upcoming' | 'Completed' | 'Cancelled'
+  status?: 'Upcoming' | 'Approved' | 'Cancelled' | 'Completed'
 }

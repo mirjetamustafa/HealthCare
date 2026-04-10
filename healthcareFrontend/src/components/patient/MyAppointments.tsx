@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import MyAppointmentCard from '../shared/Cards/MyAppointmentCard'
 import Button from '../shared/Button/Button'
-import useMyApointments from '../hook/useMyApointments'
+
 import { useAppointments } from '../hook/useAppointments'
 import { useBookAppointment } from '../hook/useBookAppointment'
 

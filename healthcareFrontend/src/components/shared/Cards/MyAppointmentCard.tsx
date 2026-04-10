@@ -1,9 +1,12 @@
 import Calendar from '../../../assets/calendar.svg?react'
 import Clock from '../../../assets/oclock.svg?react'
-import { useAppointments } from '../../hook/useAppointments'
 import Button from '../Button/Button'
 
-export type AppointmentStatus = 'Upcoming' | 'Completed' | 'Cancelled'
+export type AppointmentStatus =
+  | 'Approved'
+  | 'Pending'
+  | 'Cancelled'
+  | 'Completed'
 
 type AppointmentCardProps = {
   name: string
@@ -51,7 +54,7 @@ const MyAppointmentCard = ({
         </div>
 
         <div className="flex  items-start gap-3">
-          {status === 'Upcoming' && (
+          {status === 'Approved' && (
             <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
               Upcoming
             </span>

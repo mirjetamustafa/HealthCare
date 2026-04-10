@@ -5,7 +5,8 @@ import AppointmentCard from '../shared/Cards/AppointmentCard'
 const AppointmentsDoctorDashboard = () => {
   const { appointments, fetchAppointments } = useDoctorAppointments()
 
-  const { handleApprove, handleCancel } = useAppointments(fetchAppointments)
+  const { handleApprove, handleCancel, handleComplete } =
+    useAppointments(fetchAppointments)
 
   console.log(appointments)
   return (
@@ -29,6 +30,7 @@ const AppointmentsDoctorDashboard = () => {
             status={appointment.status}
             onApprove={handleApprove}
             onCancel={handleCancel}
+            onComplete={handleComplete}
           />
         ))}
       </div>
