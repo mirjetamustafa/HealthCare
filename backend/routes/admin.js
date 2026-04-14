@@ -1,9 +1,9 @@
-const express = require('express')
-const bcrypt = require('bcryptjs')
-const { authMiddleware } = require('./auth')
-const adminMiddleware = require('../middleware/adminMiddleware')
-const { ObjectId } = require('mongodb')
-const database = require('../connect')
+import express from 'express'
+import bcrypt from 'bcryptjs'
+import { authMiddleware } from './auth.js'
+import adminMiddleware from '../middleware/adminMiddleware.js'
+import { ObjectId } from 'mongodb'
+import database from '../connect.js'
 
 const router = express.Router()
 
@@ -129,4 +129,4 @@ router.delete('/:id', authMiddleware, adminMiddleware, async (req, res) => {
   }
 })
 
-module.exports = router
+export default router

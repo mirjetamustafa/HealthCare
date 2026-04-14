@@ -1,10 +1,11 @@
-const { MongoClient } = require('mongodb')
-require('dotenv').config()
+import { MongoClient } from 'mongodb'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const client = new MongoClient(process.env.ATLAS_URI)
 let database
 
-module.exports = {
+export default {
   connectToServer: async () => {
     try {
       await client.connect()

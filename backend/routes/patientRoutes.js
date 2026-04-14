@@ -1,8 +1,8 @@
-const express = require('express')
-const { ObjectId } = require('mongodb')
-const { authMiddleware } = require('./auth')
-const adminMiddleware = require('../middleware/adminMiddleware')
-const database = require('../connect')
+import express from 'express'
+import { ObjectId } from 'mongodb'
+import { authMiddleware } from './auth.js'
+import adminMiddleware from '../middleware/adminMiddleware.js'
+import database from '../connect.js'
 
 const router = express.Router()
 
@@ -110,4 +110,4 @@ router.delete(
   },
 )
 
-module.exports = router
+export default router

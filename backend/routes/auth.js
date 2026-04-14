@@ -1,29 +1,24 @@
-const express = require('express')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const { ObjectId } = require('mongodb')
-const database = require('../connect')
+import express from 'express'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import { ObjectId } from 'mongodb'
+import database from '../connect.js'
 
 const router = express.Router()
 
-// REGISTER (PATIENT ONLY)
+// REGISTER
 router.post('/register', async (req, res) => {
   try {
+    const db = database.getDb()
     const { firstName, lastName, email, password, dateOfBirth, contactNumber } =
       req.body
-    const db = database.getDb() // ndryshimi kryesor
 
-    // Vetëm pacientët mund të regjistrohen nga frontend
     if (!firstName || !lastName || !email || !password) {
-      return res.status(400).json({
-        error: 'First name, last name, email and password are required',
-      })
+      return res.status(400).json({ error: 'Missing fields' })
     }
 
     const existingUser = await db.collection('users').findOne({ email })
-    if (existingUser) {
-      return res.status(400).json({ error: 'User already exists' })
-    }
+    if (existingUser) return res.status(400).json({ error: 'User exists' })
 
     const hashedPassword = await bcrypt.hash(password, 10)
 
@@ -33,46 +28,32 @@ router.post('/register', async (req, res) => {
       email,
       password: hashedPassword,
       role: 'patient',
-      status: 'Active',
-      patientId: `MED-${new Date().getFullYear()}-${Math.floor(
-        Math.random() * 1000000,
-      )}`,
-      dateOfBirth,
-      contactNumber,
       createdAt: new Date(),
     }
 
     const result = await db.collection('users').insertOne(newUser)
 
     res.status(201).json({
-      message: 'Patient registered successfully',
-      user: {
-        id: result.insertedId,
-        firstName,
-        lastName,
-        email,
-        role: 'patient',
-        status: 'Active',
-        patientId: newUser.patientId,
-      },
+      id: result.insertedId,
+      email,
+      role: 'patient',
     })
   } catch (err) {
-    console.error('Error registering patient:', err)
-    res.status(500).json({ error: 'Failed to register patient' })
+    res.status(500).json({ error: err.message })
   }
 })
 
-// LOGIN (ALL ROLES)
+// LOGIN
 router.post('/login', async (req, res) => {
   try {
+    const db = database.getDb()
     const { email, password } = req.body
-    const db = database.getDb() // ndryshimi kryesor
 
     const user = await db.collection('users').findOne({ email })
     if (!user) return res.status(401).json({ error: 'Invalid credentials' })
 
-    const isMatch = await bcrypt.compare(password, user.password)
-    if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' })
+    const match = await bcrypt.compare(password, user.password)
+    if (!match) return res.status(401).json({ error: 'Invalid credentials' })
 
     const token = jwt.sign(
       { id: user._id.toString(), role: user.role },
@@ -80,59 +61,32 @@ router.post('/login', async (req, res) => {
       { expiresIn: '7d' },
     )
 
-    // krijon display name për patient ose doctor
-    const displayName =
-      user.name || `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim()
-
-    res.json({
-      token,
-      user: {
-        id: user._id,
-        name: displayName,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        role: user.role,
-        patientId: user.patientId,
-        specialization: user.specialization,
-      },
-    })
+    res.json({ token, user })
   } catch (err) {
-    console.error('Error logging in:', err)
-    res.status(500).json({ error: 'Failed to login' })
+    res.status(500).json({ error: err.message })
   }
 })
 
-// AUTH MIDDLEWARE
-const authMiddleware = async (req, res, next) => {
-  const authHeader = req.headers.authorization
-  if (!authHeader || !authHeader.startsWith('Bearer '))
-    return res.status(401).json({ error: 'Unauthorized' })
-
-  const token = authHeader.split(' ')[1]
-
+// MIDDLEWARE
+export const authMiddleware = async (req, res, next) => {
   try {
+    const token = req.headers.authorization?.split(' ')[1]
+    if (!token) return res.status(401).json({ error: 'No token' })
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
-    const db = database.getDb() // ndryshimi kryesor
+    const db = database.getDb()
+
     const user = await db.collection('users').findOne({
       _id: new ObjectId(decoded.id),
     })
 
     if (!user) return res.status(401).json({ error: 'User not found' })
 
-    req.user = {
-      id: user._id.toString(),
-      role: user.role,
-      email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      patientId: user.patientId,
-    }
+    req.user = user
     next()
   } catch (err) {
-    console.error('Invalid token:', err)
-    return res.status(401).json({ error: 'Invalid token' })
+    res.status(401).json({ error: 'Invalid token' })
   }
 }
 
-module.exports = { router, authMiddleware }
+export default router

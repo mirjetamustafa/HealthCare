@@ -1,7 +1,7 @@
-const express = require('express')
-const { authMiddleware } = require('./auth')
-const { ObjectId } = require('mongodb')
-const database = require('../connect')
+import express from 'express'
+import { authMiddleware } from './auth.js'
+import { ObjectId } from 'mongodb'
+import database from '../connect.js'
 
 const router = express.Router()
 
@@ -24,4 +24,4 @@ router.get('/me', authMiddleware, async (req, res) => {
   }
 })
 
-module.exports = router
+export default router

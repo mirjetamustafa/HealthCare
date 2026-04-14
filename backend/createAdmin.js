@@ -1,6 +1,7 @@
-const bcrypt = require('bcryptjs')
-const { MongoClient } = require('mongodb')
-require('dotenv').config() // nëse përdor .env
+import bcrypt from 'bcryptjs'
+import { MongoClient } from 'mongodb'
+import dotenv from 'dotenv'
+dotenv.config() // nëse përdor .env
 
 async function createAdmin() {
   const uri = await MongoClient.connect(process.env.MONGO_URI)
