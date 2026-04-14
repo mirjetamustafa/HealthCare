@@ -19,10 +19,22 @@ const AI = () => {
   const [inputValue, setInputValue] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const bottomRef = useRef(null)
+  const chatContainerRef = useRef<HTMLDivElement | null>(null)
+
+  const isNearBottom = () => {
+    const el = chatContainerRef.current
+    if (!el) return true
+
+    return el.scrollHeight - el.scrollTop - el.clientHeight < 100
+  }
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+    const el = chatContainerRef.current
+    if (!el) return
+
+    if (isNearBottom()) {
+      el.scrollTop = el.scrollHeight
+    }
   }, [message])
 
   const handleSend = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -68,7 +80,10 @@ const AI = () => {
       {/* AI chat */}
       <div className="w-full max-w-4xl mx-auto mt-10 p-6 rounded-2xl border border-gray-200">
         {/* Messages */}
-        <div className="flex flex-col gap-6">
+        <div
+          ref={chatContainerRef}
+          className="flex flex-col gap-6 max-h-[500px] overflow-y-auto"
+        >
           {/* Assistant message */}
           {message.map((msg, index) => (
             <div
@@ -99,27 +114,10 @@ const AI = () => {
             </div>
           )}
 
-          {/* User message */}
-          {/* <div className="flex justify-end">
-            <div className="bg-blue-600 text-white px-5 py-3 rounded-2xl max-w-xs">
-              hello
-            </div>
-          </div> */}
-
-          {/* Assistant second message */}
-          {/* <div className="flex text-left">
-            <div className="bg-gray-100 p-5 rounded-2xl max-w-xl">
-              <p className="font-semibold text-xs flex items-center gap-2 text-[#00A896] mb-2">
-                <Chat className="w-4 h-4" /> MediCare Assistant
-              </p>
-              <p className="text-sm">
-                Thank you for your question. While I can provide general health
-                information, I recommend scheduling an appointment with one of
-                our specialists for personalized medical advice.
-              </p>
-            </div>
-          </div> */}
-          <div ref={bottomRef} />
+          {/* <div
+            ref={chatContainerRef}
+            className="flex flex-col gap-6 max-h-[500px] overflow-y-auto"
+          /> */}
         </div>
 
         {/* input */}
