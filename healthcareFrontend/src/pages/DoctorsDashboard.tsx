@@ -22,9 +22,6 @@ const DoctorsDashboard = () => {
         >
           <Calendar className="w-4 h-4" />
           Appointments
-          <span className="bg-red-400 text-white rounded-full px-2 py-1 text-xs">
-            2
-          </span>
         </Button>
         <Button
           variant="tab"

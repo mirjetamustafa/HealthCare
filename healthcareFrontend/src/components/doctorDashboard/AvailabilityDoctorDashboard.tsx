@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Availability, Day } from '../shared/doctorAvailability/types'
 import DayRow from '../shared/doctorAvailability/DayRow'
+import { useAuthContext } from '../../lib/AuthContext'
+import { getDoctorsById, updateAvailability } from '../../api/User/user'
+import { toast } from 'react-toastify'
 
 const days: Day[] = [
   'Monday',
@@ -12,24 +15,97 @@ const days: Day[] = [
   'Sunday',
 ]
 
+const defaultAvailability: Availability = days.reduce((acc, day) => {
+  acc[day] = {
+    enabled: day !== 'Saturday' && day !== 'Sunday',
+    from: '09:00',
+    to: '17:00',
+  }
+  return acc
+}, {} as Availability)
+
+const normalizeDay = (d: string): Day | null => {
+  const map: Record<string, Day> = {
+    Mon: 'Monday',
+    Tue: 'Tuesday',
+    Wed: 'Wednesday',
+    Thu: 'Thursday',
+    Fri: 'Friday',
+    Sat: 'Saturday',
+    Sun: 'Sunday',
+  }
+  return map[d] || null
+}
+
+const parseSchedule = (scheduleText: string) => {
+  const base: any = {
+    Monday: { enabled: false, from: '09:00', to: '17:00' },
+    Tuesday: { enabled: false, from: '09:00', to: '17:00' },
+    Wednesday: { enabled: false, from: '09:00', to: '17:00' },
+    Thursday: { enabled: false, from: '09:00', to: '17:00' },
+    Friday: { enabled: false, from: '09:00', to: '17:00' },
+    Saturday: { enabled: false, from: '09:00', to: '17:00' },
+    Sunday: { enabled: false, from: '09:00', to: '17:00' },
+  }
+
+  if (!scheduleText) return base
+
+  const daysMap: Record<string, Day> = {
+    Mon: 'Monday',
+    Tue: 'Tuesday',
+    Wed: 'Wednesday',
+    Thu: 'Thursday',
+    Fri: 'Friday',
+    Sat: 'Saturday',
+    Sun: 'Sunday',
+  }
+
+  const parts = scheduleText.split(',')
+
+  parts.forEach((p) => {
+    const key = p.trim().split(':')[0] // Mon
+    const fullDay = daysMap[key]
+
+    if (fullDay) {
+      base[fullDay].enabled = true
+    }
+  })
+
+  return base
+}
 const AvailabilityDoctorDashboard: React.FC = () => {
-  const [availability, setAvailability] = useState<Availability>(
-    days.reduce((acc, day) => {
-      acc[day] = {
-        enabled: day !== 'Saturday' && day !== 'Sunday',
-        from: '09:00',
-        to: '17:00',
+  const { user } = useAuthContext()
+
+  const doctorId = user?.id
+
+  const [availability, setAvailability] =
+    useState<Availability>(defaultAvailability)
+
+  useEffect(() => {
+    if (!doctorId) return
+
+    const fetchAvailability = async () => {
+      try {
+        const res = await getDoctorsById(doctorId)
+
+        const doctor = res.data
+
+        if (doctor?.schedule) {
+          setAvailability(parseSchedule(doctor.schedule))
+        }
+      } catch (err) {
+        console.error(err)
       }
-      return acc
-    }, {} as Availability),
-  )
+    }
+    fetchAvailability()
+  }, [doctorId])
 
   const toggleDay = (day: Day) => {
     setAvailability((prev) => ({
       ...prev,
       [day]: {
         ...prev[day],
-        enabled: !prev[day].enabled,
+        enabled: !(prev[day]?.enabled ?? false),
       },
     }))
   }
@@ -44,9 +120,19 @@ const AvailabilityDoctorDashboard: React.FC = () => {
     }))
   }
 
-  const handleSave = () => {
-    console.log('Saved:', availability)
+  const handleSave = async () => {
+    if (!doctorId) return
+
+    try {
+      await updateAvailability(doctorId, availability)
+      toast.success('Availability saved')
+    } catch (err) {
+      console.error(err)
+      toast.error('Failed to save availability')
+    }
   }
+
+  if (!user) return <div>Loading...</div>
 
   return (
     <div className="py-5 md:py-13 px-5 md:px-20">
@@ -65,7 +151,7 @@ const AvailabilityDoctorDashboard: React.FC = () => {
             <DayRow
               key={day}
               day={day}
-              data={availability[day]}
+              data={availability[day] ?? defaultAvailability[day]}
               onToggle={() => toggleDay(day)}
               onTimeChange={(field, value) => changeTime(day, field, value)}
             />

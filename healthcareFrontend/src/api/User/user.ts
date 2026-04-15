@@ -1,7 +1,7 @@
 import { apiRequest } from '../Api'
 import type { DoctorRegisterInput, LoginInput } from './user.types'
 
-export const loginUser = async (credentials: LoginInput): any => {
+export const loginUser = (credentials: LoginInput): any => {
   return apiRequest({
     url: '/api/auth/login',
     method: 'POST',
@@ -9,7 +9,14 @@ export const loginUser = async (credentials: LoginInput): any => {
   })
 }
 
-export const patientRegister = async (data: any): any => {
+export const getCurrentUser = () => {
+  return apiRequest({
+    url: '/api/user/me',
+    method: 'GET',
+  })
+}
+
+export const patientRegister = (data: any): any => {
   return apiRequest({
     url: '/api/auth/register',
     method: 'POST',
@@ -17,7 +24,7 @@ export const patientRegister = async (data: any): any => {
   })
 }
 
-export const doctorRegister = async (data: DoctorRegisterInput): any => {
+export const doctorRegister = (data: DoctorRegisterInput): any => {
   return apiRequest({
     url: '/api/admin/create-doctor',
     method: 'POST',
@@ -25,14 +32,20 @@ export const doctorRegister = async (data: DoctorRegisterInput): any => {
   })
 }
 
-export const getDoctors = async (): any => {
+export const getDoctors = (): any => {
   return apiRequest({
     url: '/api/doctors',
     method: 'GET',
   })
 }
+export const getDoctorsById = (id: string) => {
+  return apiRequest({
+    url: `/api/doctors/${id}`,
+    method: 'GET',
+  })
+}
 
-export const updateDoctors = async (_id: string, updateData: any): any => {
+export const updateDoctors = (_id: string, updateData: any): any => {
   return apiRequest({
     url: `/api/admin/${_id}`,
     method: 'PUT',
@@ -40,7 +53,7 @@ export const updateDoctors = async (_id: string, updateData: any): any => {
   })
 }
 
-export const deleteDoctor = async (_id: string) => {
+export const deleteDoctor = (_id: string) => {
   return apiRequest({
     url: `/api/admin/${_id}`,
     method: 'DELETE',
@@ -49,24 +62,32 @@ export const deleteDoctor = async (_id: string) => {
 
 // Patient
 
-export const getPatients = async (): any => {
+export const getPatients = (): any => {
   return apiRequest({
     url: '/api/patients',
     method: 'GET',
   })
 }
 
-export const deletePatient = async (_id: string) => {
+export const deletePatient = (_id: string) => {
   return apiRequest({
     url: `/api/patients/${_id}`,
     method: 'DELETE',
   })
 }
 
-export const updatePatient = async (_id: string, updateData: any) => {
+export const updatePatient = (_id: string, updateData: any) => {
   return apiRequest({
     url: `/api/patients/${_id}`,
     method: 'PUT',
     data: updateData,
+  })
+}
+
+export const updateAvailability = (id: string, availability: any) => {
+  return apiRequest({
+    url: `/api/doctors/availability/${id}`,
+    method: 'PUT',
+    data: { availability },
   })
 }

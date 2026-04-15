@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { loginUser } from '../api/User/user'
+import { getCurrentUser, loginUser } from '../api/User/user'
 
 interface User {
   id: string
@@ -55,8 +55,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const res = await loginUser(credentials)
       const { token, user: userData } = res.data
+
       const loggedUser: User = {
-        id: userData.id,
+        id: userData._id?.toString(),
         name: userData.name,
         email: userData.email,
         role: userData.role,
@@ -81,13 +82,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       throw error
     }
   }
-  console.log(user)
+
   const logout = () => {
     setUser(null)
     setToken(null)
     localStorage.removeItem('user')
     localStorage.removeItem('token')
-
     delete axios.defaults.headers.common.Authorization
     navigate('/login')
   }
