@@ -1,12 +1,3 @@
-// export type Appointments = {
-//   id: string
-//   doctor: string
-//   patient: string
-//   dateTime: string
-//   department: string
-//   status: 'Approved' | 'Pending' | 'Cancelled' | 'Completed'
-// }
-
 import type { AppointmenResponse } from '../../../api/BookAppointment/bookAppointment.types'
 
 type AppointmentStatus = 'Approved' | 'Pending' | 'Cancelled' | 'Completed'

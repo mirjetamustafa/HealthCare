@@ -1,44 +1,52 @@
-type Status = 'approved' | 'pending' | 'completed' | 'cancelled'
+import type { AppointmenResponse } from '../../api/BookAppointment/bookAppointment.types'
 
-type AppointmentItemProps = {
-  patient: string
-  doctor: string
-  specialty: string
-  status: Status
+type AppointmentStatus = 'Approved' | 'Pending' | 'Cancelled' | 'Completed'
+
+type AppointmentItemProps = AppointmenResponse
+
+const statusStyle: Record<AppointmentStatus, string> = {
+  Approved: 'bg-blue-100 text-blue-700',
+  Pending: 'bg-yellow-100 text-yellow-700',
+  Cancelled: 'bg-red-100 text-red-700',
+  Completed: 'bg-green-100 text-green-700',
 }
 
-const statusLabel: Record<Status, string> = {
-  approved: 'Approved',
-  pending: 'Pending',
-  completed: 'Completed',
-  cancelled: 'Cancelled',
-}
+const getStatus = (status: string): AppointmentStatus => {
+  if (
+    status === 'Approved' ||
+    status === 'Pending' ||
+    status === 'Cancelled' ||
+    status === 'Completed'
+  ) {
+    return status
+  }
 
-const statusStyles: Record<Status, string> = {
-  approved: 'bg-blue-100 text-blue-600',
-  pending: 'bg-yellow-100 text-yellow-600',
-  completed: 'bg-green-100 text-green-600',
-  cancelled: 'bg-red-100 text-red-600',
+  return 'Pending'
 }
 
 const AppointmentItem = ({
-  patient,
-  doctor,
-  specialty,
+  firstName,
+  lastName,
+  doctorName,
+  department,
   status,
 }: AppointmentItemProps) => {
+  const safeStatus = getStatus(status)
   return (
     <div className="flex items-center justify-between bg-gray-50 rounded-xl p-4 ">
       <div>
-        <h4 className="font-semibold text-gray-900">{patient}</h4>
-        <p className="text-sm text-gray-500">
-          {doctor} • {specialty}
+        <h4 className="font-semibold text-gray-900">
+          {firstName} {lastName}
+        </h4>
+        <p className="text-sm text-gray-500 ">
+          {doctorName} •{' '}
+          {department?.charAt(0).toUpperCase() + department?.slice(1)}
         </p>
       </div>
       <span
-        className={`px-3 py-1 rounded-full text-xs font-medium ${statusStyles[status]}`}
+        className={`px-3 py-1 rounded-full text-xs font-medium ${statusStyle[safeStatus]}`}
       >
-        {statusLabel[status]}
+        {safeStatus}
       </span>
     </div>
   )
