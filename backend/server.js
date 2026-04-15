@@ -19,6 +19,15 @@ const PORT = process.env.PORT || 4000
 app.use(cors())
 app.use(express.json())
 
+app.use((req, res, next) => {
+  req.app.set('db', connect.getDb())
+  next()
+})
+
+app.get('/api/healthcare', (req, res) => {
+  res.json({ message: 'Healthcare is working' })
+})
+
 app.use('/api/auth', authRoutes)
 app.use('/api/admin', adminRoutes)
 app.use('/api/user', userRoutes)
