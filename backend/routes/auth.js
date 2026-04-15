@@ -34,7 +34,7 @@ router.post('/register', async (req, res) => {
     const result = await db.collection('users').insertOne(newUser)
 
     res.status(201).json({
-      id: result.insertedId,
+      id: result.insertedId.toString(),
       email,
       role: 'patient',
     })
@@ -61,7 +61,17 @@ router.post('/login', async (req, res) => {
       { expiresIn: '7d' },
     )
 
-    res.json({ token, user })
+    res.json({
+      token,
+      user: {
+        _id: user._id.toString(),
+        email: user.email,
+        role: user.role,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        specialization: user.specialization,
+      },
+    })
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
@@ -82,7 +92,13 @@ export const authMiddleware = async (req, res, next) => {
 
     if (!user) return res.status(401).json({ error: 'User not found' })
 
-    req.user = user
+    // req.user = user
+
+    req.user = {
+      id: user._id.toString(),
+      role: user.role,
+    }
+
     next()
   } catch (err) {
     res.status(401).json({ error: 'Invalid token' })

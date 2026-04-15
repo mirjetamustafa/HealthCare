@@ -40,4 +40,24 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+router.put('/availability/:id', async (req, res) => {
+  try {
+    const db = database.getDb()
+
+    const { id } = req.params
+    const { availability } = req.body
+
+    await db
+      .collection('users')
+      .updateOne(
+        { _id: new ObjectId(id), role: 'doctor' },
+        { $set: { schedule: availability } },
+      )
+
+    res.json({ success: true })
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
+
 export default router
