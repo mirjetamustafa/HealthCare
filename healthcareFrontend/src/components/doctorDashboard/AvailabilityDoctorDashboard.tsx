@@ -24,58 +24,58 @@ const defaultAvailability: Availability = days.reduce((acc, day) => {
   return acc
 }, {} as Availability)
 
-const normalizeDay = (d: string): Day | null => {
-  const map: Record<string, Day> = {
-    Mon: 'Monday',
-    Tue: 'Tuesday',
-    Wed: 'Wednesday',
-    Thu: 'Thursday',
-    Fri: 'Friday',
-    Sat: 'Saturday',
-    Sun: 'Sunday',
-  }
-  return map[d] || null
-}
+// const normalizeDay = (d: string): Day | null => {
+//   const map: Record<string, Day> = {
+//     Mon: 'Monday',
+//     Tue: 'Tuesday',
+//     Wed: 'Wednesday',
+//     Thu: 'Thursday',
+//     Fri: 'Friday',
+//     Sat: 'Saturday',
+//     Sun: 'Sunday',
+//   }
+//   return map[d] || null
+// }
 
-const parseSchedule = (scheduleText: string) => {
-  const base: any = {
-    Monday: { enabled: false, from: '09:00', to: '17:00' },
-    Tuesday: { enabled: false, from: '09:00', to: '17:00' },
-    Wednesday: { enabled: false, from: '09:00', to: '17:00' },
-    Thursday: { enabled: false, from: '09:00', to: '17:00' },
-    Friday: { enabled: false, from: '09:00', to: '17:00' },
-    Saturday: { enabled: false, from: '09:00', to: '17:00' },
-    Sunday: { enabled: false, from: '09:00', to: '17:00' },
-  }
+// const parseSchedule = (scheduleText: string) => {
+//   const base: any = {
+//     Monday: { enabled: false, from: '09:00', to: '17:00' },
+//     Tuesday: { enabled: false, from: '09:00', to: '17:00' },
+//     Wednesday: { enabled: false, from: '09:00', to: '17:00' },
+//     Thursday: { enabled: false, from: '09:00', to: '17:00' },
+//     Friday: { enabled: false, from: '09:00', to: '17:00' },
+//     Saturday: { enabled: false, from: '09:00', to: '17:00' },
+//     Sunday: { enabled: false, from: '09:00', to: '17:00' },
+//   }
 
-  if (!scheduleText) return base
+//   if (!scheduleText) return base
 
-  const daysMap: Record<string, Day> = {
-    Mon: 'Monday',
-    Tue: 'Tuesday',
-    Wed: 'Wednesday',
-    Thu: 'Thursday',
-    Fri: 'Friday',
-    Sat: 'Saturday',
-    Sun: 'Sunday',
-  }
+//   const daysMap: Record<string, Day> = {
+//     Mon: 'Monday',
+//     Tue: 'Tuesday',
+//     Wed: 'Wednesday',
+//     Thu: 'Thursday',
+//     Fri: 'Friday',
+//     Sat: 'Saturday',
+//     Sun: 'Sunday',
+//   }
 
-  const parts = scheduleText.split(',')
+//   const parts = scheduleText.split(',')
 
-  parts.forEach((p) => {
-    const key = p.trim().split(':')[0] // Mon
-    const fullDay = daysMap[key]
+//   parts.forEach((p) => {
+//     const key = p.trim().split(':')[0] // Mon
+//     const fullDay = daysMap[key]
 
-    if (fullDay) {
-      base[fullDay].enabled = true
-    }
-  })
+//     if (fullDay) {
+//       base[fullDay].enabled = true
+//     }
+//   })
 
-  return base
-}
+//   return base
+// }
+
 const AvailabilityDoctorDashboard: React.FC = () => {
   const { user } = useAuthContext()
-
   const doctorId = user?.id
 
   const [availability, setAvailability] =
@@ -87,11 +87,10 @@ const AvailabilityDoctorDashboard: React.FC = () => {
     const fetchAvailability = async () => {
       try {
         const res = await getDoctorsById(doctorId)
-
         const doctor = res.data
 
-        if (doctor?.schedule) {
-          setAvailability(parseSchedule(doctor.schedule))
+        if (doctor?.schedule && typeof doctor.schedule === 'object') {
+          setAvailability(doctor.schedule)
         }
       } catch (err) {
         console.error(err)

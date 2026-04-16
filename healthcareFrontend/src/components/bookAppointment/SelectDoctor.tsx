@@ -73,7 +73,8 @@ const SelectDoctor = ({
             setAppointmentData((prev) => ({
               ...prev,
               doctorEmail: selectedDoctor.email,
-              doctorName: selectedDoctor.name,
+              doctorFirstName: selectedDoctor.firstName,
+              doctorLastName: selectedDoctor.lastName,
             }))
           }
         }}
@@ -84,11 +85,13 @@ const SelectDoctor = ({
           <div className="flex items-center gap-3">
             <img
               src={doctor.img}
-              alt={doctor.name}
+              alt={doctor.firstName}
               className="w-12 h-12 rounded-full object-cover"
             />
             <div className="">
-              <h3 className="font-semibold">{doctor.name}</h3>
+              <h3 className="font-semibold">
+                Dr. {doctor.firstName} {doctor.lastName}
+              </h3>
               <p className="text-[#0066CC]"> {doctor.specialization} </p>
               <p className="text-gray-500 text-sm"> {doctor.schedule} </p>
             </div>

@@ -27,7 +27,8 @@ const getStatus = (status: string): AppointmentStatus => {
 const AppointmentItem = ({
   firstName,
   lastName,
-  doctorName,
+  doctorFirstName,
+  doctorLastName,
   department,
   status,
 }: AppointmentItemProps) => {
@@ -39,7 +40,7 @@ const AppointmentItem = ({
           {firstName} {lastName}
         </h4>
         <p className="text-sm text-gray-500 ">
-          {doctorName} •{' '}
+          {doctorFirstName} {doctorLastName} •{' '}
           {department?.charAt(0).toUpperCase() + department?.slice(1)}
         </p>
       </div>

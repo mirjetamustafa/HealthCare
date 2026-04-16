@@ -36,7 +36,7 @@ const MyAppointmentCard = ({
         <div className="gap-2.5 flex flex-col">
           <div className="">
             <h3 className=" font-semibold">{name}</h3>
-            <p className="text-blue-500 text-sm">{category}</p>
+            <p className="text-blue-500 text-sm capitalize">{category}</p>
           </div>
 
           <div className="flex items-center gap-2">

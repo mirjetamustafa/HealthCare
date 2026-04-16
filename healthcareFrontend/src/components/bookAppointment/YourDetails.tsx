@@ -5,7 +5,6 @@ import Calendar from '../../assets/calendar.svg?react'
 import Clock from '../../assets/oclock.svg?react'
 import Button from '../shared/Button/Button'
 import type { AppointmentInput } from '../../api/BookAppointment/bookAppointment.types'
-import { getUserDisplayName } from '../../utils/userHelpers'
 import { useBookAppointment } from '../hook/useBookAppointment'
 
 interface YourDetailsProps {
@@ -107,7 +106,8 @@ const YourDetails = ({
           <User className="w-4 h-4 text-teal-500" />
           <span className="text-gray-600">
             {' '}
-            {getUserDisplayName(appointmentData.doctor)}{' '}
+            {`${appointmentData.doctorFirstName} ${appointmentData.doctorLastName}`.trim() ||
+              'No doctor selected'}
           </span>
         </p>
 

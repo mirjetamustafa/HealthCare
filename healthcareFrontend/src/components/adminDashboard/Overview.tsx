@@ -7,33 +7,6 @@ import AppointmentItem from './AppointmentItem'
 import HealthItem from './HealthItem'
 import { useAdminAppointment } from '../hook/useAdminAppointment'
 
-// const appointments = [
-//   {
-//     patient: 'John Smith',
-//     doctor: 'Dr. Emily Rodriguez',
-//     specialty: 'Cardiology',
-//     status: 'approved',
-//   },
-//   {
-//     patient: 'Sarah Johnson',
-//     doctor: 'Dr. James Williams',
-//     specialty: 'Neurology',
-//     status: 'pending',
-//   },
-//   {
-//     patient: 'Michael Brown',
-//     doctor: 'Dr. Emily Rodriguez',
-//     specialty: 'Cardiology',
-//     status: 'completed',
-//   },
-//   {
-//     patient: 'Emily Davis',
-//     doctor: 'Dr. James Williams',
-//     specialty: 'Neurology',
-//     status: 'cancelled',
-//   },
-// ] as const
-
 const healthData = [
   {
     label: 'Server Status',

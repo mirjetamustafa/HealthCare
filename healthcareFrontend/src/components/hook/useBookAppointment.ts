@@ -17,7 +17,8 @@ import {
 const initialData: AppointmentInput = {
   department: '',
   doctorEmail: '',
-  doctorName: '',
+  doctorFirstName: '',
+  doctorLastName: '',
   date: '',
   time: '',
   firstName: '',
@@ -73,8 +74,9 @@ export const useBookAppointment = () => {
       ...appointmentData,
       email: userEmail,
       status: appointmentData.status || 'Upcoming',
-      doctorName: appointmentData.doctorName,
       doctorEmail: appointmentData.doctorEmail,
+      doctorFirstName: appointmentData.doctorFirstName,
+      doctorLastName: appointmentData.doctorLastName,
     }
 
     try {

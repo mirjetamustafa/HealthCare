@@ -38,7 +38,7 @@ const TableDoctor = ({ doctors, onDeleteDoctor, handleEdit }: TableDoctors) => {
                       <Stethoscope className="w-5 h-5 text-teal-500" />
                     </div>
                     <span className="font-medium text-gray-900">
-                      {doctor.name}
+                      {doctor.firstName} {doctor.lastName}
                     </span>
                   </div>
                 </td>

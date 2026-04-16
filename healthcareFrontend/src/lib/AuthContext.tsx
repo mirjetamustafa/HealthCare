@@ -58,7 +58,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       const loggedUser: User = {
         id: userData._id?.toString(),
-        name: userData.name,
         email: userData.email,
         role: userData.role,
         patientId: userData.patientId,
@@ -68,7 +67,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
       setUser(loggedUser)
       setToken(token)
-
       localStorage.setItem('user', JSON.stringify(loggedUser))
       localStorage.setItem('token', token)
 

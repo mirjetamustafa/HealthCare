@@ -2,10 +2,9 @@ import User from '../../assets/user.svg?react'
 import Logout from '../../assets/logout.svg?react'
 import Button from '../shared/Button/Button'
 import { useAuthContext } from '../../lib/AuthContext'
-import { getUserDisplayName } from '../../utils/userHelpers'
-
 const PatientHeader = () => {
   const { logout, user } = useAuthContext()
+  console.log(user?.patientId)
   return (
     <div className="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-5 bg-white border-b border-gray-200 py-5 px-20">
       <div className="flex items-center gap-3">

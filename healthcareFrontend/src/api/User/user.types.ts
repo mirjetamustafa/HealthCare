@@ -4,7 +4,8 @@ export interface LoginInput {
 }
 
 export interface DoctorRegisterInput {
-  name: string
+  firstName: string
+  lastName: string
   email: string
   password: string
   role?: string
@@ -20,7 +21,8 @@ export interface DoctorRegisterInput {
 
 export interface DoctorResponse {
   _id: string
-  name: string
+  firstName: string
+  lastName: string
   email: string
   password: string
   role?: string
@@ -47,7 +49,8 @@ export interface PatientResponse {
 }
 
 export interface RegisterInput {
-  name: string
+  firstName: string
+  lastName: string
   email: string
   password: string
   role?: string
@@ -55,7 +58,8 @@ export interface RegisterInput {
 
 export interface User {
   _id: string
-  name: string
+  firstName: string
+  lastName: string
   email: string
   role: string
 }

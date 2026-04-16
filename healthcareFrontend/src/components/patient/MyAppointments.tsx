@@ -29,7 +29,7 @@ const MyAppointments = () => {
         <MyAppointmentCard
           key={appointment._id}
           id={appointment._id}
-          name={appointment.doctorName}
+          name={`Dr. ${appointment.doctorFirstName} ${appointment.doctorLastName}`}
           category={appointment.department}
           date={appointment.date}
           time={appointment.time}

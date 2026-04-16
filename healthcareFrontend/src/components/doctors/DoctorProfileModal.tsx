@@ -41,7 +41,9 @@ const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
               className="w-28 h-28 rounded-full object-cover"
             />
             <div>
-              <h3 className="text-2xl font-bold">Dr. {doctor.name}</h3>
+              <h3 className="text-2xl font-bold">
+                Dr. {doctor.firstName} {doctor.lastName}
+              </h3>
               <p className="text-blue-600 font-medium">
                 {doctor.specialization}
               </p>

@@ -19,7 +19,8 @@ interface AddDoctorProps {
 }
 
 const initialFormData = {
-  name: '',
+  firstName: '',
+  lastName: '',
   email: '',
   password: '',
   role: 'doctor',
@@ -106,12 +107,17 @@ const AddDoctor = ({
 
           <form onSubmit={handleSubmit}>
             <Input
-              label="Full Name"
-              name="name"
-              value={formData.name || ''}
+              label="First Name"
+              name="firstName"
+              value={formData.firstName}
               onChange={handleChange}
-              type="text"
-              placeholder="Enter doctor's full name"
+            />
+
+            <Input
+              label="Last Name"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
             />
             <Input
               label="Email"
@@ -159,7 +165,12 @@ const AddDoctor = ({
             <Select
               name="department"
               value={formData.department || ''}
-              onChange={handleChange}
+              onChange={(value: string) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  department: value,
+                }))
+              }
               options={departament}
             />
             <Input
