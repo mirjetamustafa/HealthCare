@@ -25,6 +25,7 @@ router.get('/:id', async (req, res) => {
   try {
     const db = database.getDb()
     const { id } = req.params
+
     const doctor = await db
       .collection('users')
       .findOne(
@@ -43,19 +44,27 @@ router.get('/:id', async (req, res) => {
 router.put('/availability/:id', async (req, res) => {
   try {
     const db = database.getDb()
-
     const { id } = req.params
     const { availability } = req.body
 
-    await db
+    if (!availability) {
+      return res.status(400).json({ error: 'Availability is required' })
+    }
+
+    const result = await db
       .collection('users')
       .updateOne(
         { _id: new ObjectId(id), role: 'doctor' },
         { $set: { schedule: availability } },
       )
 
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: 'Doctor not found' })
+    }
+
     res.json({ success: true })
   } catch (err) {
+    console.error(err)
     res.status(500).json({ error: err.message })
   }
 })

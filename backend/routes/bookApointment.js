@@ -35,7 +35,8 @@ router.post('/', async (req, res) => {
     const {
       department,
       doctorEmail,
-      doctorName,
+      doctorFirstName,
+      doctorLastName,
       date,
       time,
       firstName,
@@ -50,7 +51,8 @@ router.post('/', async (req, res) => {
     const errors = []
     if (!department) errors.push('Department is required')
     if (!doctorEmail) errors.push('Doctor Email is required')
-    if (!doctorName) errors.push('Doctor name is required')
+    if (!doctorFirstName) errors.push('Doctor first name is required')
+    if (!doctorLastName) errors.push('Doctor last name is required')
     if (!date) errors.push('Date is required')
     if (!time) errors.push('Time is required')
     if (!firstName) errors.push('First Name is required')
@@ -78,7 +80,8 @@ router.post('/', async (req, res) => {
     const newAppointment = {
       department,
       doctorEmail: doctorEmail.toString().toLowerCase(),
-      doctorName,
+      doctorFirstName,
+      doctorLastName,
       date,
       time,
       firstName,

@@ -8,6 +8,16 @@ import database from '../connect.js'
 const router = express.Router()
 
 // CREATE Doctor (admin only)
+const defaultSchedule = {
+  Monday: { enabled: true, from: '09:00', to: '17:00' },
+  Tuesday: { enabled: true, from: '09:00', to: '17:00' },
+  Wednesday: { enabled: true, from: '09:00', to: '17:00' },
+  Thursday: { enabled: true, from: '09:00', to: '17:00' },
+  Friday: { enabled: true, from: '09:00', to: '17:00' },
+  Saturday: { enabled: false, from: '09:00', to: '17:00' },
+  Sunday: { enabled: false, from: '09:00', to: '17:00' },
+}
+
 router.post(
   '/create-doctor',
   authMiddleware,
@@ -16,7 +26,8 @@ router.post(
     try {
       const db = database.getDb()
       const {
-        name,
+        firstName,
+        lastName,
         email,
         password,
         specialization,
@@ -30,7 +41,7 @@ router.post(
         img,
       } = req.body
 
-      if (!name || !email || !password) {
+      if (!firstName || !lastName || !email || !password) {
         return res
           .status(400)
           .json({ error: 'Name, email and password are required' })
@@ -44,7 +55,8 @@ router.post(
       const hashedPassword = await bcrypt.hash(password, 10)
 
       const doctor = {
-        name,
+        firstName,
+        lastName,
         email,
         password: hashedPassword,
         role: 'doctor',
@@ -53,7 +65,7 @@ router.post(
         education,
         yearsOfExperience: Number(yearsOfExperience),
         contactNumber,
-        schedule,
+        schedule: schedule || defaultSchedule,
         status,
         biography,
         img,
@@ -66,7 +78,8 @@ router.post(
         message: 'Doctor created successfully',
         doctor: {
           id: result.insertedId,
-          name,
+          firstName,
+          lastName,
           email,
           role: 'doctor',
         },
