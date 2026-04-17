@@ -24,6 +24,7 @@ const Login = () => {
           <form onSubmit={handleSubmit}>
             <Input
               type="email"
+              name="email"
               label="Email address"
               placeholder="email@example.com"
               value={loginData.email}
@@ -33,6 +34,7 @@ const Login = () => {
             />
             <PasswordField
               label="Password"
+              name="password"
               placeholder="••••••••"
               value={loginData.password}
               onChange={(e) =>

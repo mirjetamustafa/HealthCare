@@ -3,8 +3,8 @@ import FilterBySpeciality from '../components/doctors/FilterBySpeciality'
 import OurMedicalTeam from '../components/doctors/OurMedicalTeam'
 
 interface DoctorProps {
-  filteredDoctors: any[]
-  departments: string[]
+  filteredDoctors: any
+  departments: string
   setSelectedDepartment: (department: string) => void
 }
 

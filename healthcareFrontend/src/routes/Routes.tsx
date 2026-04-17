@@ -40,7 +40,7 @@ export const createRoutes = (props: Props): RouteObject[] => [
         path: '/',
         element: (
           <>
-            <Header />
+            <Header role="public" />
             <Landignpage />
             <Footer />
           </>
@@ -50,7 +50,7 @@ export const createRoutes = (props: Props): RouteObject[] => [
         path: '/about',
         element: (
           <>
-            <Header />
+            <Header role="public" />
             <About />
             <Footer />
           </>
@@ -61,7 +61,7 @@ export const createRoutes = (props: Props): RouteObject[] => [
         path: '/services',
         element: (
           <>
-            <Header />
+            <Header role="public" />
             <Services />
             <Footer />
           </>
@@ -72,7 +72,7 @@ export const createRoutes = (props: Props): RouteObject[] => [
         path: '/doctors',
         element: (
           <>
-            <Header />
+            <Header role="public" />
             <Doctors
               filteredDoctors={props.filteredDoctors}
               departments={props.departments}
@@ -87,7 +87,7 @@ export const createRoutes = (props: Props): RouteObject[] => [
         path: '/healthAdvice',
         element: (
           <>
-            <Header />
+            <Header role="public" />
             <HealthAdvice />
             <Footer />
           </>
@@ -98,7 +98,7 @@ export const createRoutes = (props: Props): RouteObject[] => [
         path: '/bookAppointment',
         element: (
           <>
-            <Header />
+            <Header role="public" />
             <BookAppointment doctors={props.doctors} />
             <Footer />
           </>
@@ -109,7 +109,7 @@ export const createRoutes = (props: Props): RouteObject[] => [
         path: '/contact',
         element: (
           <>
-            <Header />
+            <Header role="public" />
             <ContactUs />
             <Footer />
           </>
@@ -134,7 +134,7 @@ export const createRoutes = (props: Props): RouteObject[] => [
         path: '/admin',
         element: (
           <>
-            <Header />
+            <Header role="admin" />
             <AdminDashboard
               doctors={props.filteredDoctors}
               onDeleteDoctor={props.handleDeleteDoctor}
@@ -152,8 +152,8 @@ export const createRoutes = (props: Props): RouteObject[] => [
         path: '/doctorDashboard',
         element: (
           <>
-            <Header />
-            <DoctorsDashboard />,
+            <Header role="doctor" />
+            <DoctorsDashboard />
             <Footer />
           </>
         ),
@@ -163,8 +163,8 @@ export const createRoutes = (props: Props): RouteObject[] => [
         path: '/patient',
         element: (
           <>
-            <Header />
-            <Patient />,
+            <Header role="patient" />
+            <Patient />
             <Footer />
           </>
         ),
