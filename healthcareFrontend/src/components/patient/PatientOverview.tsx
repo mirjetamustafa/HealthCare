@@ -4,6 +4,7 @@ import ShieldTick from '../../assets/shieldTick.svg?react'
 import Download from '../../assets/download.svg?react'
 import type { LabResult } from '../shared/tableLab/types'
 import LabResultsTable from '../shared/tableLab/LabResultsTable'
+import { useBookAppointment } from '../hook/useBookAppointment'
 
 const labData: LabResult[] = [
   {
@@ -41,7 +42,13 @@ const labData: LabResult[] = [
   },
 ]
 
-const PatientOverview = ({ setActiveTab }) => {
+const PatientOverview = ({ setActiveTab }: any) => {
+  const { appointments } = useBookAppointment()
+
+  const upcomingAppointments = appointments.filter(
+    (appointment) => appointment.status === 'Upcoming',
+  )
+
   return (
     <div className="flex p-20 gap-5">
       <div className="flex-1">
@@ -65,7 +72,7 @@ const PatientOverview = ({ setActiveTab }) => {
       <div className="w-100 flex-none">
         <div className="bg-white rounded-xl shadow-xs p-5">
           <h2 className="text-xl text-gray-700 font-bold">Quick Actions</h2>
-          <Link to="/appointments" className="my-5 block">
+          <Link to="/bookAppointment" className="my-5 block">
             <Button variant="active" className="w-full">
               Book Appointment
             </Button>
@@ -86,22 +93,22 @@ const PatientOverview = ({ setActiveTab }) => {
           <h2 className="text-lg text-gray-900 font-semibold">
             Upcoming Appointments
           </h2>
-
-          <div className="bg-gray-50 rounded-lg mt-5 p-5">
-            <h3 className="text-md text-gray-700 font-medium">
-              Dr. Sarah Johnson
-            </h3>
-            <p className="text-sm text-gray-400 my-1">Cardiology</p>
-            <p className="text-sm text-[#0066CC]">2/10/2026 at 9:00 AM</p>
-          </div>
-
-          <div className="bg-gray-50 rounded-lg mt-5 p-5">
-            <h3 className="text-md text-gray-700 font-medium">
-              Dr. Amanda Foster
-            </h3>
-            <p className="text-sm text-gray-400 my-1">General Medicine</p>
-            <p className="text-sm text-[#0066CC]">2/15/2026 at 2:30 PM</p>
-          </div>
+          {upcomingAppointments.map((appointment) => (
+            <div
+              className="bg-gray-50 rounded-lg mt-5 p-5"
+              key={appointment._id}
+            >
+              <h3 className="text-md text-gray-700 font-medium">
+                Dr. {appointment.doctorFirstName} {appointment.doctorLastName}
+              </h3>
+              <p className="text-sm text-gray-400 my-1 capitalize">
+                {appointment.department}
+              </p>
+              <p className="text-sm text-[#0066CC]">
+                {appointment.date} {appointment.time}
+              </p>
+            </div>
+          ))}
 
           <Button
             onClick={() => setActiveTab('myAppointments')}

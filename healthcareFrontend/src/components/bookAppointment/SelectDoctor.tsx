@@ -93,7 +93,17 @@ const SelectDoctor = ({
                 Dr. {doctor.firstName} {doctor.lastName}
               </h3>
               <p className="text-[#0066CC]"> {doctor.specialization} </p>
-              <p className="text-gray-500 text-sm"> {doctor.schedule} </p>
+              <div className="text-gray-500 text-sm">
+                {typeof doctor.schedule === 'string'
+                  ? doctor.schedule
+                  : Object.entries(doctor.schedule)
+                      .filter(([_, value]: any) => value?.enabled)
+                      .map(([day, value]: any) => (
+                        <div key={day}>
+                          {day}: {value.from} - {value.to}
+                        </div>
+                      ))}
+              </div>
             </div>
           </div>
         </div>

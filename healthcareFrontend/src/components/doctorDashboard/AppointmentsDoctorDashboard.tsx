@@ -8,7 +8,6 @@ const AppointmentsDoctorDashboard = () => {
   const { handleApprove, handleCancel, handleComplete } =
     useAppointments(fetchAppointments)
 
-  console.log(appointments)
   return (
     <div className="py-5 md:py-13 px-5 md:px-20">
       <div className="">

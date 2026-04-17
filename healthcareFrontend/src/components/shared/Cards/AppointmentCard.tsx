@@ -38,8 +38,8 @@ const AppointmentCard = ({
   onCancel,
   onComplete,
 }: AppointmentCardProps) => {
-  const isPadding = status === 'Pending'
-  const isApproved = status === 'Approved' || status === 'Upcoming'
+  const isPadding = status === 'Pending' || status === 'Upcoming'
+  const isApproved = status === 'Approved'
   const isCancelled = status === 'Cancelled'
   const isCompleted = status === 'Completed'
 
@@ -96,7 +96,6 @@ const AppointmentCard = ({
             <div className="flex flex-col gap-2 mt-5 ml-5">
               <button
                 onClick={() => {
-                  console.log('ID:', id)
                   onApprove(id)
                 }}
                 className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"

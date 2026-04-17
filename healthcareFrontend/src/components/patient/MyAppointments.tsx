@@ -18,7 +18,7 @@ const MyAppointments = () => {
             View and manage your scheduled appointments
           </p>
         </div>
-        <Link to="/appointments">
+        <Link to="/bookAppointment">
           <Button variant="active" className="">
             Book New Appointment
           </Button>

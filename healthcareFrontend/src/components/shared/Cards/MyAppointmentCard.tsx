@@ -7,6 +7,7 @@ export type AppointmentStatus =
   | 'Pending'
   | 'Cancelled'
   | 'Completed'
+  | 'Upcoming'
 
 type AppointmentCardProps = {
   name: string
@@ -54,9 +55,15 @@ const MyAppointmentCard = ({
         </div>
 
         <div className="flex  items-start gap-3">
+          {status === 'Upcoming' && (
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">
+              Upcoming
+            </span>
+          )}
+
           {status === 'Approved' && (
             <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
-              Upcoming
+              Approved
             </span>
           )}
 
