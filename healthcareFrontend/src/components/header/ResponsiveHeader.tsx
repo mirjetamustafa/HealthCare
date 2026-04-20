@@ -21,7 +21,13 @@ const icons = {
   stethoscope: Stethoscope,
 }
 
-const ResponsiveHeader = ({ role }) => {
+type Role = 'public' | 'admin' | 'doctor' | 'patient'
+
+interface ResponsiveHeaderProps {
+  role: Role
+}
+
+const ResponsiveHeader = ({ role }: ResponsiveHeaderProps) => {
   const [menu, setMenu] = useState(false)
 
   const roleLinks =
@@ -43,11 +49,19 @@ const ResponsiveHeader = ({ role }) => {
       </Link>
       <div className="">
         {menu ? (
-          <Button onClick={() => setMenu(false)} className="hover:bg-gray-100">
+          <Button
+            variant="btn"
+            onClick={() => setMenu(false)}
+            className="hover:bg-gray-100"
+          >
             <CloseMenu className="w-5 h-5" />
           </Button>
         ) : (
-          <Button onClick={() => setMenu(true)} className="hover:bg-gray-100">
+          <Button
+            variant="btn"
+            onClick={() => setMenu(true)}
+            className="hover:bg-gray-100"
+          >
             <HamburgerMenu className="w-5 h-5" />
           </Button>
         )}
@@ -72,7 +86,7 @@ const ResponsiveHeader = ({ role }) => {
 
                 <div className="">
                   {roleLinks.map((link) => {
-                    const Icon = icons[link.icon]
+                    const Icon = icons[link.icon as keyof typeof icons]
                     return (
                       <li key={link.to}>
                         <Link

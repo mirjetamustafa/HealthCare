@@ -6,17 +6,33 @@ import Send from '../../assets/send.svg?react'
 const ContactForm = () => {
   return (
     <form action="">
-      <Input type="text" label="Full Name" placeholder="John Doe" />
       <Input
+        name="name"
+        type="text"
+        label="Full Name"
+        placeholder="John Doe"
+        onChange={() => {}}
+      />
+      <Input
+        name="email"
         type="email"
         label="Email Address"
         placeholder="john@example.com"
+        onChange={() => {}}
       />
-      <Input type="text" label="Phone Number" placeholder="(123) 456-789" />
+      <Input
+        name="contactNumber"
+        type="text"
+        label="Phone Number"
+        placeholder="(123) 456-789"
+        onChange={() => {}}
+      />
       <Textarea
+        name="yourMessage"
         label="Your Message"
         rows={5}
         placeholder="How can we help you?"
+        onChange={() => {}}
       />
       <Button
         variant="active"

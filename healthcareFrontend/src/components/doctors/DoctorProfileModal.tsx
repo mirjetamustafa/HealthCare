@@ -11,7 +11,7 @@ import type { DoctorResponse } from '../../api/User/user.types'
 interface DoctorProfileModalProps {
   isOpen: boolean
   onClose: () => void
-  doctor: DoctorResponse[] | null
+  doctor: DoctorResponse | null
 }
 
 const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
@@ -25,7 +25,7 @@ const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
       {/* header */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold">Doctor Profile</h2>
-        <Button onClick={onClose}>
+        <Button variant="btn" onClick={onClose}>
           <CloseMenu className="w-6 h-6" />
         </Button>
       </div>
@@ -82,7 +82,7 @@ const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
           </div>
           <Button variant="active" className="w-full mt-6">
             <Calendar className="w-5 h-5 text-white mr-2" />
-            Book Appointment with {doctor.name}
+            Book Appointment with {doctor.firstName} {doctor.lastName}
           </Button>
         </div>
       )}

@@ -15,26 +15,40 @@ const ProfileDoctorDashboard = () => {
       <div className="bg-white shadow-xs rounded-lg p-9">
         <form className="space-y-6 ">
           <Input
+            name="name"
             type="text"
             label="Full Name"
             placeholder="Dr. Sarah Johnson"
+            onChange={() => {}}
           />
           <Input
+            name="specialization"
             type="text"
             label="Specialization"
             placeholder="Cardiologist"
+            onChange={() => {}}
           />
           <Textarea
+            name="biography"
             label="Professional Bio"
             placeholder="Board-certified cardiologist with 15 years of experience specializing in preventive cardiology and heart failure management."
             rows={5}
+            onChange={() => {}}
           />
           <Input
+            name="email"
             type="email"
             label="Email"
             placeholder="dr.johnson@medicare.com"
+            onChange={() => {}}
           />
-          <Input type="tel" label="Phone Number" placeholder="(123) 456-7890" />
+          <Input
+            name="contactNumber"
+            type="text"
+            label="Phone Number"
+            placeholder="(123) 456-7890"
+            onChange={() => {}}
+          />
           <div className="flex gap-2 border-t border-gray-200 pt-5 mt-9 ">
             <Button variant="active" type="submit">
               Save Changes

@@ -45,7 +45,22 @@ const AddDoctor = ({
 
   useEffect(() => {
     if (editDoctor) {
-      setFormData({ ...editDoctor, password: '' })
+      setFormData({
+        firstName: editDoctor.firstName || '',
+        lastName: editDoctor.lastName || '',
+        email: editDoctor.email || '',
+        password: '',
+        role: editDoctor.role || 'doctor',
+        specialization: editDoctor.specialization || '',
+        department: editDoctor.department || '',
+        education: editDoctor.education || '',
+        yearsOfExperience: editDoctor.yearsOfExperience || 0,
+        contactNumber: editDoctor.contactNumber || '',
+        schedule: editDoctor.schedule || '',
+        status: editDoctor.status || '',
+        biography: editDoctor.biography || '',
+        img: editDoctor.img || '',
+      })
     } else {
       setFormData(initialFormData)
     }
@@ -74,7 +89,7 @@ const AddDoctor = ({
 
     try {
       if (editDoctor) {
-        const { _id, ...updateData } = formData
+        const { ...updateData } = formData
         await updateDoctors(editDoctor._id, updateData)
         toast.success('Doctor updated successfully!')
       } else {
@@ -100,7 +115,7 @@ const AddDoctor = ({
               {' '}
               {editDoctor ? 'Edit Doctor' : 'Add New Doctor'}{' '}
             </h2>
-            <Button onClick={onClose}>
+            <Button variant="btn" onClick={onClose}>
               <CloseMenu className="w-6 h-6" />
             </Button>
           </div>
@@ -190,7 +205,7 @@ const AddDoctor = ({
             <Input
               label="Contact Number"
               name="contactNumber"
-              type="tel"
+              type="text"
               value={formData.contactNumber || ''}
               onChange={handleChange}
               placeholder="Enter doctor's contact number"
@@ -205,6 +220,7 @@ const AddDoctor = ({
 
             <Input
               label="Image URL"
+              type="text"
               placeholder="Enter doctor's image URL"
               name="img"
               value={formData.img || ''}

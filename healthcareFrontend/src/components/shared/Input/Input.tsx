@@ -1,7 +1,7 @@
 type InputProps = {
   label?: string
   name: string
-  type?: 'text' | 'email' | 'phone' | 'search' | 'date'
+  type?: 'text' | 'email' | 'search' | 'date' | 'number'
   placeholder?: string
   value?: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void

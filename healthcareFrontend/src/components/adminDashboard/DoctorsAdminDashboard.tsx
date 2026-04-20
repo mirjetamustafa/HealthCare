@@ -3,19 +3,17 @@ import Input from '../shared/Input/Input'
 import SearchIcon from '../../assets/Search.svg?react'
 import Plus from '../../assets/plus.svg?react'
 import TableDoctor from '../shared/table/TableDoctor'
-import { useState } from 'react'
 import AddDoctor from './AddDoctor'
-import type { DoctorResponse } from '../../api/User/user.types'
 import { useDoctors } from '../hook/useDoctors'
 
-interface AdminDashboardProps {
-  doctors: DoctorResponse[]
-  onDeleteDoctor: (id: string) => void
-  fetchDoctors: () => void
-  handleEdit: (doctor: DoctorResponse | null) => void
-  addDoctor: () => void
-  editDoctor: DoctorResponse | null
-}
+// interface AdminDashboardProps {
+//   doctors: DoctorResponse[]
+//   onDeleteDoctor: (id: string) => void
+//   fetchDoctors: () => void
+//   handleEdit: (doctor: DoctorResponse | null) => void
+//   addDoctor: () => void
+//   editDoctor: DoctorResponse | null
+// }
 
 const DoctorsAdminDashboard = () => {
   //const [open, setOpen] = useState(false)
@@ -46,10 +44,12 @@ const DoctorsAdminDashboard = () => {
         </div>
         <div className="flex items-center gap-3 ">
           <Input
+            name="search"
             type="search"
             icon={<SearchIcon className="w-5 h-5" />}
             placeholder="Search doctors..."
             className="w-64"
+            onChange={(e) => console.log(e.target.value)}
           />
           <Button
             onClick={handleAddClick}

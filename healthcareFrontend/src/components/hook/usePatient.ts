@@ -65,15 +65,9 @@ export const usePatient = () => {
   useEffect(() => {
     if (editPatient) {
       setFormData({
-        firstName: editPatient.firstName || '',
-        lastName: editPatient.lastName || '',
-        email: editPatient.email || '',
-        dateOfBirth: editPatient.dateOfBirth || '',
-        contactNumber: editPatient.contactNumber || '',
-        status: editPatient.status || 'Active',
+        ...editPatient,
         password: '',
         confirmPassword: '',
-        createdAt: editPatient.createdAt || new Date(),
       })
     } else {
       setFormData(initialForm)
@@ -81,7 +75,7 @@ export const usePatient = () => {
   }, [editPatient])
 
   // handle form change
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: any) => {
     setFormData((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Input from '../shared/Input/Input'
 import Button from '../shared/Button/Button'
 import type { AppointmentInput } from '../../api/BookAppointment/bookAppointment.types'
@@ -31,6 +30,7 @@ const ChooseTime = ({
   return (
     <div>
       <Input
+        name="date"
         label="Preferred Date"
         type="date"
         required
@@ -45,6 +45,7 @@ const ChooseTime = ({
         <div className="grid grid-cols-4 gap-4">
           {times.map((time) => (
             <Button
+              variant="btn"
               key={time}
               onClick={() => {
                 setAppointmentData((prev) => ({

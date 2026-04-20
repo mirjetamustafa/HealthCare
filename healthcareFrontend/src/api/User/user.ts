@@ -1,5 +1,9 @@
 import { apiRequest } from '../Api'
-import type { DoctorRegisterInput, LoginInput } from './user.types'
+import type {
+  DoctorRegisterInput,
+  DoctorResponse,
+  LoginInput,
+} from './user.types'
 
 export const loginUser = (credentials: LoginInput): any => {
   return apiRequest({
@@ -38,7 +42,9 @@ export const getDoctors = (): any => {
     method: 'GET',
   })
 }
-export const getDoctorsById = (id: string) => {
+export const getDoctorsById = (
+  id: string,
+): Promise<{ data: DoctorResponse }> => {
   return apiRequest({
     url: `/api/doctors/${id}`,
     method: 'GET',

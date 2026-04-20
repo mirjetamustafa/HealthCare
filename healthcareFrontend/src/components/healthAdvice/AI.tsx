@@ -50,7 +50,7 @@ const AI = () => {
       setLoading(true)
 
       const res = await sendMessage(userMessage)
-      const reply = res.data.reply
+      const reply = (res.data as { reply: string }).reply
 
       setMessage((prev) => [...prev, { role: 'assistant', text: reply }])
     } catch (error) {
@@ -58,6 +58,7 @@ const AI = () => {
         ...prev,
         { role: 'assistant', text: 'Something went wrong' },
       ])
+      console.error(error)
     } finally {
       setLoading(false)
     }
@@ -125,6 +126,7 @@ const AI = () => {
           <div className="w-full mt-3">
             {' '}
             <Input
+              name="message"
               type="text"
               placeholder="Ask a health question"
               value={inputValue}

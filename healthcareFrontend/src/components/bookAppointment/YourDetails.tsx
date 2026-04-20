@@ -83,6 +83,7 @@ const YourDetails = ({
         />
 
         <Textarea
+          name="reasonForVisit"
           label="Reason for visit"
           placeholder="Berifly describe your symptoms or reason for the appointment"
           rows={5}

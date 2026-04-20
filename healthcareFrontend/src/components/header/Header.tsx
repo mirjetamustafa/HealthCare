@@ -69,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({ role }) => {
             ))}
 
             {roleLinks.map((link) => {
-              const Icon = icons[link.icon]
+              const Icon = icons[link.icon as keyof typeof icons]
               return (
                 <li key={link.to}>
                   <Link
@@ -85,7 +85,7 @@ const Header: React.FC<HeaderProps> = ({ role }) => {
           </ul>
         </div>
       </div>
-      <ResponsiveHeader />
+      <ResponsiveHeader role={role} />
     </header>
   )
 }

@@ -9,7 +9,7 @@ import Button from '../Button/Button'
 type TableDoctors = {
   doctors: DoctorResponse[]
   onDeleteDoctor: (id: string) => void
-  handleEdit: (doctor: DoctorResponse | null) => void
+  handleEdit: (doctor: DoctorResponse) => void
 }
 
 const TableDoctor = ({ doctors, onDeleteDoctor, handleEdit }: TableDoctors) => {

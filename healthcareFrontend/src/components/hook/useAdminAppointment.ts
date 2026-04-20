@@ -10,7 +10,8 @@ export const useAdminAppointment = () => {
     try {
       setLoading(true)
       const res = await getAppointment()
-      setAppointments(res.data)
+      const data = res.data as AppointmenResponse[]
+      setAppointments(data)
     } catch (error) {
       console.error(error)
     } finally {

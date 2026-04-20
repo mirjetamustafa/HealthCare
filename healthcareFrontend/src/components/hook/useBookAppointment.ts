@@ -9,6 +9,7 @@ import {
   createAppointment,
   getAppointment,
 } from '../../api/BookAppointment/appointment'
+import type { AxiosError } from 'axios'
 
 // interface BookAppointmentProps {
 //   doctors: DoctorResponse[]
@@ -43,7 +44,8 @@ export const useBookAppointment = () => {
 
     try {
       const response = await getAppointment(userEmail)
-      setAppointments(response.data)
+      const data = response.data as AppointmenResponse[]
+      setAppointments(data)
     } catch (error) {
       console.error('Error fetching appointments:', error)
     }
@@ -89,9 +91,10 @@ export const useBookAppointment = () => {
       await fetchApointments()
     } catch (error) {
       console.error('Error:', error)
+      const err = error as AxiosError<{ message: string }>
 
-      if (error?.response?.data?.message) {
-        toast.error(error.response.data.message)
+      if (err?.response?.data?.message) {
+        toast.error(err.response.data.message)
       }
     }
   }

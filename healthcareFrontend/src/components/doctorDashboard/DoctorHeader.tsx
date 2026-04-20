@@ -2,7 +2,6 @@ import User from '../../assets/user.svg?react'
 import Logout from '../../assets/logout.svg?react'
 import Button from '../shared/Button/Button'
 import { useAuthContext } from '../../lib/AuthContext'
-import { getUserDisplayName } from '../../utils/userHelpers'
 
 const DoctorHeader = () => {
   const { logout, user } = useAuthContext()

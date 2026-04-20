@@ -21,10 +21,12 @@ const Patients = ({ patients, handleDelete, handleEdit }: PatentsProps) => {
         </div>
         <div className="flex items-center gap-3 ">
           <Input
+            name="search"
             type="search"
             icon={<SearchIcon className="w-5 h-5" />}
             placeholder="Search patients..."
             className="w-64"
+            onChange={(e) => console.log(e.target.value)}
           />
         </div>
       </div>
