@@ -13,15 +13,6 @@ import { usePatient } from '../components/hook/usePatient'
 import Input from '../components/shared/Input/Input'
 import PasswordField from '../components/shared/PasswordField/PasswordField'
 
-// interface AdminDashboardProps {
-//   doctors: DoctorResponse[]
-//   onDeleteDoctor: (id: string) => void
-//   fetchDoctors: () => void
-//   handleEdit: (doctor: DoctorResponse | null) => void
-//   addDoctor: () => void
-//   editDoctor: DoctorResponse | null
-// }
-
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview')
   const {

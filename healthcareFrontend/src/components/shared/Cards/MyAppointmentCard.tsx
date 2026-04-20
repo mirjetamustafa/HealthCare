@@ -87,7 +87,8 @@ const MyAppointmentCard = ({
 
               <Button
                 onClick={() => onCancel(id)}
-                className="border border-red-200 text-red-600 text-sm px-5 hover:bg-red-50"
+                variant="cancel"
+                className=""
               >
                 Cancel
               </Button>

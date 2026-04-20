@@ -6,7 +6,7 @@ import {
   patientRegister,
   updatePatient,
 } from '../../api/User/user'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../../lib/AuthContext'
 import type { PatientResponse } from '../../api/User/user.types'
 
@@ -19,6 +19,7 @@ const initialForm = {
   password: '',
   confirmPassword: '',
   contactNumber: '',
+  status: 'Active',
   createdAt: new Date(),
 }
 
@@ -64,9 +65,15 @@ export const usePatient = () => {
   useEffect(() => {
     if (editPatient) {
       setFormData({
-        ...editPatient,
+        firstName: editPatient.firstName || '',
+        lastName: editPatient.lastName || '',
+        email: editPatient.email || '',
+        dateOfBirth: editPatient.dateOfBirth || '',
+        contactNumber: editPatient.contactNumber || '',
+        status: editPatient.status || 'Active',
         password: '',
         confirmPassword: '',
+        createdAt: editPatient.createdAt || new Date(),
       })
     } else {
       setFormData(initialForm)
@@ -74,7 +81,7 @@ export const usePatient = () => {
   }, [editPatient])
 
   // handle form change
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,

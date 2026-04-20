@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { createContext, useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router'
-import { getCurrentUser, loginUser } from '../api/User/user'
+import { useNavigate } from 'react-router-dom'
+import { loginUser } from '../api/User/user'
 
 interface User {
   id: string
@@ -28,9 +28,17 @@ interface AuthContextType {
   logout: () => void
 }
 
-export const AuthContext = createContext<AuthContextType>({} as AuthContextType)
+export const AuthContext = createContext<AuthContextType | null>(null)
 
-export const useAuthContext = () => useContext(AuthContext)
+// export const useAuthContext = () => useContext(AuthContext)
+
+export const useAuthContext = () => {
+  const context = useContext(AuthContext)
+  if (!context) {
+    throw new Error('useAuthContext must be used within AuthProvider')
+  }
+  return context
+}
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null)
@@ -57,7 +65,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const { token, user: userData } = res.data
 
       const loggedUser: User = {
-        id: userData._id?.toString(),
+        id: userData._id?.toString() || '',
         email: userData.email,
         role: userData.role,
         patientId: userData.patientId,

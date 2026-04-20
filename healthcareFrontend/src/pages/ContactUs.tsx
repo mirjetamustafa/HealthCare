@@ -34,18 +34,21 @@ const ContactUs = () => {
               title="Phone"
               contact="(123) 456-7890"
               description="Emergency: (123) 456-7899"
+              description1=""
               icon={Phone}
             />
             <GetInTouchCard
               title="Email"
               contact="info@medicare.com"
               description="appointments@medicare.com"
+              description1=""
               icon={Mail}
             />
             <GetInTouchCard
               title="Address"
               contact="123 Medical Center Drive"
               description="Healthcare City, HC 12345"
+              description1=""
               icon={MapPin}
             />
             <GetInTouchCard

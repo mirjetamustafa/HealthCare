@@ -66,6 +66,7 @@ export const useDoctors = () => {
     filteredDoctors,
     departments,
     setSelectedDepartment,
+    selectedDepartment,
     handleDeleteDoctor,
     fetchDoctors,
     handleEdit,

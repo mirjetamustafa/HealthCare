@@ -37,15 +37,20 @@ const CardDoctor = ({
       </div>
 
       <div className="flex gap-2 items-center my-2 text-center mx-9">
-        <ExperienceIcon className="w-4 h-4 text-[#00A896]" />
+        {ExperienceIcon && (
+          <ExperienceIcon className="w-4 h-4 text-[#00A896]" />
+        )}
         <p className="text-sm text-gray-500"> {experience} </p>
       </div>
       <div className="flex items-center gap-2 mx-9">
-        <UniversityIcon className="w-4 h-4 text-[#00A896]" />
+        {UniversityIcon && (
+          <UniversityIcon className="w-4 h-4 text-[#00A896]" />
+        )}
         <p className="text-sm text-gray-500"> {university} </p>
       </div>
       <div className="flex gap-2 mx-9 my-2">
-        <ScheduleIcon className="w-4 h-4 text-[#00A896]" />
+        {ScheduleIcon && <ScheduleIcon className="w-4 h-4 text-[#00A896]" />}
+
         <p className="text-sm text-gray-500"> {schedule} </p>
       </div>
       <div className="border-t border-gray-200  mx-9 my-5"></div>

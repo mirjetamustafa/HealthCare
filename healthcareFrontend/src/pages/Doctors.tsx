@@ -4,8 +4,9 @@ import OurMedicalTeam from '../components/doctors/OurMedicalTeam'
 
 interface DoctorProps {
   filteredDoctors: any
-  departments: string
+  departments: { label: string; value: string }[]
   setSelectedDepartment: (department: string) => void
+  selectedDepartment: string
 }
 
 const Doctors = ({
@@ -18,6 +19,7 @@ const Doctors = ({
       <OurMedicalTeam />
       <FilterBySpeciality
         departments={departments}
+        value=""
         onChange={setSelectedDepartment}
       />
       <div className="bg-gray-50 p-9">

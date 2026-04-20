@@ -51,16 +51,22 @@ const LabResultsTable: React.FC<Props> = ({ data }) => {
                   {item.status === 'Completed' && (
                     <div className="flex justify-end gap-4">
                       {isVisible ? (
-                        <Button onClick={() => toggleVisibility(item.id)}>
+                        <Button
+                          variant="btn"
+                          onClick={() => toggleVisibility(item.id)}
+                        >
                           <EyeOff className="w-4 h-4 text-gray-400 hover:text-gray-600" />
                         </Button>
                       ) : (
-                        <Button onClick={() => toggleVisibility(item.id)}>
+                        <Button
+                          variant="btn"
+                          onClick={() => toggleVisibility(item.id)}
+                        >
                           <Eye className="w-4 h-4 text-gray-400 hover:text-gray-600" />
                         </Button>
                       )}
 
-                      <Button>
+                      <Button variant="btn">
                         <Download className="w-4 h-4 hover:text-blue-600 text-gray-400" />
                       </Button>
                     </div>

@@ -5,7 +5,7 @@ import ShieldTick from '../../assets/shieldTick.svg?react'
 import type { ComponentType, SVGProps } from 'react'
 
 export type StatItem = {
-  icon: ComponentType<SVGProps<SVGAElement>>
+  icon: ComponentType<SVGProps<SVGSVGElement>>
   value: string
   label: string
 }

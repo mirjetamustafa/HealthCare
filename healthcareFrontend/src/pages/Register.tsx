@@ -6,7 +6,7 @@ import { Link } from 'react-router'
 import { usePatient } from '../components/hook/usePatient'
 
 const Register = () => {
-  const { formData, handleChange, handleSubmit, editPatient } = usePatient()
+  const { formData, handleChange, handleSubmit } = usePatient()
 
   return (
     <div className="flex items-center justify-center py-[100px] bg-gray-50">
@@ -77,6 +77,14 @@ const Register = () => {
               type="text"
               placeholder="(123) 44 456 789"
               value={formData.contactNumber}
+              onChange={handleChange}
+            />
+            <Input
+              label="Status"
+              name="status"
+              type="text"
+              placeholder="Active"
+              value={formData.status}
               onChange={handleChange}
             />
 

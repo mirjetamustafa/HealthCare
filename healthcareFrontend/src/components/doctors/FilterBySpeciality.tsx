@@ -8,13 +8,19 @@ type FilterBySpecialityProps = {
 
 const FilterBySpeciality = ({
   departments,
+  value,
   onChange,
 }: FilterBySpecialityProps) => {
   return (
     <div className="sticky w-full top-20 z-50 bg-white border-b border-gray-200">
       <div className="flex gap-5 my-5 mx-9 mt-9">
         <p className="font-medium text-gray-700 mt-1">Fiter by speciality:</p>
-        <Select name="category" options={departments} onChange={onChange} />
+        <Select
+          name="category"
+          value={value}
+          options={departments}
+          onChange={onChange}
+        />
       </div>
     </div>
   )

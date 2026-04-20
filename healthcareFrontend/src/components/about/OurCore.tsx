@@ -1,7 +1,6 @@
 import WhyChooseCard from '../shared/Cards/WhyChooseCard'
 import Heart from '../../assets/heart.svg?react'
 import Award from '../../assets/award.svg?react'
-import HeartHandeshake from '../../assets/heartHandeshake.svg?react'
 import ShieldTick from '../../assets/shieldTick.svg?react'
 import Users from '../../assets/users.svg?react'
 

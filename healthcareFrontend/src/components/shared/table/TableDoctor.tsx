@@ -59,10 +59,13 @@ const TableDoctor = ({ doctors, onDeleteDoctor, handleEdit }: TableDoctors) => {
 
                 <td className="px-6 py-4">
                   <div className="flex gap-3 text-gray-500">
-                    <Button onClick={() => handleEdit(doctor)}>
+                    <Button variant="btn" onClick={() => handleEdit(doctor)}>
                       <Pencil className="w-4 h-4 hover:text-blue-600" />
                     </Button>
-                    <Button onClick={() => onDeleteDoctor(doctor._id)}>
+                    <Button
+                      variant="btn"
+                      onClick={() => onDeleteDoctor(doctor._id)}
+                    >
                       <Trash className="w-4 h-4 hover:text-blue-600" />
                     </Button>
                   </div>

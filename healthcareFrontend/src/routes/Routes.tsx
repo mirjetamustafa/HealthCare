@@ -26,6 +26,7 @@ interface Props {
   filteredDoctors: DoctorResponse[]
   departments: { label: string; value: string }[]
   setSelectedDepartment: (value: string) => void
+  selectedDepartment: string
   handleDeleteDoctor: (id: string) => void
   fetchDoctors: () => void
   handleEdit: (doctor: DoctorResponse) => void
@@ -77,6 +78,7 @@ export const createRoutes = (props: Props): RouteObject[] => [
               filteredDoctors={props.filteredDoctors}
               departments={props.departments}
               setSelectedDepartment={props.setSelectedDepartment}
+              selectedDepartment={props.selectedDepartment}
             />
             <Footer />
           </>

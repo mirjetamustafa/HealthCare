@@ -50,7 +50,9 @@ const TableAppointments = ({ appointments }: Props) => {
                     {appointment.firstName} {appointment.lastName}
                   </span>
                 </td>
-                <td className="px-6 py-4">{appointment.doctorName}</td>
+                <td className="px-6 py-4">
+                  {appointment.doctorFirstName} {appointment.doctorLastName}
+                </td>
                 <td className="px-6 py-4  capitalize">
                   {appointment.department}
                 </td>

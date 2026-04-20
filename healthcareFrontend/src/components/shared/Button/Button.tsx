@@ -3,7 +3,15 @@ type ButtonProps = {
   onClick?: () => void
   type?: 'button' | 'submit'
   disabled?: boolean
-  variant: 'default' | 'active' | 'icon' | 'book' | 'register' | 'tab'
+  variant:
+    | 'default'
+    | 'active'
+    | 'icon'
+    | 'book'
+    | 'register'
+    | 'tab'
+    | 'cancel'
+    | 'btn'
   className?: string
 }
 
@@ -24,6 +32,8 @@ const Button = ({
     book: 'bg-red-400 text-white hover:bg-red-500',
     register: 'bg-white text-blue-600 hover:bg-gray-100',
     tab: 'flex items-center gap-2 text-sm rounded-none',
+    cancel: 'border border-red-200 text-red-600 text-sm px-5 hover:bg-red-50',
+    btn: '',
   }
   return (
     <button
