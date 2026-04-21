@@ -7,7 +7,7 @@ import Graduation from '../../assets/graduation.svg?react'
 import Clock from '../../assets/oclock.svg?react'
 import Calendar from '../../assets/calendar.svg?react'
 import type { DoctorResponse } from '../../api/User/user.types'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 
 interface DoctorProfileModalProps {
   isOpen: boolean
