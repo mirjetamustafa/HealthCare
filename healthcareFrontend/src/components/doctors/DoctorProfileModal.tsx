@@ -7,6 +7,7 @@ import Graduation from '../../assets/graduation.svg?react'
 import Clock from '../../assets/oclock.svg?react'
 import Calendar from '../../assets/calendar.svg?react'
 import type { DoctorResponse } from '../../api/User/user.types'
+import { useNavigate } from 'react-router'
 
 interface DoctorProfileModalProps {
   isOpen: boolean
@@ -19,6 +20,7 @@ const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
   onClose,
   doctor,
 }) => {
+  const navigate = useNavigate()
   if (!doctor) return null
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -80,7 +82,11 @@ const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
               <p className="font-semibold">{doctor.schedule}</p>
             </div>
           </div>
-          <Button variant="active" className="w-full mt-6">
+          <Button
+            onClick={() => navigate('/bookAppointment')}
+            variant="active"
+            className="w-full mt-6"
+          >
             <Calendar className="w-5 h-5 text-white mr-2" />
             Book Appointment with {doctor.firstName} {doctor.lastName}
           </Button>
