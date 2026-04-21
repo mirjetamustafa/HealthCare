@@ -20,7 +20,7 @@ const initialForm = {
   confirmPassword: '',
   contactNumber: '',
   status: 'Active',
-  createdAt: new Date(),
+  createdAt: '',
 }
 
 export const usePatient = () => {
@@ -65,9 +65,15 @@ export const usePatient = () => {
   useEffect(() => {
     if (editPatient) {
       setFormData({
-        ...editPatient,
+        firstName: editPatient.firstName || '',
+        lastName: editPatient.lastName || '',
+        email: editPatient.email || '',
+        dateOfBirth: editPatient.dateOfBirth || '',
         password: '',
         confirmPassword: '',
+        contactNumber: editPatient.contactNumber || '',
+        status: editPatient.status || 'Active',
+        createdAt: editPatient.createdAt || '',
       })
     } else {
       setFormData(initialForm)

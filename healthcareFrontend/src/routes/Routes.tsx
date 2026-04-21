@@ -21,6 +21,8 @@ export const RouteType = {
   PUBLIC: 'public',
 }
 
+export type RouteType = (typeof RouteType)[keyof typeof RouteType]
+
 interface Props {
   doctors: DoctorResponse[]
   filteredDoctors: DoctorResponse[]

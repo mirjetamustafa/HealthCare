@@ -31,7 +31,7 @@ const AuthenticationRoute = ({ routeType }: Props) => {
   }
 
   // private routes
-  if (routeType === 'private' && !isAuthenticated) {
+  if (routeType === RouteType.PRIVATE && !isAuthenticated) {
     return <Navigate to="/login" replace />
   }
   return <Outlet />
