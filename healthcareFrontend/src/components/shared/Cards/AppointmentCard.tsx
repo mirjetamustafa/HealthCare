@@ -67,7 +67,7 @@ const AppointmentCard = ({
           <span className="text-sm text-gray-600">{time}</span>
         </p>
 
-        <div className="flex  items-start gap-3">
+        <div className="flex  items-start gap-2 md:gap-3">
           {isPadding && (
             <span className="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">
               Pending

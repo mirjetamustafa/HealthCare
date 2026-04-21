@@ -17,7 +17,7 @@ const BookAppointment = ({ doctors }: BookAppointmentProps) => {
     useBookAppointment()
   return (
     <section className="">
-      <div className="flex flex-col justify-center items-center bg-[#0066CC] h-100 text-center gap-4 px-4 py-0 md:pt-20">
+      <div className="flex flex-col justify-center items-center bg-[#0066CC] min-h-[300px] md:h-100 text-center gap-4 px-4 py-10 md:pt-20">
         <h1 className="text-2xl md:text-5xl text-white font-bold">
           Book an Appointment
         </h1>
@@ -27,8 +27,8 @@ const BookAppointment = ({ doctors }: BookAppointmentProps) => {
         </p>
       </div>
 
-      <div className="flex flex-col-1 md:flex-col-2 gap-9 justify-center items-start bg-gray-50 p-9 md:p-30">
-        <div className="p-6 bg-white shadow rounded-xl w-full">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-9 justify-center items-start bg-gray-50 p-4 md:p-10 lg:p-20">
+        <div className="p-4 md:p-6 bg-white shadow rounded-xl w-full lg:flex-1">
           <div className="flex items-center justify-between mb-8 p-5">
             <div className="">
               <div className="flex items-center gap-2">
@@ -98,7 +98,7 @@ const BookAppointment = ({ doctors }: BookAppointmentProps) => {
             />
           )}
         </div>
-        <div className="w-150">
+        <div className="w-full lg:w-[380px">
           <div className="bg-white rounded-xl shadow-xs p-5">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Need help?
