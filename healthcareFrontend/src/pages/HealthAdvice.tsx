@@ -47,11 +47,11 @@ const HealthAdvice = () => {
   return (
     <section>
       <HealthHero />
-      <div className="bg-gray-50 p-15">
+      <div className="bg-gray-50 px-4 py-10 md:p-15">
         <h4 className="text-3xl font-bold text-gray-700 text-center my-5">
           Health & Welllness Tips
         </h4>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3 mx-9 md:mx-20">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 px-4 md:px-20">
           <HealthadviceCard
             title="Heart Health"
             status="Cardiology"
@@ -86,14 +86,14 @@ const HealthAdvice = () => {
         </div>
       </div>
       <AI />
-      <div className="bg-gray-50 mt-20 pb-20 grid justify-items-center px-3">
+      <div className="bg-gray-50 mt-12 md:mt-20 pb-12 md:pb-20 px-4 grid justify-items-center">
         <h4 className="text-3xl font-bold text-gray-800 text-center my-9">
           Frequently Asked Questions
         </h4>
         <Accordion items={faqData} />
       </div>
 
-      <div className="flex flex-col justify-center items-center bg-[#0066CC] h-80 text-center gap-4 px-4">
+      <div className="flex flex-col justify-center items-center bg-[#0066CC] min-h-[300px] md:h-80 text-center gap-4 px-4 py-10">
         <h1 className="text-2xl md:text-3xl text-white font-bold">
           Need Personalized Medical Advice?
         </h1>

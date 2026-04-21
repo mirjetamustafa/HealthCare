@@ -80,7 +80,7 @@ const MyAppointmentCard = ({
           )}
 
           {status === 'Upcoming' && (
-            <div className="flex gap-2 mt-5 ml-5">
+            <div className="flex gap-2 mt-5 ml-2 md:ml-5">
               <Button variant="default" className="text-sm hover:bg-gray-50">
                 Reschedule
               </Button>
