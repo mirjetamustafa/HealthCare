@@ -137,14 +137,7 @@ export const createRoutes = (props: Props): RouteObject[] => [
         element: (
           <>
             <Header role="admin" />
-            <AdminDashboard
-              doctors={props.filteredDoctors}
-              onDeleteDoctor={props.handleDeleteDoctor}
-              fetchDoctors={props.fetchDoctors}
-              handleEdit={props.handleEdit}
-              editDoctor={props.editDoctor}
-              addDoctor={props.handleCreate}
-            />
+            <AdminDashboard />
 
             <Footer />
           </>

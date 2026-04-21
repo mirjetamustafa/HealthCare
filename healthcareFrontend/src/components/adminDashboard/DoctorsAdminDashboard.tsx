@@ -6,17 +6,7 @@ import TableDoctor from '../shared/table/TableDoctor'
 import AddDoctor from './AddDoctor'
 import { useDoctors } from '../hook/useDoctors'
 
-// interface AdminDashboardProps {
-//   doctors: DoctorResponse[]
-//   onDeleteDoctor: (id: string) => void
-//   fetchDoctors: () => void
-//   handleEdit: (doctor: DoctorResponse | null) => void
-//   addDoctor: () => void
-//   editDoctor: DoctorResponse | null
-// }
-
 const DoctorsAdminDashboard = () => {
-  //const [open, setOpen] = useState(false)
   const {
     doctors,
     handleDeleteDoctor,

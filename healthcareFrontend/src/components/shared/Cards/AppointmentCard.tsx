@@ -100,7 +100,7 @@ const AppointmentCard = ({
                 }}
                 className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
               >
-                <Check size={16} />
+                <Check className="w-5 h-5" />
                 Approve
               </button>
 
@@ -110,12 +110,12 @@ const AppointmentCard = ({
                 }}
                 className="border border-gray-200 cursor-pointer px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-50"
               >
-                <Xcircle size={16} />
+                <Xcircle className="w-5 h-5" />
                 Cancel
               </button>
 
               <button className="border border-gray-200 cursor-pointer px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-50">
-                <FileText size={16} />
+                <FileText className="w-5 h-5" />
                 Add Notes
               </button>
             </div>
@@ -127,12 +127,12 @@ const AppointmentCard = ({
                 onClick={() => onComplete(id)}
                 className="bg-green-600 cursor-pointer hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
               >
-                <Check size={16} />
+                <Check className="w-5 h-5" />
                 Completed
               </button>
 
               <button className="border border-gray-200 cursor-pointer mt-3 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-50">
-                <FileText size={16} />
+                <FileText className="w-5 h-5" />
                 Edit Notes
               </button>
             </div>
@@ -141,7 +141,7 @@ const AppointmentCard = ({
           {isCancelled && (
             <div className="flex justify-items-center gap-4 mt-9 ml-5">
               <button className="border border-gray-200 cursor-pointer px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-50">
-                <FileText size={16} />
+                <FileText className="w-5 h-5" />
                 Add Notes
               </button>
             </div>
