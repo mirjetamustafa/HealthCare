@@ -39,7 +39,7 @@ export const useBookAppointment = () => {
 
   const userEmail = user?.email || appointmentData.email
 
-  const fetchApointments = async () => {
+  const fetchAppointments = async () => {
     if (!userEmail) return
 
     try {
@@ -52,7 +52,7 @@ export const useBookAppointment = () => {
   }
 
   useEffect(() => {
-    fetchApointments()
+    fetchAppointments()
   }, [userEmail])
 
   const handleSubmit = async () => {
@@ -88,7 +88,7 @@ export const useBookAppointment = () => {
       setAppointmentData(initialData)
 
       //rifetch after submit
-      await fetchApointments()
+      await fetchAppointments()
     } catch (error) {
       console.error('Error:', error)
       const err = error as AxiosError<{ message: string }>
@@ -106,5 +106,6 @@ export const useBookAppointment = () => {
     handleSubmit,
     appointments,
     isLoggedIn: !!user,
+    fetchAppointments,
   }
 }

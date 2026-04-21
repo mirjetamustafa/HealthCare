@@ -33,7 +33,6 @@ const ChooseTime = ({
         name="date"
         label="Preferred Date"
         type="date"
-        required
         value={appointmentData.date}
         onChange={(e) =>
           setAppointmentData((prev) => ({ ...prev, date: e.target.value }))

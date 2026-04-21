@@ -199,7 +199,7 @@ const AddDoctor = ({
               label="Years of Experience"
               placeholder="Enter doctor's years of experience"
               name="yearsOfExperience"
-              value={formData.yearsOfExperience ?? 0}
+              value={String(formData.yearsOfExperience)}
               onChange={handleChange}
             />
             <Input

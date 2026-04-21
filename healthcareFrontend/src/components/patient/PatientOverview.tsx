@@ -111,6 +111,7 @@ const PatientOverview = ({ setActiveTab }: any) => {
           ))}
 
           <Button
+            variant="btn"
             onClick={() => setActiveTab('myAppointments')}
             className="hover:bg-gray-100 w-full mt-5 text-sm text-gray-600"
           >

@@ -25,7 +25,7 @@ const AppointmentsDoctorDashboard = () => {
             email={appointment.email}
             date={appointment.date}
             time={appointment.time}
-            reason={appointment.reasonForVisit}
+            reason={appointment.reasonForVisit ?? ''}
             status={appointment.status}
             onApprove={handleApprove}
             onCancel={handleCancel}

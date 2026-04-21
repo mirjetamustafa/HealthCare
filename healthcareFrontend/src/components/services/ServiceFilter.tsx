@@ -9,14 +9,21 @@ const ServiceFilter = () => {
       <div className=" grid grid-cols-1 md:grid-cols-2 justify-center-safe m-2 ">
         <div className="p-5">
           <Input
+            name="search"
             type="search"
             placeholder="Search services..."
             icon={<Search />}
+            onChange={() => {}}
           />
         </div>
 
         <div className="p-5">
-          <Select name="category" options={categories} />
+          <Select
+            name="category"
+            options={categories}
+            onChange={() => {}}
+            value=""
+          />
         </div>
       </div>
     </div>

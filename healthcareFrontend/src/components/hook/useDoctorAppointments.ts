@@ -13,8 +13,8 @@ export const useDoctorAppointments = () => {
 
     try {
       setLoading(true)
-      const res = await getAppointment(undefined, user.email)
-      const filteredAppointments = res.data.filter(
+      const { data } = await getAppointment(undefined, user.email)
+      const filteredAppointments = (data as AppointmenResponse[]).filter(
         (appt: AppointmenResponse) => appt.doctorEmail === user.email,
       )
 

@@ -94,7 +94,7 @@ export const usePatient = () => {
     try {
       if (editPatient) {
         // update
-        const { _id, ...updateData } = formData
+        const { ...updateData } = formData
         await updatePatient(editPatient._id, updateData)
         toast.success('Patient updated successfully!')
       } else {

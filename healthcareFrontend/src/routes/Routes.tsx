@@ -16,9 +16,9 @@ import Patient from '../pages/Patient'
 import type { DoctorResponse } from '../api/User/user.types'
 import AuthenticationRoute from './AuthenticationRoute'
 
-export enum RouteType {
-  PRIVATE = 'private',
-  PUBLIC = 'public',
+export const RouteType = {
+  PRIVATE: 'private',
+  PUBLIC: 'public',
 }
 
 interface Props {

@@ -6,8 +6,8 @@ import { useAppointments } from '../hook/useAppointments'
 import { useBookAppointment } from '../hook/useBookAppointment'
 
 const MyAppointments = () => {
-  const { appointments } = useBookAppointment()
-  const { handleCancel } = useAppointments()
+  const { appointments, fetchAppointments } = useBookAppointment()
+  const { handleCancel } = useAppointments(fetchAppointments)
 
   return (
     <div className="py-5 md:py-13 px-5 md:px-20">
@@ -33,7 +33,7 @@ const MyAppointments = () => {
           category={appointment.department}
           date={appointment.date}
           time={appointment.time}
-          reason={appointment.reasonForVisit}
+          reason={appointment.reasonForVisit ?? ''}
           status={appointment.status}
           onCancel={handleCancel}
         />
