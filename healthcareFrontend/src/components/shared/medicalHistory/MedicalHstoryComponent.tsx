@@ -1,5 +1,5 @@
 import CheckIcon from '../../../assets/stethoscope.svg?react'
-import ClipboardIcon from '../../../assets/clipboardList.svg?react'
+import ClipboardIcon from '../../../assets/clipBoardList.svg?react'
 import PillIcon from '../../../assets/pill.svg?react'
 import FileIcon from '../../../assets/fileText.svg?react'
 import CalendarIcon from '../../../assets/calendar.svg?react'
