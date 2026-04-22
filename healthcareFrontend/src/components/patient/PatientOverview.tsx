@@ -50,7 +50,7 @@ const PatientOverview = ({ setActiveTab }: any) => {
   )
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 p-4 md:p-20 gap-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 p-4 md:p-30 gap-5">
       <div className="flex-1">
         <div className="bg-white rounded-xl shadow-xs p-9">
           <div className="flex justify-between items-center">
