@@ -50,14 +50,14 @@ const PatientOverview = ({ setActiveTab }: any) => {
   )
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 p-4 md:p-30 gap-5">
+    <div className="flex flex-col lg:flex-row p-4 md:p-10 lg:p-12 gap-5">
       <div className="flex-1">
         <div className="bg-white rounded-xl shadow-xs p-9">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
             <h2 className="text-xl font-bold">Lab Results</h2>
             <Button
               variant="default"
-              className="flex items-center gap-2 hover:bg-gray-50 text-sm"
+              className="flex items-center gap-2 w-full sm:w-auto hover:bg-gray-50 text-sm"
             >
               <Download className="w-4 h-4" />
               Download All
@@ -69,7 +69,7 @@ const PatientOverview = ({ setActiveTab }: any) => {
         </div>
       </div>
 
-      <div className="w-full lg:w-100 flex-none">
+      <div className="w-full lg:max-w-sm flex-none">
         <div className="bg-white rounded-xl shadow-xs p-5">
           <h2 className="text-xl text-gray-700 font-bold">Quick Actions</h2>
           <Link to="/bookAppointment" className="my-2 sm:my-5 block">
