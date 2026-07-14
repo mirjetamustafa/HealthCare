@@ -98,7 +98,7 @@ const BookAppointment = ({ doctors }: BookAppointmentProps) => {
             />
           )}
         </div>
-        <div className="w-full md:w-[380px">
+        <div className="w-full lg:w-[380px]">
           <div className="bg-white rounded-xl shadow-xs p-5">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Need help?
